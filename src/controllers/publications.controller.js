@@ -4,7 +4,7 @@ const {
     findPublication,
     deletePublication,
     updatePublication,
-} = require("../models/storage");
+} = require("../models/publications.storage");
 
 const getPublicationsController = (req, res) => {
     console.log(req.query);
@@ -19,7 +19,7 @@ const getPublicationController = (req, res) => {
         return;
     }
     res.status(404).json({
-        message: `No se ha encontrado la publicación con id: ${publicationId} 😭`,
+        message: `No se ha encontrado la publicación con id: ${publicationId}`,
     });
 };
 
@@ -33,6 +33,14 @@ const postPublicationController = async (req, res) => {
 
 const deletePublicationController = (req, res) => {
     const publicationId = req.params.id;
+    const publication = findPublication(publicationId);
+
+    if (!publication) {
+        res.status(404).json({
+            message: `No se ha encontrado la publicación con id: ${publicationId}`,
+        });
+        return;
+    }
     deletePublication(publicationId);
     res.status(200).json({
         message: "Publicación eliminada correctamente",
@@ -40,17 +48,19 @@ const deletePublicationController = (req, res) => {
 };
 
 const putPublicationController = (req, res) => {
+    console.log(req.body);
     const publicationId = req.params.id;
     const { body } = req;
-    let publication = findPublication(publicationId);
-    if (publication) {
-        publication = updatePublication(publicationId, body);
-        res.status(200).json(publication);
+    const publication = findPublication(publicationId);
+
+    if (!publication) {
+        res.status(404).json({
+            message: `No se ha encontrado la publicación con id: ${publicationId}`,
+        });
         return;
     }
-    res.status(404).json({
-        message: `No se ha encontrado la publicación con id: ${publicationId} 😭`,
-    });
+    updatePublication(publicationId, body);
+    res.status(200).json(publication);
 };
 
 module.exports = {

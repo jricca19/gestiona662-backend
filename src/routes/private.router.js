@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const privateRouter = express.Router();
 
 const {
     getPublicationsController,
@@ -8,14 +8,14 @@ const {
     deletePublicationController,
     putPublicationController,
 } = require("../controllers/publications.controller");
+
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const PublicationSchema = require("../models/schemas/publication.schema");
 
-// Private Routes
-router.get("/publications", getPublicationsController);
-router.get("/publications/:id", getPublicationController);
-router.post("/publications", payloadMiddleWare(PublicationSchema), postPublicationController);
-router.delete("/publications/:id", deletePublicationController);
-router.put("/publications/:id", putPublicationController);
+privateRouter.get("/publications", getPublicationsController);
+privateRouter.get("/publications/:id", getPublicationController);
+privateRouter.post("/publications", payloadMiddleWare(PublicationSchema), postPublicationController);
+privateRouter.delete("/publications/:id", deletePublicationController);
+privateRouter.put("/publications/:id", payloadMiddleWare(PublicationSchema), putPublicationController);
 
-module.exports = router;
+module.exports = privateRouter;
