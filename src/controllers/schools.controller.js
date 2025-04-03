@@ -4,7 +4,7 @@ const {
     findSchool,
     deleteSchool,
     updateSchool
-} = require("../models/storage");
+} = require("../models/schools.model");
 
 const getSchoolsController = (req,res) => {
     console.log(req.query);

@@ -1,5 +1,3 @@
-const { date, optional } = require("joi");
-
 const publications = [
     {
         id: 1,

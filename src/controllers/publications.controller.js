@@ -4,7 +4,7 @@ const {
     findPublication,
     deletePublication,
     updatePublication,
-} = require("../models/publications.storage");
+} = require("../models/publications.model");
 
 const getPublicationsController = (req, res) => {
     console.log(req.query);
