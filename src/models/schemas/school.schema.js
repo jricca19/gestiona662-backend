@@ -1,7 +1,7 @@
 const Joi=require("joi");
 
 const schoolSchema = Joi.object({
-    schoolNumber: Joi.string().required(),
+    schoolNumber: Joi.number().required(),
     department: Joi.string().valid(
         "Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", 
         "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", 
