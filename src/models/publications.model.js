@@ -5,8 +5,8 @@ const publications = [
         grade: 6, // 0 for preschool
         startDate: "2023-10-01",
         endDate: "2023-10-03", // maximun 3 days
-        shift: "MORNING",
-        status: "OPEN",
+        shift: "MORNING", // MORNING, AFTERNOON, FULL_DAY
+        status: "OPEN", // OPEN, FILLED, CANCELLED, CLOSED
     },
     {
         id: 2,
