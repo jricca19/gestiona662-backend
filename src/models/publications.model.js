@@ -30,15 +30,15 @@ const publications = [
 
 const getPublications = () => publications;
 
-const createPublication = (title) => {
+const createPublication = (schoolId, grade, startDate, endDate, shift) => {
     const lastPublication = publications[publications.length - 1];
     const newPublication = {
-        schoolId: 50,
-        grade: 1,
-        startDate: "2023-10-01",
-        endDate: "2023-10-03",
-        shift: "AFTERNOON",
-        status: "FILLED",
+        schoolId,
+        grade,
+        startDate,
+        endDate,
+        shift,
+        status: "OPEN",
     };
     if (lastPublication) {
         newPublication.id = lastPublication.id + 1;
