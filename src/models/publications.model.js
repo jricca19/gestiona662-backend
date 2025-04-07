@@ -6,7 +6,7 @@ const publications = [
         startDate: "2023-10-01",
         endDate: "2023-10-03", // maximun 3 days
         shift: "MORNING", // MORNING, AFTERNOON, FULL_DAY
-        status: "OPEN", // OPEN, FILLED, CANCELLED, CLOSED
+        status: "OPEN", // OPEN, FILLED, CANCELLED, EXPIRED
     },
     {
         id: 2,
