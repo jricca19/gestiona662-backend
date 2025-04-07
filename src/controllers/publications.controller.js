@@ -7,8 +7,37 @@ const {
 } = require("../models/publications.model");
 
 const getPublicationsController = (req, res) => {
-    console.log(req.query);
-    res.status(200).json(getPublications());
+
+    //extract query params
+    const { page = 1, limit = 10 } = req.query;
+    
+    const pageNumber = parseInt(page);
+    const limitNumber = parseInt(limit);
+
+    if (isNaN(pageNumber) || isNaN(limitNumber) || pageNumber <= 0 || limitNumber <= 0) {
+        return res.status(400).json({ error: "Número de página o límite incorrecto" });
+    }
+    
+    // obtain the publications
+    let publications = getPublications(); //TODO: get the publications async from the database
+
+    // filter by status
+    publications = publications.filter((publication) => publication.status === "OPEN");
+
+    //calculate indexes
+    const startIndex = (pageNumber - 1) * limitNumber;
+    const endIndex = pageNumber * limitNumber;
+
+    //slice the publications
+    const paginatedPublications = publications.slice(startIndex, endIndex);
+    const total = publications.length;
+
+    res.status(200).json({
+        total: total,
+        page: pageNumber,
+        limit: limitNumber,
+        publications: paginatedPublications,
+    });
 };
 
 const getPublicationController = (req, res) => {
@@ -25,7 +54,7 @@ const getPublicationController = (req, res) => {
 
 const postPublicationController = async (req, res) => {
     const { body } = req;
-    createPublication(body.title);
+    createPublication(body.schoolId, body.grade, body.startDate, body.endDate, body.shift);
     res.status(201).json({
         message: "Publicación creada correctamente",
     });
