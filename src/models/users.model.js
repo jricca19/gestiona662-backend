@@ -39,11 +39,6 @@ const isValidPassword = async (password, userPassword) => {
   return result;
 };
 
-const findUserByUsername = (username) => {
-  const user = users.find((u) => u.username == username);
-  return user;
-};
-
 const saveUser = async (name, username, password) => {
   const lastUser = users[users.length - 1];
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -63,4 +58,4 @@ const saveUser = async (name, username, password) => {
   return newUser.id;
 };
 
-module.exports = { saveUser, findUser, findUserByUsername, isValidPassword };
+module.exports = { saveUser, findUser, isValidPassword };

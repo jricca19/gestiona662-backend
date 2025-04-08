@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 const {
   saveUser,
-  findUserByUsername,
   findUser,
   isValidPassword,
 } = require("../models/users.model");
@@ -38,7 +37,7 @@ const postAuthSignUp = async (req, res) => {
   const { body } = req;
   const { name, username, password } = body;
 
-  if (findUserByUsername(username)) {
+  if (findUser(username)) {
     res.status(400).json({ message: "Nombre de usuario ya en uso" });
     return;
   }
