@@ -1,9 +1,9 @@
 const healthController = (req, res) => {
-    res.status(200).send("OK");
-  };
-  
+  res.status(200).send({
+    message: "Service is running",
+  });
+};
 
-  module.exports = {
-    healthController,
-  };
-  
+module.exports = {
+  healthController,
+};
