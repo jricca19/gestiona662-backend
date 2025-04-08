@@ -1,119 +1,329 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Gestiona662 API",
-    "version": "1.0.0",
-    "description": "API documentation for Gestiona662 backend"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "Development server"
-    }
-  ],
-  "components": {
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "description": "Enter your token in the format: Bearer <token>"
-      }
-    }
-  },
-  "paths": {
-    "/health": {
-      "get": {
-        "summary": "Health Check",
-        "description": "Returns the health status of the API",
-        "responses": {
-          "200": {
-            "description": "API is running",
-            "content": {
-              "application/json": {
-                "example": {
-                  "message": "Service is running"
-                }
-              }
-            }
-          }
-        }
-      }
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gestiona662 API",
+        "version": "1.0.0",
+        "description": "API documentation for Gestiona662 backend"
     },
-    "/v1/publications": {
-      "get": {
-        "summary": "Get Publications",
-        "description": "Retrieve a list of publications",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Page number",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 1
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Number of items per page",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 10
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of publications",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "total": { "type": "integer" },
-                    "page": { "type": "integer" },
-                    "limit": { "type": "integer" },
-                    "publications": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "integer" },
-                          "schoolId": { "type": "integer" },
-                          "grade": { "type": "integer" },
-                          "startDate": { "type": "string", "format": "date" },
-                          "endDate": { "type": "string", "format": "date" },
-                          "shift": { "type": "string" },
-                          "status": { "type": "string" }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - No token provided",
-            "content": {
-              "application/json": {
-                "example": {
-                  "message": "Unauthorized - No token provided"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Development server"
+        }
+    ],
+    "security": [
+        {
             "BearerAuth": []
-          }
-        ]
-      }
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "School": {
+                "type": "object",
+                "properties": {
+                    "schoolNumber": { "type": "integer" },
+                    "department": { "type": "string" },
+                    "city": { "type": "string" },
+                    "address": { "type": "string" }
+                },
+                "required": ["schoolNumber", "department", "city", "address"]
+            },
+            "updatePublication": {
+                "type": "object",
+                "properties": {
+                    "schoolId": { "type": "integer" },
+                    "grade": { "type": "integer", "minimum": 0 },
+                    "startDate": { "type": "string", "format": "date" },
+                    "endDate": { "type": "string", "format": "date" },
+                    "shift": { "type": "string", "enum": ["MORNING", "AFTERNOON", "FULL_DAY"] },
+                    "status": { "type": "string", "enum": ["OPEN", "FILLED", "CANCELLED", "EXPIRED"] }
+                },
+                "required": ["schoolId", "grade", "startDate", "endDate", "shift", "status"]
+            },
+            "createPublication": {
+                "type": "object",
+                "properties": {
+                    "schoolId": { "type": "integer" },
+                    "grade": { "type": "integer", "minimum": 0 },
+                    "startDate": { "type": "string", "format": "date" },
+                    "endDate": { "type": "string", "format": "date" },
+                    "shift": { "type": "string", "enum": ["MORNING", "AFTERNOON", "FULL_DAY"] }
+                },
+                "required": ["schoolId", "grade", "startDate", "endDate", "shift"]
+            }
+        }
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Health Check",
+                "description": "Returns the health status of the API",
+                "responses": {
+                    "200": {
+                        "description": "API is running",
+                        "content": {
+                            "application/json": {
+                                "example": { "message": "Service is running" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/schools": {
+            "get": {
+                "summary": "Get Schools",
+                "description": "Retrieve a list of schools",
+                "responses": {
+                    "200": {
+                        "description": "List of schools",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/School" }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create School",
+                "description": "Create a new school",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/School" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { "description": "School created successfully" },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    }
+                }
+            }
+        },
+        "/v1/schools/{id}": {
+            "get": {
+                "summary": "Get School by ID",
+                "description": "Retrieve a school by its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "School details",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/School" }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    },
+                    "404": { "description": "School not found" }
+                }
+            },
+            "put": {
+                "summary": "Update School",
+                "description": "Update an existing school",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer" }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/School" }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": { "description": "School updated successfully" },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    },
+                    "404": { "description": "School not found" }
+                }
+            },
+            "delete": {
+                "summary": "Delete School",
+                "description": "Delete a school by its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer" }
+                    }
+                ],
+                "responses": {
+                    "200": { "description": "School deleted successfully" },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    },
+                    "404": { "description": "School not found" }
+                }
+            }
+        },
+        "/v1/publications": {
+            "get": {
+                "summary": "Get Publications",
+                "description": "Retrieve a list of publications",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": { "type": "integer", "default": 1 }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": { "type": "integer", "default": 10 }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of publications",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "total": { "type": "integer" },
+                                        "page": { "type": "integer" },
+                                        "limit": { "type": "integer" },
+                                        "publications": {
+                                            "type": "array",
+                                            "items": { "$ref": "#/components/schemas/updatePublication" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Publication",
+                "description": "Create a new publication",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/createPublication" }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": { "description": "Publication created successfully" },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    }
+                }
+            }
+        },
+        "/v1/publications/{id}": {
+            "get": {
+                "summary": "Get Publication by ID",
+                "description": "Retrieve a publication by its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Publication details",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/updatePublication" }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    },
+                    "404": { "description": "Publication not found" }
+                }
+            },
+            "put": {
+                "summary": "Update Publication",
+                "description": "Update an existing publication",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/updatePublication" }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": { "description": "Publication updated successfully" },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    },
+                    "404": { "description": "Publication not found" }
+                }
+            },
+            "delete": {
+                "summary": "Delete Publication",
+                "description": "Delete a publication by its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": { "type": "integer" }
+                    }
+                ],
+                "responses": {
+                    "200": { "description": "Publication deleted successfully" },
+                    "401": {
+                        "description": "Unauthorized - Invalid or missing token"
+                    },
+                    "404": { "description": "Publication not found" }
+                }
+            }
+        }
     }
-  }
 }

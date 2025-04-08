@@ -6,8 +6,6 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./public/swagger.json");
 const app = express();
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`The server is running on port: ${PORT}`);
@@ -28,6 +26,7 @@ app.use(xssMiddleware);
 // Public
 app.use("/", publicRouter);
 app.use("/v1/auth", authRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(authMiddleWare);
 
