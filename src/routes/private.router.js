@@ -18,14 +18,14 @@ const {
 } = require("../controllers/schools.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
-const PublicationSchema = require("../models/schemas/publication.schema");
+const {createPublicationSchema, updatePublicationSchema} = require("../models/schemas/publication.schema");
 const SchoolSchema = require("../models/schemas/school.schema");
 
 privateRouter.get("/publications", getPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
-privateRouter.post("/publications", payloadMiddleWare(PublicationSchema), postPublicationController);
+privateRouter.post("/publications", payloadMiddleWare(createPublicationSchema), postPublicationController);
 privateRouter.delete("/publications/:id", deletePublicationController);
-privateRouter.put("/publications/:id", payloadMiddleWare(PublicationSchema), putPublicationController);
+privateRouter.put("/publications/:id", payloadMiddleWare(updatePublicationSchema), putPublicationController);
 
 privateRouter.get("/schools", getSchoolsController);
 privateRouter.get("/schools/:id", getSchoolController);
