@@ -25,8 +25,17 @@ const {
     putTeacherController,
 } = require("../controllers/teachers.controller");
 
+const {
+    getPostulationsController,
+    getPostulationController,
+    postPostulationController,
+    deletePostulationController,
+    putPostulationController,
+} = require("../controllers/postulations.controller");
+
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const {createPublicationSchema, updatePublicationSchema} = require("../models/schemas/publication.schema");
+const {createPostulationSchema, updatePostulationSchema} = require("../models/schemas/postulation.schema");
 const SchoolSchema = require("../models/schemas/school.schema");
 const TeacherSchema = require("../models/schemas/teacher.schema");
 
@@ -35,6 +44,12 @@ privateRouter.get("/publications/:id", getPublicationController);
 privateRouter.post("/publications", payloadMiddleWare(createPublicationSchema), postPublicationController);
 privateRouter.delete("/publications/:id", deletePublicationController);
 privateRouter.put("/publications/:id", payloadMiddleWare(updatePublicationSchema), putPublicationController);
+
+privateRouter.get("/postulations", getPostulationsController);
+privateRouter.get("/postulations/:id", getPostulationController);
+privateRouter.post("/postulations", payloadMiddleWare(createPostulationSchema), postPostulationController);
+privateRouter.delete("/postulations/:id", deletePostulationController);
+privateRouter.put("/postulations/:id", payloadMiddleWare(updatePostulationSchema), putPostulationController);
 
 privateRouter.get("/schools", getSchoolsController);
 privateRouter.get("/schools/:id", getSchoolController);
