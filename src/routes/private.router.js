@@ -38,6 +38,7 @@ const {createPublicationSchema, updatePublicationSchema} = require("../models/sc
 const {createPostulationSchema, updatePostulationSchema} = require("../models/schemas/postulation.schema");
 const SchoolSchema = require("../models/schemas/school.schema");
 const TeacherSchema = require("../models/schemas/teacher.schema");
+const SchoolAdministratorSchema = require("../models/schemas/schoolAdministrator.schema");
 
 privateRouter.get("/publications", getPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
@@ -62,5 +63,11 @@ privateRouter.get("/teachers/:id", getTeacherController);
 privateRouter.post("/teachers", payloadMiddleWare(TeacherSchema), postTeacherController);
 privateRouter.delete("/teachers/:id", deleteTeacherController);
 privateRouter.put("/teachers/:id", payloadMiddleWare(TeacherSchema), putTeacherController);
+
+privateRouter.get("/schoolAdministrators", getSchoolAdministratorsController);
+privateRouter.get("/schoolAdministrators/:id", getSchoolAdministratorController);
+privateRouter.post("/schoolAdministrators", payloadMiddleWare(SchoolAdministratorSchema), postSchoolAdministratorController);
+privateRouter.delete("/schoolAdministrators/:id", deleteSchoolAdministratorController);
+privateRouter.put("/schoolAdministrators/:id", payloadMiddleWare(SchoolAdministratorSchema), putSchoolAdministratorController);
 
 module.exports = privateRouter;
