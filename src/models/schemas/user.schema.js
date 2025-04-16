@@ -1,17 +1,10 @@
-const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const signupSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required(),
-  username: Joi.string().min(3).max(20).required(),
-  password: Joi.string().min(8).max(20).required(),
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true, minlength: 3, maxlength: 20 },
+  username: { type: String, required: true, unique: true, minlength: 3, maxlength: 20 },
+  password: { type: String, required: true },
+  active: { type: Boolean, default: true },
 });
 
-const loginSchema = Joi.object({
-  username: Joi.string().min(3).max(20).required(),
-  password: Joi.string().min(8).max(20).required(),
-});
-
-module.exports = {
-  signupSchema,
-  loginSchema,
-};
+module.exports = userSchema;
