@@ -33,6 +33,14 @@ const {
     putPostulationController,
 } = require("../controllers/postulations.controller");
 
+const {
+    getSchoolAdministratorsController,
+    getSchoolAdministratorController,
+    postSchoolAdministratorController,
+    deleteSchoolAdministratorController,
+    putSchoolAdministratorController,
+} = require("../controllers/schoolAdministrators.controller");
+
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const {createPublicationSchema, updatePublicationSchema} = require("./validations/publication.validation");
 const SchoolSchema = require("./validations/school.validation");
