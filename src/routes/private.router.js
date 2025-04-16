@@ -34,9 +34,9 @@ const {
 } = require("../controllers/postulations.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
-const {createPublicationSchema, updatePublicationSchema} = require("../models/schemas/publication.schema");
+const {createPublicationSchema, updatePublicationSchema} = require("./validations/publication.validation");
+const SchoolSchema = require("./validations/school.validation");
 const {createPostulationSchema, updatePostulationSchema} = require("../models/schemas/postulation.schema");
-const SchoolSchema = require("../models/schemas/school.schema");
 const TeacherSchema = require("../models/schemas/teacher.schema");
 
 privateRouter.get("/publications", getPublicationsController);

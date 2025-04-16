@@ -6,7 +6,7 @@ const {
 } = require("../controllers/auth.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
-const { signupSchema, loginSchema } = require("../models/schemas/user.schema");
+const { signupSchema, loginSchema } = require("./validations/user.validation");
 
 authRouter.post("/login", payloadMiddleWare(loginSchema), postAuthLogin);
 authRouter.post("/signup", payloadMiddleWare(signupSchema), postAuthSignUp);
