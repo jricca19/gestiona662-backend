@@ -1,16 +1,24 @@
-const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const createPostulationSchema = Joi.object({
-    teacherId: Joi.number().required(),
-    postulationId: Joi.number().required(),
-    createdAt: Joi.date().required(),
+const createPostulationSchema = new mongoose.Schema({
+    teacherId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Teacher", // Reference to the Teacher collection
+        required: true,
+    },
+    publicationId: { type: Number, required: true },
+    createdAt: { type: Date, required: true }
 });
 
-const updatePostulationSchema = Joi.object({
-    teacherId: Joi.number().required(),
-    postulationId: Joi.number().required(),
-    status: Joi.string().valid("PENDING", "ACCEPTED", "REJECTED", "WITHDRAWN").required(),
-    createdAt: Joi.date().required(),
+const updatePostulationSchema = new mongoose.Schema({
+    teacherId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Teacher", // Reference to the Teacher collection
+        required: true,
+    },
+    publicationId: { type: Number, required: true },
+    status:{ type: String, enum: ["PENDING", "ACCEPTED", "REJECTED", "WITHDRAWN"], required: true },
+    createdAt: { type: Date, required: true }
 });
 
 module.exports = {

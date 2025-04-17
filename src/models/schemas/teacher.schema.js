@@ -1,13 +1,22 @@
-const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const teacherSchema=Joi.object({
-    userId:Joi.number().required(),
-    ci:Joi.string().min(8).max(8).required(),
-    address:Joi.string().required(),
-    yearsExperience:Joi.number().required(),
-    gradeExperience:Joi.number().required(),
-    preferredShifts: Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY").required(),
-    averageRating: Joi.number().min(1).max(10).required()
+const teacherSchema=new mongoose.Schema({
+    userId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User", // Reference to the User collection
+        required: true,
+    },
+    ci:{ type: String, required: true },
+    address:{ type: String, required: true },
+    yearsExperience:{ type: Number, required: true },
+    gradeExperience:{ type: Number, required: true },
+    preferredShifts:{ type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"], required: true },
+    averageRating: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 10
+    }
 });
 
 module.exports=teacherSchema;
