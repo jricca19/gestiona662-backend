@@ -4,7 +4,7 @@ const {
     findPostulation,
     deletePostulation,
     updatePostulation
-} = require("../models/postulations.model");
+} = require("../repositories/postulation.repository");
 
 const getPostulationsController = (req,res) => {
     console.log(req.query);

@@ -4,7 +4,7 @@ const {
     findSchoolAdministrator,
     deleteSchoolAdministrator,
     updateSchoolAdministrator
-} = require("../models/schoolAdministrators.model");
+} = require("../repositories/schoolAdministrator.repository");
 
 const getSchoolAdministratorsController = (req,res) => {
     console.log(req.query);

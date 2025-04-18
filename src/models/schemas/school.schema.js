@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const schoolSchema = new moongose.Schema({
+const schoolSchema = new mongoose.Schema({
     schoolNumber: { type: Number, required: true },
     department:{ type: String, enum: ["Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", 
         "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", 

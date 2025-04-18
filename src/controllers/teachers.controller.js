@@ -4,7 +4,7 @@ const {
     findTeacher,
     deleteTeacher,
     updateTeacher
-} = require("../models/teachers.model");
+} = require("../repositories/teacher.repository");
 
 const getTeachersController = (req,res) => {
     console.log(req.query);
