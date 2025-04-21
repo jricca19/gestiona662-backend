@@ -70,6 +70,7 @@ const postPublicationController = async (req, res, next) => {
 };
 
 const deletePublicationController = (req, res) => {
+    try{
     const publicationId = req.params.id;
     const publication = findPublication(publicationId);
 
@@ -83,9 +84,13 @@ const deletePublicationController = (req, res) => {
     res.status(200).json({
         message: "Publicación eliminada correctamente",
     });
+} catch (error) {
+    res.status(400).json({ error: error.message });
+}
 };
 
 const putPublicationController = (req, res) => {
+    try{
     console.log(req.body);
     const publicationId = req.params.id;
     const { body } = req;
@@ -99,6 +104,9 @@ const putPublicationController = (req, res) => {
     }
     updatePublication(publicationId, body);
     res.status(200).json(publication);
+} catch (error) {
+    res.status(400).json({ error: error.message });
+}
 };
 
 module.exports = {
