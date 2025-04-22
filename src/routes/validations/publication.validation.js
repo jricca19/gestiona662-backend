@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const createPublicationSchema = Joi.object({
-    schoolId: Joi.number().required(),
+    schoolId: Joi.string().required(),
     grade: Joi.number().min(0).required(),
     startDate: Joi.date().required(),
     endDate: Joi.date().required(),
@@ -9,7 +9,7 @@ const createPublicationSchema = Joi.object({
 });
 
 const updatePublicationSchema = Joi.object({
-    schoolId: Joi.number().required(),
+    schoolId: Joi.string().required(),
     grade: Joi.number().min(0).required(),
     startDate: Joi.date().required(),
     endDate: Joi.date().required(),

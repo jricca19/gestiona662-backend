@@ -35,7 +35,12 @@ const getSchoolController = async (req, res) => {
 const postSchoolController = async (req, res) => {
     try {
         const { body } = req;
-        await createSchool(body.schoolNumber, body.department, body.city, body.address);
+
+        if (!body.schoolNumber || !body.departmentId || !body.cityName || !body.address) {
+            return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
+        }
+
+        await createSchool(body.schoolNumber, body.departmentId, body.cityName, body.address);
         res.status(201).json({
             message: "Escuela creada correctamente"
         });
