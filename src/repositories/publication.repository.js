@@ -11,7 +11,7 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     }
 
     const newPublication = new Publication({
-        schoolId: mongoose.Types.ObjectId(schoolId),
+        schoolId,
         grade,
         startDate,
         endDate,
