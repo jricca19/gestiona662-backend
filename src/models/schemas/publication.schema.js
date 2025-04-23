@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const publicationSchema = new mongoose.Schema({
   schoolId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "School", // Reference to the School collection
+    ref: "School",
     required: true,
   },
   grade: { type: Number, required: true },

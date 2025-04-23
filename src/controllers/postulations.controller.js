@@ -8,7 +8,6 @@ const {
 
 const getPostulationsController = async (req, res) => {
     try {
-        console.log(req.query);
         const postulations = await getPostulations();
         res.status(200).json(postulations);
     } catch (error) {

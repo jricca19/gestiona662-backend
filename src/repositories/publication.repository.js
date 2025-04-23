@@ -1,13 +1,19 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
+const { findSchool } = require("./school.repository");
 
 const getPublications = async () => {
-    return await Publication.find().select("schoolId grade startDate endDate shift status");
+    return await Publication.find().select("_id schoolId grade startDate endDate shift status");
 };
 
 const createPublication = async (schoolId, grade, startDate, endDate, shift) => {
     if (!mongoose.Types.ObjectId.isValid(schoolId)) {
         throw new Error(`Escuela con ID ${schoolId} inválido`);
+    }
+
+    const schoolExists = await findSchool(schoolId);
+    if (!schoolExists) {
+        throw new Error(`No existe una escuela con el ID: ${schoolId}`);
     }
 
     const newPublication = new Publication({
@@ -26,7 +32,7 @@ const findPublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
-    return await Publication.findById(id).select("schoolId grade startDate endDate shift status");
+    return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
 };
 
 const deletePublication = async (id) => {

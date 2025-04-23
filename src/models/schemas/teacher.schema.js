@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const teacherSchema=new mongoose.Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User", // Reference to the User collection
+        ref: "User",
         required: true,
     },
     ci:{ type: String, required: true },
