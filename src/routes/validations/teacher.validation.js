@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const teacherSchema=Joi.object({
-    userId:Joi.number().required(),
+    userId:Joi.string().required(),
     ci:Joi.string().min(8).max(8).required(),
     address:Joi.string().required(),
     yearsExperience:Joi.number().required(),

@@ -41,12 +41,21 @@ const {
     putSchoolAdministratorController,
 } = require("../controllers/schoolAdministrators.controller");
 
+const {
+    getRatingsController,
+    getRatingController,
+    postRatingController,
+    deleteRatingController,
+    putRatingController,
+} = require("../controllers/ratings.controller");
+
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const {createPublicationSchema, updatePublicationSchema} = require("./validations/publication.validation");
 const SchoolSchema = require("./validations/school.validation");
-const {createPostulationSchema, updatePostulationSchema} = require("../models/schemas/postulation.schema");
-const TeacherSchema = require("../models/schemas/teacher.schema");
-const SchoolAdministratorSchema = require("../models/schemas/schoolAdministrator.schema");
+const TeacherSchema = require("./validations/teacher.validation");
+const {createPostulationSchema, updatePostulationSchema} = require("./validations/postulation.validation");
+const SchoolAdministratorSchema = require("./validations/schoolAdministrator.validation");
+const RatingSchema = require("./validations/rating.validation");
 
 privateRouter.get("/publications", getPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
@@ -77,5 +86,11 @@ privateRouter.get("/schoolAdministrators/:id", getSchoolAdministratorController)
 privateRouter.post("/schoolAdministrators", payloadMiddleWare(SchoolAdministratorSchema), postSchoolAdministratorController);
 privateRouter.delete("/schoolAdministrators/:id", deleteSchoolAdministratorController);
 privateRouter.put("/schoolAdministrators/:id", payloadMiddleWare(SchoolAdministratorSchema), putSchoolAdministratorController);
+
+privateRouter.get("/ratings", getRatingsController);
+privateRouter.get("/ratings/:id", getRatingController);
+privateRouter.post("/ratings", payloadMiddleWare(RatingSchema), postRatingController);
+privateRouter.delete("/ratings/:id", deleteRatingController);
+privateRouter.put("/ratings/:id", payloadMiddleWare(RatingSchema), putRatingController);
 
 module.exports = privateRouter;
