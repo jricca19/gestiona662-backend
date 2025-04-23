@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const schoolAdministratorSchema=new mongoose.Schema({
     userId:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User", // Reference to the User collection
+            ref: "User",
             required: true,
     },
     schoolId:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "School", // Reference to the School collection
+            ref: "School",
             required: true,
     },
     isCurrent: {

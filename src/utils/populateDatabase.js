@@ -7,193 +7,193 @@ const departments = [
         "name": "ARTIGAS",
         "cities": [
             {
-                "name": "Artigas"
+                "name": "ARTIGAS"
             },
             {
-                "name": "Bella Unión"
+                "name": "BELLA UNIÓN"
             },
             {
-                "name": "Tomás Gomensoro"
+                "name": "TOMÁS GOMENSORO"
             },
             {
-                "name": "Baltasar Brum"
+                "name": "BALTASAR BRUM"
             },
             {
-                "name": "Arrocera San Pedro"
+                "name": "ARROCERA SAN PEDRO"
             },
             {
-                "name": "Cainsa Campo 3"
+                "name": "CAINSA CAMPO 3"
             },
             {
-                "name": "Bernabé Rivera"
+                "name": "BERNABÉ RIVERA"
             },
             {
-                "name": "Calpica Itacumbú"
+                "name": "CALPICA ITACUMBÚ"
             },
             {
-                "name": "Colonia Rivera"
+                "name": "COLONIA RIVERA"
             },
             {
-                "name": "Franquia"
+                "name": "FRANQUIA"
             },
             {
-                "name": "Sequeira"
+                "name": "SEQUEIRA"
             },
             {
-                "name": "Cainsa 2 Itacumbú"
+                "name": "CAINSA 2 ITACUMBÚ"
             },
             {
-                "name": "Coronado"
+                "name": "CORONADO"
             },
             {
-                "name": "Cuareim"
+                "name": "CUAREIM"
             },
             {
-                "name": "Cuaró"
+                "name": "CUARÓ"
             },
             {
-                "name": "Guayubira"
+                "name": "GUAYUBIRA"
             },
             {
-                "name": "Javier de Viana"
+                "name": "JAVIER DE VIANA"
             },
             {
-                "name": "La Bolsa"
+                "name": "LA BOLSA"
             },
             {
-                "name": "Las Piedras"
+                "name": "LAS PIEDRAS"
             },
             {
-                "name": "Paguero"
+                "name": "PAGUERO"
             },
             {
-                "name": "Pintadito"
+                "name": "PINTADITO"
             },
             {
-                "name": "Port. de Hierro y Campodónico"
+                "name": "PORT. DE HIERRO Y CAMPODÓNICO"
             },
             {
-                "name": "Tamandua"
+                "name": "TAMANDUA"
             },
             {
-                "name": "Mones Quintela"
+                "name": "MONES QUINTELA"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Arrocera Riusa"
+                "name": "ARROCERA RIUSA"
             },
             {
-                "name": "Cainsa Campo 1"
+                "name": "CAINSA CAMPO 1"
             },
             {
-                "name": "Cainsa"
+                "name": "CAINSA"
             },
             {
-                "name": "Paso Campamento"
+                "name": "PASO CAMPAMENTO"
             },
             {
-                "name": "Catalán Grande"
+                "name": "CATALÁN GRANDE"
             },
             {
-                "name": "Catalán Volcán"
+                "name": "CATALÁN VOLCÁN"
             },
             {
-                "name": "Chiflero"
+                "name": "CHIFLERO"
             },
             {
-                "name": "Colonia Estrella"
+                "name": "COLONIA ESTRELLA"
             },
             {
-                "name": "Colonia Palma"
+                "name": "COLONIA PALMA"
             },
             {
-                "name": "Colonia Viñar"
+                "name": "COLONIA VIÑAR"
             },
             {
-                "name": "Diego Lamas"
+                "name": "DIEGO LAMAS"
             },
             {
-                "name": "Estiva"
+                "name": "ESTIVA"
             },
             {
-                "name": "Fagúndez"
+                "name": "FAGÚNDEZ"
             },
             {
-                "name": "Granja Perroni"
+                "name": "GRANJA PERRONI"
             },
             {
-                "name": "Lenguazo"
+                "name": "LENGUAZO"
             },
             {
-                "name": "Palma Sola"
+                "name": "PALMA SOLA"
             },
             {
-                "name": "Paredón"
+                "name": "PAREDÓN"
             },
             {
-                "name": "Paso de la Cruz"
+                "name": "PASO DE LA CRUZ"
             },
             {
-                "name": "Paso del León"
+                "name": "PASO DEL LEÓN"
             },
             {
-                "name": "Paso de Ramos"
+                "name": "PASO DE RAMOS"
             },
             {
-                "name": "Paso Farías"
+                "name": "PASO FARÍAS"
             },
             {
-                "name": "Paso Potrero"
+                "name": "PASO POTRERO"
             },
             {
-                "name": "Patitas"
+                "name": "PATITAS"
             },
             {
-                "name": "Piedra Pintada"
+                "name": "PIEDRA PINTADA"
             },
             {
-                "name": "Pintado Grande"
+                "name": "PINTADO GRANDE"
             },
             {
-                "name": "Puntas de Tres Cruces"
+                "name": "PUNTAS DE TRES CRUCES"
             },
             {
-                "name": "Ricardinho"
+                "name": "RICARDINHO"
             },
             {
-                "name": "Rincón de Pacheco"
+                "name": "RINCÓN DE PACHECO"
             },
             {
-                "name": "Rincón de Pintado"
+                "name": "RINCÓN DE PINTADO"
             },
             {
-                "name": "Sarandí de Cuaró"
+                "name": "SARANDÍ DE CUARÓ"
             },
             {
-                "name": "Sarandí de Yacuy"
+                "name": "SARANDÍ DE YACUY"
             },
             {
-                "name": "Taruman"
+                "name": "TARUMAN"
             },
             {
-                "name": "Topador"
+                "name": "TOPADOR"
             },
             {
-                "name": "Cerro Ejido"
+                "name": "CERRO EJIDO"
             },
             {
-                "name": "Zanja Aruera"
+                "name": "ZANJA ARUERA"
             },
             {
-                "name": "Cerro Signorelli"
+                "name": "CERRO SIGNORELLI"
             },
             {
-                "name": "Cerro San Eugenio"
+                "name": "CERRO SAN EUGENIO"
             },
             {
-                "name": "Calnú"
+                "name": "CALNÚ"
             }
         ]
     },
@@ -201,457 +201,457 @@ const departments = [
         "name": "CANELONES",
         "cities": [
             {
-                "name": "Las Piedras"
+                "name": "LAS PIEDRAS"
             },
             {
-                "name": "Canelones"
+                "name": "CANELONES"
             },
             {
-                "name": "La Paz"
+                "name": "LA PAZ"
             },
             {
-                "name": "Pando"
+                "name": "PANDO"
             },
             {
-                "name": "Santa Lucía"
+                "name": "SANTA LUCÍA"
             },
             {
-                "name": "Piedras de Afilar"
+                "name": "PIEDRAS DE AFILAR"
             },
             {
-                "name": "Cumbres de Carrasco"
+                "name": "CUMBRES DE CARRASCO"
             },
             {
-                "name": "Haras del Lago"
+                "name": "HARAS DEL LAGO"
             },
             {
-                "name": "Quinta Los Horneros"
+                "name": "QUINTA LOS HORNEROS"
             },
             {
-                "name": "Las Higueritas"
+                "name": "LAS HIGUERITAS"
             },
             {
-                "name": "Sofía Santos"
+                "name": "SOFÍA SANTOS"
             },
             {
-                "name": "Progreso"
+                "name": "PROGRESO"
             },
             {
-                "name": "San Ramón"
+                "name": "SAN RAMÓN"
             },
             {
-                "name": "Barros Blancos"
+                "name": "BARROS BLANCOS"
             },
             {
-                "name": "Fracc. Cno. Maldonado"
+                "name": "FRACC. CNO. MALDONADO"
             },
             {
-                "name": "Colonia Nicolich"
+                "name": "COLONIA NICOLICH"
             },
             {
-                "name": "Joaquín Suárez"
+                "name": "JOAQUÍN SUÁREZ"
             },
             {
-                "name": "Paso Carrasco"
+                "name": "PASO CARRASCO"
             },
             {
-                "name": "Santa Rosa"
+                "name": "SANTA ROSA"
             },
             {
-                "name": "Sauce"
+                "name": "SAUCE"
             },
             {
-                "name": "Tala"
+                "name": "TALA"
             },
             {
-                "name": "Villa Crespo y San Andrés"
+                "name": "VILLA CRESPO Y SAN ANDRÉS"
             },
             {
-                "name": "Fracc. Cno.del Andaluz y R.84"
+                "name": "FRACC. CNO.DEL ANDALUZ Y R.84"
             },
             {
-                "name": "Atlántida"
+                "name": "ATLÁNTIDA"
             },
             {
-                "name": "Estación Atlántida"
+                "name": "ESTACIÓN ATLÁNTIDA"
             },
             {
-                "name": "Cerrillos"
+                "name": "CERRILLOS"
             },
             {
-                "name": "Empalme Olmos"
+                "name": "EMPALME OLMOS"
             },
             {
-                "name": "Migues"
+                "name": "MIGUES"
             },
             {
-                "name": "Parque del Plata"
+                "name": "PARQUE DEL PLATA"
             },
             {
-                "name": "San Bautista"
+                "name": "SAN BAUTISTA"
             },
             {
-                "name": "San Jacinto"
+                "name": "SAN JACINTO"
             },
             {
-                "name": "Dr. Francisco Soca"
+                "name": "DR. FRANCISCO SOCA"
             },
             {
-                "name": "Toledo"
+                "name": "TOLEDO"
             },
             {
-                "name": "Montes"
+                "name": "MONTES"
             },
             {
-                "name": "San José de Carrasco"
+                "name": "SAN JOSÉ DE CARRASCO"
             },
             {
-                "name": "Fracc. sobre R.74"
+                "name": "FRACC. SOBRE R.74"
             },
             {
-                "name": "Aguas Corrientes"
+                "name": "AGUAS CORRIENTES"
             },
             {
-                "name": "Barra de Carrasco"
+                "name": "BARRA DE CARRASCO"
             },
             {
-                "name": "Juanicó"
+                "name": "JUANICÓ"
             },
             {
-                "name": "La Floresta"
+                "name": "LA FLORESTA"
             },
             {
-                "name": "Estación La Floresta"
+                "name": "ESTACIÓN LA FLORESTA"
             },
             {
-                "name": "Las Toscas"
+                "name": "LAS TOSCAS"
             },
             {
-                "name": "Parque Carrasco"
+                "name": "PARQUE CARRASCO"
             },
             {
-                "name": "Salinas"
+                "name": "SALINAS"
             },
             {
-                "name": "San Antonio"
+                "name": "SAN ANTONIO"
             },
             {
-                "name": "Aerop. Internacional de Carrasco"
+                "name": "AEROP. INTERNACIONAL DE CARRASCO"
             },
             {
-                "name": "Solymar"
+                "name": "SOLYMAR"
             },
             {
-                "name": "Villa Aeroparque"
+                "name": "VILLA AEROPARQUE"
             },
             {
-                "name": "Camino a la Cadena"
+                "name": "CAMINO A LA CADENA"
             },
             {
-                "name": "Castellanos"
+                "name": "CASTELLANOS"
             },
             {
-                "name": "Colonia Berro"
+                "name": "COLONIA BERRO"
             },
             {
-                "name": "Barrio Cópola"
+                "name": "BARRIO CÓPOLA"
             },
             {
-                "name": "Costa Azul"
+                "name": "COSTA AZUL"
             },
             {
-                "name": "Costa y Guillamón"
+                "name": "COSTA Y GUILLAMÓN"
             },
             {
-                "name": "El Pinar"
+                "name": "EL PINAR"
             },
             {
-                "name": "Estación Migues"
+                "name": "ESTACIÓN MIGUES"
             },
             {
-                "name": "Pinamar - Pinepark"
+                "name": "PINAMAR - PINEPARK"
             },
             {
-                "name": "Lagomar"
+                "name": "LAGOMAR"
             },
             {
-                "name": "Olmos"
+                "name": "OLMOS"
             },
             {
-                "name": "Parada Cabrera"
+                "name": "PARADA CABRERA"
             },
             {
-                "name": "San Luis"
+                "name": "SAN LUIS"
             },
             {
-                "name": "Shangrilá"
+                "name": "SHANGRILÁ"
             },
             {
-                "name": "Totoral del Sauce"
+                "name": "TOTORAL DEL SAUCE"
             },
             {
-                "name": "Villa Felicidad"
+                "name": "VILLA FELICIDAD"
             },
             {
-                "name": "Villa Paz S.A."
+                "name": "VILLA PAZ S.A."
             },
             {
-                "name": "Villa San José"
+                "name": "VILLA SAN JOSÉ"
             },
             {
-                "name": "Estación Tapia"
+                "name": "ESTACIÓN TAPIA"
             },
             {
-                "name": "Villa San Felipe"
+                "name": "VILLA SAN FELIPE"
             },
             {
-                "name": "Villa Hadita"
+                "name": "VILLA HADITA"
             },
             {
-                "name": "Paso de Pache"
+                "name": "PASO DE PACHE"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "City Golf"
+                "name": "CITY GOLF"
             },
             {
-                "name": "Viejo Molino San Bernardo"
+                "name": "VIEJO MOLINO SAN BERNARDO"
             },
             {
-                "name": "Estanque de Pando"
+                "name": "ESTANQUE DE PANDO"
             },
             {
-                "name": "Jardines de Pando"
+                "name": "JARDINES DE PANDO"
             },
             {
-                "name": "Paso Espinosa"
+                "name": "PASO ESPINOSA"
             },
             {
-                "name": "Araminda"
+                "name": "ARAMINDA"
             },
             {
-                "name": "Argentino"
+                "name": "ARGENTINO"
             },
             {
-                "name": "Barra de la Pedrera"
+                "name": "BARRA DE LA PEDRERA"
             },
             {
-                "name": "Barrancas Coloradas"
+                "name": "BARRANCAS COLORADAS"
             },
             {
-                "name": "Bello Horizonte"
+                "name": "BELLO HORIZONTE"
             },
             {
-                "name": "Biarritz"
+                "name": "BIARRITZ"
             },
             {
-                "name": "Bolívar"
+                "name": "BOLÍVAR"
             },
             {
-                "name": "Campo Militar"
+                "name": "CAMPO MILITAR"
             },
             {
-                "name": "Capilla de Cella"
+                "name": "CAPILLA DE CELLA"
             },
             {
-                "name": "Cañada de Cardozo"
+                "name": "CAÑADA DE CARDOZO"
             },
             {
-                "name": "Cerrillos al Sur"
+                "name": "CERRILLOS AL SUR"
             },
             {
-                "name": "Costa de Pando"
+                "name": "COSTA DE PANDO"
             },
             {
-                "name": "Costa de Tala"
+                "name": "COSTA DE TALA"
             },
             {
-                "name": "Cruz de los Caminos"
+                "name": "CRUZ DE LOS CAMINOS"
             },
             {
-                "name": "Cuchilla Alta"
+                "name": "CUCHILLA ALTA"
             },
             {
-                "name": "Cuchilla Verde"
+                "name": "CUCHILLA VERDE"
             },
             {
-                "name": "Cueva del Tigre"
+                "name": "CUEVA DEL TIGRE"
             },
             {
-                "name": "Echevarría"
+                "name": "ECHEVARRÍA"
             },
             {
-                "name": "El Bosque"
+                "name": "EL BOSQUE"
             },
             {
-                "name": "Empalme Sauce"
+                "name": "EMPALME SAUCE"
             },
             {
-                "name": "Estación Margat"
+                "name": "ESTACIÓN MARGAT"
             },
             {
-                "name": "Estación Pedrera"
+                "name": "ESTACIÓN PEDRERA"
             },
             {
-                "name": "Fortín de Santa Rosa"
+                "name": "FORTÍN DE SANTA ROSA"
             },
             {
-                "name": "Fracc. Progreso"
+                "name": "FRACC. PROGRESO"
             },
             {
-                "name": "Instituto Adventista"
+                "name": "INSTITUTO ADVENTISTA"
             },
             {
-                "name": "Jaureguiberry"
+                "name": "JAUREGUIBERRY"
             },
             {
-                "name": "La Capilla"
+                "name": "LA CAPILLA"
             },
             {
-                "name": "La Lucha"
+                "name": "LA LUCHA"
             },
             {
-                "name": "La Montañesa"
+                "name": "LA MONTAÑESA"
             },
             {
-                "name": "La Palmita"
+                "name": "LA PALMITA"
             },
             {
-                "name": "La Paloma"
+                "name": "LA PALOMA"
             },
             {
-                "name": "La Querencia"
+                "name": "LA QUERENCIA"
             },
             {
-                "name": "Lomas de Solymar"
+                "name": "LOMAS DE SOLYMAR"
             },
             {
-                "name": "Las Barreras"
+                "name": "LAS BARRERAS"
             },
             {
-                "name": "Los Cerrillos"
+                "name": "LOS CERRILLOS"
             },
             {
-                "name": "Los Titanes"
+                "name": "LOS TITANES"
             },
             {
-                "name": "Marindia"
+                "name": "MARINDIA"
             },
             {
-                "name": "Neptunia"
+                "name": "NEPTUNIA"
             },
             {
-                "name": "Parador Tajes"
+                "name": "PARADOR TAJES"
             },
             {
-                "name": "Paso de la Cadena"
+                "name": "PASO DE LA CADENA"
             },
             {
-                "name": "Paso de la Paloma"
+                "name": "PASO DE LA PALOMA"
             },
             {
-                "name": "Paso de las Toscas"
+                "name": "PASO DE LAS TOSCAS"
             },
             {
-                "name": "Paso del Bote"
+                "name": "PASO DEL BOTE"
             },
             {
-                "name": "Paso Palomeque"
+                "name": "PASO PALOMEQUE"
             },
             {
-                "name": "Paso Villar"
+                "name": "PASO VILLAR"
             },
             {
-                "name": "Piedra del Toro"
+                "name": "PIEDRA DEL TORO"
             },
             {
-                "name": "Estación Piedras de Afilar"
+                "name": "ESTACIÓN PIEDRAS DE AFILAR"
             },
             {
-                "name": "El Galeón"
+                "name": "EL GALEÓN"
             },
             {
-                "name": "Puntas de Pantanoso"
+                "name": "PUNTAS DE PANTANOSO"
             },
             {
-                "name": "San Pedro"
+                "name": "SAN PEDRO"
             },
             {
-                "name": "Santa Ana"
+                "name": "SANTA ANA"
             },
             {
-                "name": "Santa Lucía del Este"
+                "name": "SANTA LUCÍA DEL ESTE"
             },
             {
-                "name": "Santos Lugares"
+                "name": "SANTOS LUGARES"
             },
             {
-                "name": "Sauce de Solís"
+                "name": "SAUCE DE SOLÍS"
             },
             {
-                "name": "Seis Hermanos"
+                "name": "SEIS HERMANOS"
             },
             {
-                "name": "Villa Arejo"
+                "name": "VILLA AREJO"
             },
             {
-                "name": "Villa Argentina"
+                "name": "VILLA ARGENTINA"
             },
             {
-                "name": "Villa Encantada"
+                "name": "VILLA ENCANTADA"
             },
             {
-                "name": "Villa Gabi"
+                "name": "VILLA GABI"
             },
             {
-                "name": "Villa Nueva"
+                "name": "VILLA NUEVA"
             },
             {
-                "name": "Villa Porvenir"
+                "name": "VILLA PORVENIR"
             },
             {
-                "name": "La Tuna"
+                "name": "LA TUNA"
             },
             {
-                "name": "Guazú - Virá"
+                "name": "GUAZÚ - VIRÁ"
             },
             {
-                "name": "Colinas de Solymar"
+                "name": "COLINAS DE SOLYMAR"
             },
             {
-                "name": "Barrio Remanso"
+                "name": "BARRIO REMANSO"
             },
             {
-                "name": "Villa El Tato"
+                "name": "VILLA EL TATO"
             },
             {
-                "name": "Villa San Cono"
+                "name": "VILLA SAN CONO"
             },
             {
-                "name": "Villa Juana"
+                "name": "VILLA JUANA"
             },
             {
-                "name": "Colinas de Carrasco"
+                "name": "COLINAS DE CARRASCO"
             },
             {
-                "name": "Lomas de Carrasco"
+                "name": "LOMAS DE CARRASCO"
             },
             {
-                "name": "Carmel"
+                "name": "CARMEL"
             },
             {
-                "name": "La Asunción"
+                "name": "LA ASUNCIÓN"
             },
             {
-                "name": "Quintas del Bosque"
+                "name": "QUINTAS DEL BOSQUE"
             },
             {
-                "name": "Altos de la Tahona"
+                "name": "ALTOS DE LA TAHONA"
             },
             {
-                "name": "Asentamiento R.6 Km 24.500"
+                "name": "ASENTAMIENTO R.6 KM 24.500"
             }
         ]
     },
@@ -659,259 +659,259 @@ const departments = [
         "name": "CERRO LARGO",
         "cities": [
             {
-                "name": "Melo"
+                "name": "MELO"
             },
             {
-                "name": "Fraile Muerto"
+                "name": "FRAILE MUERTO"
             },
             {
-                "name": "Río Branco"
+                "name": "RÍO BRANCO"
             },
             {
-                "name": "Tupambaé"
+                "name": "TUPAMBAÉ"
             },
             {
-                "name": "Isidoro Noblía"
+                "name": "ISIDORO NOBLÍA"
             },
             {
-                "name": "Aceguá"
+                "name": "ACEGUÁ"
             },
             {
-                "name": "Bañado de Medina"
+                "name": "BAÑADO DE MEDINA"
             },
             {
-                "name": "Centurión"
+                "name": "CENTURIÓN"
             },
             {
-                "name": "Cerro de las Cuentas"
+                "name": "CERRO DE LAS CUENTAS"
             },
             {
-                "name": "Hipódromo"
+                "name": "HIPÓDROMO"
             },
             {
-                "name": "Paso Pereira"
+                "name": "PASO PEREIRA"
             },
             {
-                "name": "Plácido Rosas"
+                "name": "PLÁCIDO ROSAS"
             },
             {
-                "name": "Toledo"
+                "name": "TOLEDO"
             },
             {
-                "name": "Tres Islas"
+                "name": "TRES ISLAS"
             },
             {
-                "name": "Poblado Uruguay"
+                "name": "POBLADO URUGUAY"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Aguirre"
+                "name": "AGUIRRE"
             },
             {
-                "name": "Amarillo"
+                "name": "AMARILLO"
             },
             {
-                "name": "Arbolito"
+                "name": "ARBOLITO"
             },
             {
-                "name": "Arévalo"
+                "name": "ARÉVALO"
             },
             {
-                "name": "Bañado de Saturnino"
+                "name": "BAÑADO DE SATURNINO"
             },
             {
-                "name": "Buena Vista"
+                "name": "BUENA VISTA"
             },
             {
-                "name": "Calera de Recalde"
+                "name": "CALERA DE RECALDE"
             },
             {
-                "name": "Campamento"
+                "name": "CAMPAMENTO"
             },
             {
-                "name": "Cañada Grande"
+                "name": "CAÑADA GRANDE"
             },
             {
-                "name": "Caserío Las Cañas"
+                "name": "CASERÍO LAS CAÑAS"
             },
             {
-                "name": "Cañitas"
+                "name": "CAÑITAS"
             },
             {
-                "name": "Coimbra"
+                "name": "COIMBRA"
             },
             {
-                "name": "Cruz de Piedra"
+                "name": "CRUZ DE PIEDRA"
             },
             {
-                "name": "Cuchilla Cambota"
+                "name": "CUCHILLA CAMBOTA"
             },
             {
-                "name": "Cuchilla de Melo"
+                "name": "CUCHILLA DE MELO"
             },
             {
-                "name": "Cuchilla del Carmen"
+                "name": "CUCHILLA DEL CARMEN"
             },
             {
-                "name": "Cuchilla Peralta"
+                "name": "CUCHILLA PERALTA"
             },
             {
-                "name": "Duraznero"
+                "name": "DURAZNERO"
             },
             {
-                "name": "Escuela de Agronomía"
+                "name": "ESCUELA DE AGRONOMÍA"
             },
             {
-                "name": "Esperanza"
+                "name": "ESPERANZA"
             },
             {
-                "name": "Ganen"
+                "name": "GANEN"
             },
             {
-                "name": "Garao"
+                "name": "GARAO"
             },
             {
-                "name": "Getulio Vargas"
+                "name": "GETULIO VARGAS"
             },
             {
-                "name": "Guazunambí"
+                "name": "GUAZUNAMBÍ"
             },
             {
-                "name": "La Coronilla"
+                "name": "LA CORONILLA"
             },
             {
-                "name": "La Gloria"
+                "name": "LA GLORIA"
             },
             {
-                "name": "La Micaela"
+                "name": "LA MICAELA"
             },
             {
-                "name": "La Pedrera"
+                "name": "LA PEDRERA"
             },
             {
-                "name": "Lago Merín"
+                "name": "LAGO MERÍN"
             },
             {
-                "name": "Laguna del Junco"
+                "name": "LAGUNA DEL JUNCO"
             },
             {
-                "name": "Las Limas"
+                "name": "LAS LIMAS"
             },
             {
-                "name": "Mangrullo"
+                "name": "MANGRULLO"
             },
             {
-                "name": "María Isabel"
+                "name": "MARÍA ISABEL"
             },
             {
-                "name": "Mederos"
+                "name": "MEDEROS"
             },
             {
-                "name": "Montecito"
+                "name": "MONTECITO"
             },
             {
-                "name": "Nando"
+                "name": "NANDO"
             },
             {
-                "name": "Paso de Almada"
+                "name": "PASO DE ALMADA"
             },
             {
-                "name": "Paso de las Tropas"
+                "name": "PASO DE LAS TROPAS"
             },
             {
-                "name": "Paso del Centurión"
+                "name": "PASO DEL CENTURIÓN"
             },
             {
-                "name": "Paso de Melo"
+                "name": "PASO DE MELO"
             },
             {
-                "name": "Picada de Salomé"
+                "name": "PICADA DE SALOMÉ"
             },
             {
-                "name": "Piedra Alta"
+                "name": "PIEDRA ALTA"
             },
             {
-                "name": "Piñeiro"
+                "name": "PIÑEIRO"
             },
             {
-                "name": "Puente del Chuy"
+                "name": "PUENTE DEL CHUY"
             },
             {
-                "name": "Puntas de Tacuarí"
+                "name": "PUNTAS DE TACUARÍ"
             },
             {
-                "name": "Quebracho"
+                "name": "QUEBRACHO"
             },
             {
-                "name": "Raab Arrocera"
+                "name": "RAAB ARROCERA"
             },
             {
-                "name": "Ramón Trigo"
+                "name": "RAMÓN TRIGO"
             },
             {
-                "name": "Rincón de Paiva"
+                "name": "RINCÓN DE PAIVA"
             },
             {
-                "name": "Rincón de Contreras"
+                "name": "RINCÓN DE CONTRERAS"
             },
             {
-                "name": "Rincón de los Coroneles"
+                "name": "RINCÓN DE LOS CORONELES"
             },
             {
-                "name": "Rincón de los Montana"
+                "name": "RINCÓN DE LOS MONTANA"
             },
             {
-                "name": "Rincón de los Olivera"
+                "name": "RINCÓN DE LOS OLIVERA"
             },
             {
-                "name": "Rincón de Py"
+                "name": "RINCÓN DE PY"
             },
             {
-                "name": "Rodríguez"
+                "name": "RODRÍGUEZ"
             },
             {
-                "name": "San Diego"
+                "name": "SAN DIEGO"
             },
             {
-                "name": "San Servando"
+                "name": "SAN SERVANDO"
             },
             {
-                "name": "Sanchez"
+                "name": "SANCHEZ"
             },
             {
-                "name": "Sarandí de Aceguá"
+                "name": "SARANDÍ DE ACEGUÁ"
             },
             {
-                "name": "Sosa"
+                "name": "SOSA"
             },
             {
-                "name": "Soto Goro"
+                "name": "SOTO GORO"
             },
             {
-                "name": "Tres Boliches"
+                "name": "TRES BOLICHES"
             },
             {
-                "name": "Barrio López Benítez"
+                "name": "BARRIO LÓPEZ BENÍTEZ"
             },
             {
-                "name": "Puntas de Minas"
+                "name": "PUNTAS DE MINAS"
             },
             {
-                "name": "Arrozal Casarone"
+                "name": "ARROZAL CASARONE"
             },
             {
-                "name": "Pajaro Azul"
+                "name": "PAJARO AZUL"
             },
             {
-                "name": "Barrio La Vinchuca"
+                "name": "BARRIO LA VINCHUCA"
             },
             {
-                "name": "Arachania"
+                "name": "ARACHANIA"
             },
             {
-                "name": "Ñangapire"
+                "name": "ÑANGAPIRE"
             }
         ]
     },
@@ -919,322 +919,322 @@ const departments = [
         "name": "COLONIA",
         "cities": [
             {
-                "name": "Colonia del Sacramento"
+                "name": "COLONIA DEL SACRAMENTO"
             },
             {
-                "name": "Carmelo"
+                "name": "CARMELO"
             },
             {
-                "name": "Juan Lacaze"
+                "name": "JUAN LACAZE"
             },
             {
-                "name": "Nueva Helvecia"
+                "name": "NUEVA HELVECIA"
             },
             {
-                "name": "Rosario"
+                "name": "ROSARIO"
             },
             {
-                "name": "Nueva Palmira"
+                "name": "NUEVA PALMIRA"
             },
             {
-                "name": "Paso Antolín"
+                "name": "PASO ANTOLÍN"
             },
             {
-                "name": "Ombúes de Lavalle"
+                "name": "OMBÚES DE LAVALLE"
             },
             {
-                "name": "Tarariras"
+                "name": "TARARIRAS"
             },
             {
-                "name": "Colonia Valdense"
+                "name": "COLONIA VALDENSE"
             },
             {
-                "name": "Florencio Sánchez"
+                "name": "FLORENCIO SÁNCHEZ"
             },
             {
-                "name": "Conchillas"
+                "name": "CONCHILLAS"
             },
             {
-                "name": "Caserío El Cerro"
+                "name": "CASERÍO EL CERRO"
             },
             {
-                "name": "El General"
+                "name": "EL GENERAL"
             },
             {
-                "name": "La Paz"
+                "name": "LA PAZ"
             },
             {
-                "name": "Riachuelo"
+                "name": "RIACHUELO"
             },
             {
-                "name": "Juan Carlos Caseros"
+                "name": "JUAN CARLOS CASEROS"
             },
             {
-                "name": "Ismael Cortinas"
+                "name": "ISMAEL CORTINAS"
             },
             {
-                "name": "Agraciada"
+                "name": "AGRACIADA"
             },
             {
-                "name": "Boca del Rosario"
+                "name": "BOCA DEL ROSARIO"
             },
             {
-                "name": "Buena Hora"
+                "name": "BUENA HORA"
             },
             {
-                "name": "Colonia Estrella"
+                "name": "COLONIA ESTRELLA"
             },
             {
-                "name": "Cufré"
+                "name": "CUFRÉ"
             },
             {
-                "name": "El Caño"
+                "name": "EL CAÑO"
             },
             {
-                "name": "El Semillero"
+                "name": "EL SEMILLERO"
             },
             {
-                "name": "Estación Estanzuela"
+                "name": "ESTACIÓN ESTANZUELA"
             },
             {
-                "name": "Juan González R 21Km 243 a 246"
+                "name": "JUAN GONZÁLEZ R 21KM 243 A 246"
             },
             {
-                "name": "Cerros de San Juan"
+                "name": "CERROS DE SAN JUAN"
             },
             {
-                "name": "Martín Chico"
+                "name": "MARTÍN CHICO"
             },
             {
-                "name": "Miguelete"
+                "name": "MIGUELETE"
             },
             {
-                "name": "Pastoreo"
+                "name": "PASTOREO"
             },
             {
-                "name": "Piedra de los Indios"
+                "name": "PIEDRA DE LOS INDIOS"
             },
             {
-                "name": "San Juan"
+                "name": "SAN JUAN"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Anchorena"
+                "name": "ANCHORENA"
             },
             {
-                "name": "Campana"
+                "name": "CAMPANA"
             },
             {
-                "name": "Artilleros"
+                "name": "ARTILLEROS"
             },
             {
-                "name": "Barker"
+                "name": "BARKER"
             },
             {
-                "name": "Barrancas Coloradas"
+                "name": "BARRANCAS COLORADAS"
             },
             {
-                "name": "El Ensueño"
+                "name": "EL ENSUEÑO"
             },
             {
-                "name": "Barrio Hipódromo"
+                "name": "BARRIO HIPÓDROMO"
             },
             {
-                "name": "Belgrano Norte"
+                "name": "BELGRANO NORTE"
             },
             {
-                "name": "Belgrano Sur"
+                "name": "BELGRANO SUR"
             },
             {
-                "name": "Blanca Arena"
+                "name": "BLANCA ARENA"
             },
             {
-                "name": "Brisas del Plata"
+                "name": "BRISAS DEL PLATA"
             },
             {
-                "name": "Canteras del Riachuelo"
+                "name": "CANTERAS DEL RIACHUELO"
             },
             {
-                "name": "Cerro de las Armas"
+                "name": "CERRO DE LAS ARMAS"
             },
             {
-                "name": "Cerros Negros"
+                "name": "CERROS NEGROS"
             },
             {
-                "name": "Colonia Arrue"
+                "name": "COLONIA ARRUE"
             },
             {
-                "name": "Colonia Cosmopolita"
+                "name": "COLONIA COSMOPOLITA"
             },
             {
-                "name": "Colonia Sarandí"
+                "name": "COLONIA SARANDÍ"
             },
             {
-                "name": "Paraje Minuano"
+                "name": "PARAJE MINUANO"
             },
             {
-                "name": "Costa de Colla al Este"
+                "name": "COSTA DE COLLA AL ESTE"
             },
             {
-                "name": "Costa de Colla al Norte"
+                "name": "COSTA DE COLLA AL NORTE"
             },
             {
-                "name": "Costa de Navarro"
+                "name": "COSTA DE NAVARRO"
             },
             {
-                "name": "El Bañado"
+                "name": "EL BAÑADO"
             },
             {
-                "name": "El Cuadro"
+                "name": "EL CUADRO"
             },
             {
-                "name": "Juan González"
+                "name": "JUAN GONZÁLEZ"
             },
             {
-                "name": "La Laguna"
+                "name": "LA LAGUNA"
             },
             {
-                "name": "Lagunita"
+                "name": "LAGUNITA"
             },
             {
-                "name": "Lomas de Carmelo"
+                "name": "LOMAS DE CARMELO"
             },
             {
-                "name": "Las Flores"
+                "name": "LAS FLORES"
             },
             {
-                "name": "Los Pinos"
+                "name": "LOS PINOS"
             },
             {
-                "name": "Miguelete de Conchillas"
+                "name": "MIGUELETE DE CONCHILLAS"
             },
             {
-                "name": "Minas de Talco de Narancio"
+                "name": "MINAS DE TALCO DE NARANCIO"
             },
             {
-                "name": "Molles de Miguelete"
+                "name": "MOLLES DE MIGUELETE"
             },
             {
-                "name": "Chico Torino"
+                "name": "CHICO TORINO"
             },
             {
-                "name": "La Horqueta"
+                "name": "LA HORQUETA"
             },
             {
-                "name": "Paso Hospital"
+                "name": "PASO HOSPITAL"
             },
             {
-                "name": "Paso Quicho"
+                "name": "PASO QUICHO"
             },
             {
-                "name": "Playa Azul"
+                "name": "PLAYA AZUL"
             },
             {
-                "name": "Playa Britópolis"
+                "name": "PLAYA BRITÓPOLIS"
             },
             {
-                "name": "Playa Parant"
+                "name": "PLAYA PARANT"
             },
             {
-                "name": "Playa Fomento"
+                "name": "PLAYA FOMENTO"
             },
             {
-                "name": "Polanco"
+                "name": "POLANCO"
             },
             {
-                "name": "Puerto Inglés"
+                "name": "PUERTO INGLÉS"
             },
             {
-                "name": "Puerto Rosario"
+                "name": "PUERTO ROSARIO"
             },
             {
-                "name": "Punta de Arenales"
+                "name": "PUNTA DE ARENALES"
             },
             {
-                "name": "Puntas de Juan González"
+                "name": "PUNTAS DE JUAN GONZÁLEZ"
             },
             {
-                "name": "Puntas del Rosario (Zunin)"
+                "name": "PUNTAS DEL ROSARIO (ZUNIN)"
             },
             {
-                "name": "Radial Hernández"
+                "name": "RADIAL HERNÁNDEZ"
             },
             {
-                "name": "Radial Rosario"
+                "name": "RADIAL ROSARIO"
             },
             {
-                "name": "Resguardo Cufré"
+                "name": "RESGUARDO CUFRÉ"
             },
             {
-                "name": "Rosario y Colla"
+                "name": "ROSARIO Y COLLA"
             },
             {
-                "name": "Ruta 21 km 202"
+                "name": "RUTA 21 KM 202"
             },
             {
-                "name": "San Luis"
+                "name": "SAN LUIS"
             },
             {
-                "name": "San Luis Sánchez"
+                "name": "SAN LUIS SÁNCHEZ"
             },
             {
-                "name": "San Pedro"
+                "name": "SAN PEDRO"
             },
             {
-                "name": "San Roque"
+                "name": "SAN ROQUE"
             },
             {
-                "name": "Santa Ana"
+                "name": "SANTA ANA"
             },
             {
-                "name": "Santa Regina"
+                "name": "SANTA REGINA"
             },
             {
-                "name": "Santa Rosa"
+                "name": "SANTA ROSA"
             },
             {
-                "name": "Sarandí Campana"
+                "name": "SARANDÍ CAMPANA"
             },
             {
-                "name": "Terminal - Artilleros"
+                "name": "TERMINAL - ARTILLEROS"
             },
             {
-                "name": "Tres Esquinas"
+                "name": "TRES ESQUINAS"
             },
             {
-                "name": "Víboras"
+                "name": "VÍBORAS"
             },
             {
-                "name": "Víboras Oeste"
+                "name": "VÍBORAS OESTE"
             },
             {
-                "name": "Zagarzazú"
+                "name": "ZAGARZAZÚ"
             },
             {
-                "name": "Arrivillaga"
+                "name": "ARRIVILLAGA"
             },
             {
-                "name": "Palo Solo"
+                "name": "PALO SOLO"
             },
             {
-                "name": "El Faro"
+                "name": "EL FARO"
             },
             {
-                "name": "Laguna de los Patos"
+                "name": "LAGUNA DE LOS PATOS"
             },
             {
-                "name": "Juan Jackson"
+                "name": "JUAN JACKSON"
             },
             {
-                "name": "Pueblo Gil"
+                "name": "PUEBLO GIL"
             },
             {
-                "name": "Cerro Carmelo"
+                "name": "CERRO CARMELO"
             },
             {
-                "name": "El Quintón"
+                "name": "EL QUINTÓN"
             }
         ]
     },
@@ -1242,181 +1242,181 @@ const departments = [
         "name": "DURAZNO",
         "cities": [
             {
-                "name": "Durazno"
+                "name": "DURAZNO"
             },
             {
-                "name": "Sarandí del Yí"
+                "name": "SARANDÍ DEL YÍ"
             },
             {
-                "name": "Carmen"
+                "name": "CARMEN"
             },
             {
-                "name": "Blanquillo"
+                "name": "BLANQUILLO"
             },
             {
-                "name": "La Paloma"
+                "name": "LA PALOMA"
             },
             {
-                "name": "Carlos Reyles"
+                "name": "CARLOS REYLES"
             },
             {
-                "name": "Centenario"
+                "name": "CENTENARIO"
             },
             {
-                "name": "Santa Bernardina"
+                "name": "SANTA BERNARDINA"
             },
             {
-                "name": "Cerro Chato"
+                "name": "CERRO CHATO"
             },
             {
-                "name": "Baygorria"
+                "name": "BAYGORRIA"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Abella"
+                "name": "ABELLA"
             },
             {
-                "name": "Aguas Buenas"
+                "name": "AGUAS BUENAS"
             },
             {
-                "name": "Chileno"
+                "name": "CHILENO"
             },
             {
-                "name": "Pueblo de Álvarez"
+                "name": "PUEBLO DE ÁLVAREZ"
             },
             {
-                "name": "Barrancas Coloradas"
+                "name": "BARRANCAS COLORADAS"
             },
             {
-                "name": "Batoví"
+                "name": "BATOVÍ"
             },
             {
-                "name": "Bellaco"
+                "name": "BELLACO"
             },
             {
-                "name": "Blanquillo al Oeste"
+                "name": "BLANQUILLO AL OESTE"
             },
             {
-                "name": "Capilla Farruco"
+                "name": "CAPILLA FARRUCO"
             },
             {
-                "name": "Carpintería"
+                "name": "CARPINTERÍA"
             },
             {
-                "name": "Ceibal"
+                "name": "CEIBAL"
             },
             {
-                "name": "Cerrezuelo"
+                "name": "CERREZUELO"
             },
             {
-                "name": "Cerro Convento"
+                "name": "CERRO CONVENTO"
             },
             {
-                "name": "Costa de Cuadra"
+                "name": "COSTA DE CUADRA"
             },
             {
-                "name": "Cuchilla de Ramírez"
+                "name": "CUCHILLA DE RAMÍREZ"
             },
             {
-                "name": "De Dios"
+                "name": "DE DIOS"
             },
             {
-                "name": "El Pescado"
+                "name": "EL PESCADO"
             },
             {
-                "name": "Estación Chileno"
+                "name": "ESTACIÓN CHILENO"
             },
             {
-                "name": "Estación Parish"
+                "name": "ESTACIÓN PARISH"
             },
             {
-                "name": "Feliciano"
+                "name": "FELICIANO"
             },
             {
-                "name": "Fonseca"
+                "name": "FONSECA"
             },
             {
-                "name": "La Alegría"
+                "name": "LA ALEGRÍA"
             },
             {
-                "name": "La Mazamorra"
+                "name": "LA MAZAMORRA"
             },
             {
-                "name": "Los Agregados"
+                "name": "LOS AGREGADOS"
             },
             {
-                "name": "Los Agüero"
+                "name": "LOS AGÜERO"
             },
             {
-                "name": "Las Cañas"
+                "name": "LAS CAÑAS"
             },
             {
-                "name": "Los Rojas"
+                "name": "LOS ROJAS"
             },
             {
-                "name": "Malbajar"
+                "name": "MALBAJAR"
             },
             {
-                "name": "María Cejas"
+                "name": "MARÍA CEJAS"
             },
             {
-                "name": "Mouriño"
+                "name": "MOURIÑO"
             },
             {
-                "name": "Ombúes de Oribe"
+                "name": "OMBÚES DE ORIBE"
             },
             {
-                "name": "Parada Sur Km 265"
+                "name": "PARADA SUR KM 265"
             },
             {
-                "name": "Paso del Medio Las Palmas"
+                "name": "PASO DEL MEDIO LAS PALMAS"
             },
             {
-                "name": "Puglia"
+                "name": "PUGLIA"
             },
             {
-                "name": "Punta de las Flores"
+                "name": "PUNTA DE LAS FLORES"
             },
             {
-                "name": "Puntas de Herrera"
+                "name": "PUNTAS DE HERRERA"
             },
             {
-                "name": "Reynolds"
+                "name": "REYNOLDS"
             },
             {
-                "name": "Rojas"
+                "name": "ROJAS"
             },
             {
-                "name": "Rolón"
+                "name": "ROLÓN"
             },
             {
-                "name": "Rossell y Rius"
+                "name": "ROSSELL Y RIUS"
             },
             {
-                "name": "Ruta 5 Km 172"
+                "name": "RUTA 5 KM 172"
             },
             {
-                "name": "Salinas"
+                "name": "SALINAS"
             },
             {
-                "name": "Salinas Chico"
+                "name": "SALINAS CHICO"
             },
             {
-                "name": "San Jorge"
+                "name": "SAN JORGE"
             },
             {
-                "name": "San José de las Cañas"
+                "name": "SAN JOSÉ DE LAS CAÑAS"
             },
             {
-                "name": "Sandú Chico"
+                "name": "SANDÚ CHICO"
             },
             {
-                "name": "Sarandí del Río Negro"
+                "name": "SARANDÍ DEL RÍO NEGRO"
             },
             {
-                "name": "Las Palmas"
+                "name": "LAS PALMAS"
             }
         ]
     },
@@ -1424,67 +1424,67 @@ const departments = [
         "name": "FLORES",
         "cities": [
             {
-                "name": "Trinidad"
+                "name": "TRINIDAD"
             },
             {
-                "name": "Ismael Cortinas"
+                "name": "ISMAEL CORTINAS"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Andresito"
+                "name": "ANDRESITO"
             },
             {
-                "name": "Arenal Chico"
+                "name": "ARENAL CHICO"
             },
             {
-                "name": "Colonia Alemana"
+                "name": "COLONIA ALEMANA"
             },
             {
-                "name": "El Totoral"
+                "name": "EL TOTORAL"
             },
             {
-                "name": "Juan José Castro"
+                "name": "JUAN JOSÉ CASTRO"
             },
             {
-                "name": "Pueblito Piedra"
+                "name": "PUEBLITO PIEDRA"
             },
             {
-                "name": "Pueblo Pintos"
+                "name": "PUEBLO PINTOS"
             },
             {
-                "name": "Puntas de Chamanga"
+                "name": "PUNTAS DE CHAMANGA"
             },
             {
-                "name": "Puntas de Corral de Piedra"
+                "name": "PUNTAS DE CORRAL DE PIEDRA"
             },
             {
-                "name": "Puntas de Marincho"
+                "name": "PUNTAS DE MARINCHO"
             },
             {
-                "name": "Puntas de Sarandí"
+                "name": "PUNTAS DE SARANDÍ"
             },
             {
-                "name": "Puntas del Sauce"
+                "name": "PUNTAS DEL SAUCE"
             },
             {
-                "name": "San Gregorio"
+                "name": "SAN GREGORIO"
             },
             {
-                "name": "Santa Adelaida"
+                "name": "SANTA ADELAIDA"
             },
             {
-                "name": "Santa Elena"
+                "name": "SANTA ELENA"
             },
             {
-                "name": "Talas de Maciel"
+                "name": "TALAS DE MACIEL"
             },
             {
-                "name": "La Casilla"
+                "name": "LA CASILLA"
             },
             {
-                "name": "Cerro Colorado"
+                "name": "CERRO COLORADO"
             }
         ]
     },
@@ -1492,160 +1492,160 @@ const departments = [
         "name": "FLORIDA",
         "cities": [
             {
-                "name": "Florida"
+                "name": "FLORIDA"
             },
             {
-                "name": "Sarandí Grande"
+                "name": "SARANDÍ GRANDE"
             },
             {
-                "name": "Casupá"
+                "name": "CASUPÁ"
             },
             {
-                "name": "Cardal"
+                "name": "CARDAL"
             },
             {
-                "name": "Fray Marcos"
+                "name": "FRAY MARCOS"
             },
             {
-                "name": "Veinticinco de Agosto"
+                "name": "VEINTICINCO DE AGOSTO"
             },
             {
-                "name": "Veinticinco de Mayo"
+                "name": "VEINTICINCO DE MAYO"
             },
             {
-                "name": "Alejandro Gallinal"
+                "name": "ALEJANDRO GALLINAL"
             },
             {
-                "name": "Capilla del Sauce"
+                "name": "CAPILLA DEL SAUCE"
             },
             {
-                "name": "La Cruz"
+                "name": "LA CRUZ"
             },
             {
-                "name": "Nico Pérez"
+                "name": "NICO PÉREZ"
             },
             {
-                "name": "Cerro Chato"
+                "name": "CERRO CHATO"
             },
             {
-                "name": "Chamizo"
+                "name": "CHAMIZO"
             },
             {
-                "name": "Goñi"
+                "name": "GOÑI"
             },
             {
-                "name": "Mendoza"
+                "name": "MENDOZA"
             },
             {
-                "name": "Mendoza Chico"
+                "name": "MENDOZA CHICO"
             },
             {
-                "name": "Reboledo"
+                "name": "REBOLEDO"
             },
             {
-                "name": "Valentines"
+                "name": "VALENTINES"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Arrayán"
+                "name": "ARRAYÁN"
             },
             {
-                "name": "Berrondo"
+                "name": "BERRONDO"
             },
             {
-                "name": "Chamizo Chico"
+                "name": "CHAMIZO CHICO"
             },
             {
-                "name": "Chingolas"
+                "name": "CHINGOLAS"
             },
             {
-                "name": "Colonia Sánchez"
+                "name": "COLONIA SÁNCHEZ"
             },
             {
-                "name": "Costa de Chamizo Grande"
+                "name": "COSTA DE CHAMIZO GRANDE"
             },
             {
-                "name": "Estación Palermo"
+                "name": "ESTACIÓN PALERMO"
             },
             {
-                "name": "Estación Urioste"
+                "name": "ESTACIÓN URIOSTE"
             },
             {
-                "name": "Pueblo Ferrer"
+                "name": "PUEBLO FERRER"
             },
             {
-                "name": "Frigorífico Modelo"
+                "name": "FRIGORÍFICO MODELO"
             },
             {
-                "name": "Independencia"
+                "name": "INDEPENDENCIA"
             },
             {
-                "name": "Juncal"
+                "name": "JUNCAL"
             },
             {
-                "name": "Las Chilcas"
+                "name": "LAS CHILCAS"
             },
             {
-                "name": "Mansavillagra"
+                "name": "MANSAVILLAGRA"
             },
             {
-                "name": "Molles del Pescado"
+                "name": "MOLLES DEL PESCADO"
             },
             {
-                "name": "Montecoral"
+                "name": "MONTECORAL"
             },
             {
-                "name": "Paso de los Novillos"
+                "name": "PASO DE LOS NOVILLOS"
             },
             {
-                "name": "Pintado"
+                "name": "PINTADO"
             },
             {
-                "name": "Polanco del Yí"
+                "name": "POLANCO DEL YÍ"
             },
             {
-                "name": "Pueblito de las Rosas"
+                "name": "PUEBLITO DE LAS ROSAS"
             },
             {
-                "name": "Pueblo de los Morochos"
+                "name": "PUEBLO DE LOS MOROCHOS"
             },
             {
-                "name": "Puntas de Maciel"
+                "name": "PUNTAS DE MACIEL"
             },
             {
-                "name": "Puntas de Mansavillagra"
+                "name": "PUNTAS DE MANSAVILLAGRA"
             },
             {
-                "name": "Puntas de Sarandí"
+                "name": "PUNTAS DE SARANDÍ"
             },
             {
-                "name": "San Pedro del Timote"
+                "name": "SAN PEDRO DEL TIMOTE"
             },
             {
-                "name": "Talita"
+                "name": "TALITA"
             },
             {
-                "name": "Villa Hípica"
+                "name": "VILLA HÍPICA"
             },
             {
-                "name": "Villa Vieja"
+                "name": "VILLA VIEJA"
             },
             {
-                "name": "Illescas"
+                "name": "ILLESCAS"
             },
             {
-                "name": "Caserío La Fundación"
+                "name": "CASERÍO LA FUNDACIÓN"
             },
             {
-                "name": "La Macana"
+                "name": "LA MACANA"
             },
             {
-                "name": "Estación Capilla del Sauce"
+                "name": "ESTACIÓN CAPILLA DEL SAUCE"
             },
             {
-                "name": "San Gabriel"
+                "name": "SAN GABRIEL"
             }
         ]
     },
@@ -1653,157 +1653,157 @@ const departments = [
         "name": "LAVALLEJA",
         "cities": [
             {
-                "name": "Minas"
+                "name": "MINAS"
             },
             {
-                "name": "José Batlle y Ordóñez"
+                "name": "JOSÉ BATLLE Y ORDÓÑEZ"
             },
             {
-                "name": "José Pedro Varela"
+                "name": "JOSÉ PEDRO VARELA"
             },
             {
-                "name": "Mariscala"
+                "name": "MARISCALA"
             },
             {
-                "name": "Solís de Mataojo"
+                "name": "SOLÍS DE MATAOJO"
             },
             {
-                "name": "Pirarajá"
+                "name": "PIRARAJÁ"
             },
             {
-                "name": "Zapicán"
+                "name": "ZAPICÁN"
             },
             {
-                "name": "Colón"
+                "name": "COLÓN"
             },
             {
-                "name": "Costas del Soldado"
+                "name": "COSTAS DEL SOLDADO"
             },
             {
-                "name": "Poblado Aramendía"
+                "name": "POBLADO ARAMENDÍA"
             },
             {
-                "name": "Ruta 40 Km 27,5"
+                "name": "RUTA 40 KM 27,5"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Aguas Blancas"
+                "name": "AGUAS BLANCAS"
             },
             {
-                "name": "Alonso"
+                "name": "ALONSO"
             },
             {
-                "name": "Andreoni"
+                "name": "ANDREONI"
             },
             {
-                "name": "Blanes Viale"
+                "name": "BLANES VIALE"
             },
             {
-                "name": "Carnales"
+                "name": "CARNALES"
             },
             {
-                "name": "Cerro Pelado"
+                "name": "CERRO PELADO"
             },
             {
-                "name": "Costas del Lenguazo"
+                "name": "COSTAS DEL LENGUAZO"
             },
             {
-                "name": "19 de Junio"
+                "name": "19 DE JUNIO"
             },
             {
-                "name": "El Soldado"
+                "name": "EL SOLDADO"
             },
             {
-                "name": "Estación Ortiz"
+                "name": "ESTACIÓN ORTIZ"
             },
             {
-                "name": "Estación Solís"
+                "name": "ESTACIÓN SOLÍS"
             },
             {
-                "name": "Gaetán"
+                "name": "GAETÁN"
             },
             {
-                "name": "Godoy"
+                "name": "GODOY"
             },
             {
-                "name": "Higueritas"
+                "name": "HIGUERITAS"
             },
             {
-                "name": "La Plata"
+                "name": "LA PLATA"
             },
             {
-                "name": "Ladrillos"
+                "name": "LADRILLOS"
             },
             {
-                "name": "Las Achiras"
+                "name": "LAS ACHIRAS"
             },
             {
-                "name": "Marco de los Reyes"
+                "name": "MARCO DE LOS REYES"
             },
             {
-                "name": "Marmarajá"
+                "name": "MARMARAJÁ"
             },
             {
-                "name": "Molles de Gutiérrez"
+                "name": "MOLLES DE GUTIÉRREZ"
             },
             {
-                "name": "Poblado Larrosa"
+                "name": "POBLADO LARROSA"
             },
             {
-                "name": "Polanco Norte"
+                "name": "POLANCO NORTE"
             },
             {
-                "name": "Polanco Sur"
+                "name": "POLANCO SUR"
             },
             {
-                "name": "Puntas de Barriga Negra"
+                "name": "PUNTAS DE BARRIGA NEGRA"
             },
             {
-                "name": "Puntas de Santa Lucía"
+                "name": "PUNTAS DE SANTA LUCÍA"
             },
             {
-                "name": "Retamosa"
+                "name": "RETAMOSA"
             },
             {
-                "name": "Rincón de Mariscala"
+                "name": "RINCÓN DE MARISCALA"
             },
             {
-                "name": "Rincón de Cebollatí"
+                "name": "RINCÓN DE CEBOLLATÍ"
             },
             {
-                "name": "Ruta 40 Km 25"
+                "name": "RUTA 40 KM 25"
             },
             {
-                "name": "Salus"
+                "name": "SALUS"
             },
             {
-                "name": "Sarandí de Gutiérrez"
+                "name": "SARANDÍ DE GUTIÉRREZ"
             },
             {
-                "name": "Tapes Chico"
+                "name": "TAPES CHICO"
             },
             {
-                "name": "Tapes Grande"
+                "name": "TAPES GRANDE"
             },
             {
-                "name": "Velázquez"
+                "name": "VELÁZQUEZ"
             },
             {
-                "name": "Villa del Rosario"
+                "name": "VILLA DEL ROSARIO"
             },
             {
-                "name": "Villa Serrana"
+                "name": "VILLA SERRANA"
             },
             {
-                "name": "Barrio La Coronilla - Ancap"
+                "name": "BARRIO LA CORONILLA - ANCAP"
             },
             {
-                "name": "San Francisco de las Sierras"
+                "name": "SAN FRANCISCO DE LAS SIERRAS"
             },
             {
-                "name": "Illescas"
+                "name": "ILLESCAS"
             }
         ]
     },
@@ -1811,238 +1811,238 @@ const departments = [
         "name": "MALDONADO",
         "cities": [
             {
-                "name": "Maldonado"
+                "name": "MALDONADO"
             },
             {
-                "name": "San Carlos"
+                "name": "SAN CARLOS"
             },
             {
-                "name": "Aiguá"
+                "name": "AIGUÁ"
             },
             {
-                "name": "Pan de Azúcar"
+                "name": "PAN DE AZÚCAR"
             },
             {
-                "name": "Piriápolis"
+                "name": "PIRIÁPOLIS"
             },
             {
-                "name": "Punta del Este"
+                "name": "PUNTA DEL ESTE"
             },
             {
-                "name": "Cerro Pelado"
+                "name": "CERRO PELADO"
             },
             {
-                "name": "Garzón"
+                "name": "GARZÓN"
             },
             {
-                "name": "Gerona"
+                "name": "GERONA"
             },
             {
-                "name": "La Sierra"
+                "name": "LA SIERRA"
             },
             {
-                "name": "Las Flores - Estación"
+                "name": "LAS FLORES - ESTACIÓN"
             },
             {
-                "name": "Los Talas"
+                "name": "LOS TALAS"
             },
             {
-                "name": "Nueva Carrara"
+                "name": "NUEVA CARRARA"
             },
             {
-                "name": "Solís"
+                "name": "SOLÍS"
             },
             {
-                "name": "Pueblo Solís"
+                "name": "PUEBLO SOLÍS"
             },
             {
-                "name": "Pinares - Las Delicias"
+                "name": "PINARES - LAS DELICIAS"
             },
             {
-                "name": "Chihuahua"
+                "name": "CHIHUAHUA"
             },
             {
-                "name": "Villa Delia"
+                "name": "VILLA DELIA"
             },
             {
-                "name": "San Rafael - El Placer"
+                "name": "SAN RAFAEL - EL PLACER"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Islas"
+                "name": "ISLAS"
             },
             {
-                "name": "Abra de Castellanos"
+                "name": "ABRA DE CASTELLANOS"
             },
             {
-                "name": "Abra de Perdomo"
+                "name": "ABRA DE PERDOMO"
             },
             {
-                "name": "Barra del Sauce"
+                "name": "BARRA DEL SAUCE"
             },
             {
-                "name": "Barrio Hipódromo"
+                "name": "BARRIO HIPÓDROMO"
             },
             {
-                "name": "Barrio Los Aromos"
+                "name": "BARRIO LOS AROMOS"
             },
             {
-                "name": "Bella Vista"
+                "name": "BELLA VISTA"
             },
             {
-                "name": "Buenos Aires"
+                "name": "BUENOS AIRES"
             },
             {
-                "name": "Calera Ramos"
+                "name": "CALERA RAMOS"
             },
             {
-                "name": "Canteras de Marelli"
+                "name": "CANTERAS DE MARELLI"
             },
             {
-                "name": "Carapé"
+                "name": "CARAPÉ"
             },
             {
-                "name": "Cerros Azules"
+                "name": "CERROS AZULES"
             },
             {
-                "name": "Coronilla"
+                "name": "CORONILLA"
             },
             {
-                "name": "Edén Rock"
+                "name": "EDÉN ROCK"
             },
             {
-                "name": "El Chorro"
+                "name": "EL CHORRO"
             },
             {
-                "name": "El Edén"
+                "name": "EL EDÉN"
             },
             {
-                "name": "El Tesoro"
+                "name": "EL TESORO"
             },
             {
-                "name": "Estación José Ignacio"
+                "name": "ESTACIÓN JOSÉ IGNACIO"
             },
             {
-                "name": "Faro José Ignacio"
+                "name": "FARO JOSÉ IGNACIO"
             },
             {
-                "name": "Gregorio Aznárez"
+                "name": "GREGORIO AZNÁREZ"
             },
             {
-                "name": "Guardia Vieja"
+                "name": "GUARDIA VIEJA"
             },
             {
-                "name": "La Barra"
+                "name": "LA BARRA"
             },
             {
-                "name": "La Falda"
+                "name": "LA FALDA"
             },
             {
-                "name": "La Capuera"
+                "name": "LA CAPUERA"
             },
             {
-                "name": "Las Flores"
+                "name": "LAS FLORES"
             },
             {
-                "name": "Los Ceibos"
+                "name": "LOS CEIBOS"
             },
             {
-                "name": "Manantiales"
+                "name": "MANANTIALES"
             },
             {
-                "name": "Ocean Park"
+                "name": "OCEAN PARK"
             },
             {
-                "name": "Partido Norte"
+                "name": "PARTIDO NORTE"
             },
             {
-                "name": "Partido Oeste"
+                "name": "PARTIDO OESTE"
             },
             {
-                "name": "Paso de los Talas"
+                "name": "PASO DE LOS TALAS"
             },
             {
-                "name": "Picada Tolosa"
+                "name": "PICADA TOLOSA"
             },
             {
-                "name": "Playa Grande"
+                "name": "PLAYA GRANDE"
             },
             {
-                "name": "Playa Hermosa"
+                "name": "PLAYA HERMOSA"
             },
             {
-                "name": "Playa Verde"
+                "name": "PLAYA VERDE"
             },
             {
-                "name": "Punta Ballena"
+                "name": "PUNTA BALLENA"
             },
             {
-                "name": "Punta Colorada"
+                "name": "PUNTA COLORADA"
             },
             {
-                "name": "Punta Negra"
+                "name": "PUNTA NEGRA"
             },
             {
-                "name": "Puntas de San Ignacio"
+                "name": "PUNTAS DE SAN IGNACIO"
             },
             {
-                "name": "Rincón de los Núñez"
+                "name": "RINCÓN DE LOS NÚÑEZ"
             },
             {
-                "name": "Ruta 37 y 9"
+                "name": "RUTA 37 Y 9"
             },
             {
-                "name": "Ruta 73 Km 101 a 102"
+                "name": "RUTA 73 KM 101 A 102"
             },
             {
-                "name": "Ruta 9 Km 86"
+                "name": "RUTA 9 KM 86"
             },
             {
-                "name": "Salamanca"
+                "name": "SALAMANCA"
             },
             {
-                "name": "San Juan del Este"
+                "name": "SAN JUAN DEL ESTE"
             },
             {
-                "name": "Santa Mónica"
+                "name": "SANTA MÓNICA"
             },
             {
-                "name": "Sauce de Aiguá"
+                "name": "SAUCE DE AIGUÁ"
             },
             {
-                "name": "Sauce de Portezuelo"
+                "name": "SAUCE DE PORTEZUELO"
             },
             {
-                "name": "San Vicente"
+                "name": "SAN VICENTE"
             },
             {
-                "name": "Balneario Buenos Aires"
+                "name": "BALNEARIO BUENOS AIRES"
             },
             {
-                "name": "De Lobos"
+                "name": "DE LOBOS"
             },
             {
-                "name": "Las Cumbres"
+                "name": "LAS CUMBRES"
             },
             {
-                "name": "Los Corchos"
+                "name": "LOS CORCHOS"
             },
             {
-                "name": "Parque Medina"
+                "name": "PARQUE MEDINA"
             },
             {
-                "name": "Arenas de José Ignacio"
+                "name": "ARENAS DE JOSÉ IGNACIO"
             },
             {
-                "name": "La Sonrisa"
+                "name": "LA SONRISA"
             },
             {
-                "name": "El Quijote"
+                "name": "EL QUIJOTE"
             },
             {
-                "name": "Laguna Blanca"
+                "name": "LAGUNA BLANCA"
             }
         ]
     },
@@ -2050,19 +2050,19 @@ const departments = [
         "name": "MONTEVIDEO",
         "cities": [
             {
-                "name": "Montevideo"
+                "name": "MONTEVIDEO"
             },
             {
-                "name": "Abayubá"
+                "name": "ABAYUBÁ"
             },
             {
-                "name": "Santiago Vázquez"
+                "name": "SANTIAGO VÁZQUEZ"
             },
             {
-                "name": "Pajas Blancas"
+                "name": "PAJAS BLANCAS"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             }
         ]
     },
@@ -2070,184 +2070,184 @@ const departments = [
         "name": "PAYSANDU",
         "cities": [
             {
-                "name": "Paysandú"
+                "name": "PAYSANDÚ"
             },
             {
-                "name": "Guichón"
+                "name": "GUICHÓN"
             },
             {
-                "name": "Nuevo Paysandú"
+                "name": "NUEVO PAYSANDÚ"
             },
             {
-                "name": "Quebracho"
+                "name": "QUEBRACHO"
             },
             {
-                "name": "Tambores"
+                "name": "TAMBORES"
             },
             {
-                "name": "Lorenzo Geyres"
+                "name": "LORENZO GEYRES"
             },
             {
-                "name": "Merinos"
+                "name": "MERINOS"
             },
             {
-                "name": "Porvenir"
+                "name": "PORVENIR"
             },
             {
-                "name": "Algorta"
+                "name": "ALGORTA"
             },
             {
-                "name": "Arbolito"
+                "name": "ARBOLITO"
             },
             {
-                "name": "Beisso"
+                "name": "BEISSO"
             },
             {
-                "name": "Casablanca"
+                "name": "CASABLANCA"
             },
             {
-                "name": "Cerro Chato"
+                "name": "CERRO CHATO"
             },
             {
-                "name": "Constancia"
+                "name": "CONSTANCIA"
             },
             {
-                "name": "Morató"
+                "name": "MORATÓ"
             },
             {
-                "name": "Piedras Coloradas"
+                "name": "PIEDRAS COLORADAS"
             },
             {
-                "name": "Piñera"
+                "name": "PIÑERA"
             },
             {
-                "name": "Puntas de Buricayupí"
+                "name": "PUNTAS DE BURICAYUPÍ"
             },
             {
-                "name": "San Félix"
+                "name": "SAN FÉLIX"
             },
             {
-                "name": "Villa María (Tiatucura)"
+                "name": "VILLA MARÍA (TIATUCURA)"
             },
             {
-                "name": "Piedra Sola"
+                "name": "PIEDRA SOLA"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Alonso"
+                "name": "ALONSO"
             },
             {
-                "name": "Araújo"
+                "name": "ARAÚJO"
             },
             {
-                "name": "Bella Vista"
+                "name": "BELLA VISTA"
             },
             {
-                "name": "Cañada del Pueblo"
+                "name": "CAÑADA DEL PUEBLO"
             },
             {
-                "name": "Chapicuy"
+                "name": "CHAPICUY"
             },
             {
-                "name": "Daymán"
+                "name": "DAYMÁN"
             },
             {
-                "name": "El Chaco"
+                "name": "EL CHACO"
             },
             {
-                "name": "El Eucaliptus"
+                "name": "EL EUCALIPTUS"
             },
             {
-                "name": "El Horno"
+                "name": "EL HORNO"
             },
             {
-                "name": "Esperanza"
+                "name": "ESPERANZA"
             },
             {
-                "name": "Pueblo Federación"
+                "name": "PUEBLO FEDERACIÓN"
             },
             {
-                "name": "Guayabos"
+                "name": "GUAYABOS"
             },
             {
-                "name": "La Tentación"
+                "name": "LA TENTACIÓN"
             },
             {
-                "name": "Las Flores"
+                "name": "LAS FLORES"
             },
             {
-                "name": "Orgoroso"
+                "name": "ORGOROSO"
             },
             {
-                "name": "Palmar del Quebracho"
+                "name": "PALMAR DEL QUEBRACHO"
             },
             {
-                "name": "Pandule"
+                "name": "PANDULE"
             },
             {
-                "name": "Paso de los Carros"
+                "name": "PASO DE LOS CARROS"
             },
             {
-                "name": "Queguay Chico"
+                "name": "QUEGUAY CHICO"
             },
             {
-                "name": "Ruta 90 Km 36"
+                "name": "RUTA 90 KM 36"
             },
             {
-                "name": "Sacachispas"
+                "name": "SACACHISPAS"
             },
             {
-                "name": "Sauce de Abajo"
+                "name": "SAUCE DE ABAJO"
             },
             {
-                "name": "Cuchilla de Buricayupí"
+                "name": "CUCHILLA DE BURICAYUPÍ"
             },
             {
-                "name": "Sauce del Queguay"
+                "name": "SAUCE DEL QUEGUAY"
             },
             {
-                "name": "Soto"
+                "name": "SOTO"
             },
             {
-                "name": "Tomás Paz"
+                "name": "TOMÁS PAZ"
             },
             {
-                "name": "Valdez"
+                "name": "VALDEZ"
             },
             {
-                "name": "Zeballos"
+                "name": "ZEBALLOS"
             },
             {
-                "name": "Chacras de Paysandú"
+                "name": "CHACRAS DE PAYSANDÚ"
             },
             {
-                "name": "Rivas"
+                "name": "RIVAS"
             },
             {
-                "name": "Gallinal"
+                "name": "GALLINAL"
             },
             {
-                "name": "Puntas de Arroyo Negro"
+                "name": "PUNTAS DE ARROYO NEGRO"
             },
             {
-                "name": "Estación Porvenir"
+                "name": "ESTACIÓN PORVENIR"
             },
             {
-                "name": "Cuchilla de Fuego"
+                "name": "CUCHILLA DE FUEGO"
             },
             {
-                "name": "Pueblo Alonzo"
+                "name": "PUEBLO ALONZO"
             },
             {
-                "name": "Queguayar"
+                "name": "QUEGUAYAR"
             },
             {
-                "name": "Termas de Guaviyú"
+                "name": "TERMAS DE GUAVIYÚ"
             },
             {
-                "name": "Termas de Almirón"
+                "name": "TERMAS DE ALMIRÓN"
             }
         ]
     },
@@ -2255,130 +2255,130 @@ const departments = [
         "name": "RIO NEGRO",
         "cities": [
             {
-                "name": "Fray Bentos"
+                "name": "FRAY BENTOS"
             },
             {
-                "name": "Young"
+                "name": "YOUNG"
             },
             {
-                "name": "Nuevo Berlín"
+                "name": "NUEVO BERLÍN"
             },
             {
-                "name": "San Javier"
+                "name": "SAN JAVIER"
             },
             {
-                "name": "Barrio Anglo"
+                "name": "BARRIO ANGLO"
             },
             {
-                "name": "Grecco"
+                "name": "GRECCO"
             },
             {
-                "name": "Merinos"
+                "name": "MERINOS"
             },
             {
-                "name": "Algorta"
+                "name": "ALGORTA"
             },
             {
-                "name": "El Ombú"
+                "name": "EL OMBÚ"
             },
             {
-                "name": "Los Ranchos"
+                "name": "LOS RANCHOS"
             },
             {
-                "name": "Paso de los Mellizos"
+                "name": "PASO DE LOS MELLIZOS"
             },
             {
-                "name": "Sarandí de Navarro"
+                "name": "SARANDÍ DE NAVARRO"
             },
             {
-                "name": "Sauce"
+                "name": "SAUCE"
             },
             {
-                "name": "Villa General Borges"
+                "name": "VILLA GENERAL BORGES"
             },
             {
-                "name": "Villa María"
+                "name": "VILLA MARÍA"
             },
             {
-                "name": "Las Cañas"
+                "name": "LAS CAÑAS"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Islas"
+                "name": "ISLAS"
             },
             {
-                "name": "Abrigo"
+                "name": "ABRIGO"
             },
             {
-                "name": "Bellaco"
+                "name": "BELLACO"
             },
             {
-                "name": "Islas de Arguello"
+                "name": "ISLAS DE ARGUELLO"
             },
             {
-                "name": "La Arena"
+                "name": "LA ARENA"
             },
             {
-                "name": "la Florida"
+                "name": "LA FLORIDA"
             },
             {
-                "name": "La Ilera"
+                "name": "LA ILERA"
             },
             {
-                "name": "La Unión"
+                "name": "LA UNIÓN"
             },
             {
-                "name": "Liebigs"
+                "name": "LIEBIGS"
             },
             {
-                "name": "Los Arrayanes"
+                "name": "LOS ARRAYANES"
             },
             {
-                "name": "Mataojo"
+                "name": "MATAOJO"
             },
             {
-                "name": "Menafra"
+                "name": "MENAFRA"
             },
             {
-                "name": "Palmar Grande"
+                "name": "PALMAR GRANDE"
             },
             {
-                "name": "Paso Arroyo Don Esteban"
+                "name": "PASO ARROYO DON ESTEBAN"
             },
             {
-                "name": "Paso de los Cobres"
+                "name": "PASO DE LOS COBRES"
             },
             {
-                "name": "Paso de Soca"
+                "name": "PASO DE SOCA"
             },
             {
-                "name": "Rolón"
+                "name": "ROLÓN"
             },
             {
-                "name": "Sánchez Chico"
+                "name": "SÁNCHEZ CHICO"
             },
             {
-                "name": "Sánchez"
+                "name": "SÁNCHEZ"
             },
             {
-                "name": "Santa Elisa"
+                "name": "SANTA ELISA"
             },
             {
-                "name": "Santa Rosa"
+                "name": "SANTA ROSA"
             },
             {
-                "name": "Sarandí Chico"
+                "name": "SARANDÍ CHICO"
             },
             {
-                "name": "Tres Bocas"
+                "name": "TRES BOCAS"
             },
             {
-                "name": "Uleste"
+                "name": "ULESTE"
             },
             {
-                "name": "Tres Quintas"
+                "name": "TRES QUINTAS"
             }
         ]
     },
@@ -2386,208 +2386,208 @@ const departments = [
         "name": "RIVERA",
         "cities": [
             {
-                "name": "Rivera"
+                "name": "RIVERA"
             },
             {
-                "name": "Minas de Corrales"
+                "name": "MINAS DE CORRALES"
             },
             {
-                "name": "Tranqueras"
+                "name": "TRANQUERAS"
             },
             {
-                "name": "Vichadero"
+                "name": "VICHADERO"
             },
             {
-                "name": "Santa Teresa"
+                "name": "SANTA TERESA"
             },
             {
-                "name": "Abrojal"
+                "name": "ABROJAL"
             },
             {
-                "name": "Arroyo Blanco"
+                "name": "ARROYO BLANCO"
             },
             {
-                "name": "Paso Ataques"
+                "name": "PASO ATAQUES"
             },
             {
-                "name": "Cerro Pelado"
+                "name": "CERRO PELADO"
             },
             {
-                "name": "Cerro Caqueiro"
+                "name": "CERRO CAQUEIRO"
             },
             {
-                "name": "Chilca de Caraguatá"
+                "name": "CHILCA DE CARAGUATÁ"
             },
             {
-                "name": "Cortume"
+                "name": "CORTUME"
             },
             {
-                "name": "Curticeiras"
+                "name": "CURTICEIRAS"
             },
             {
-                "name": "Cuñapirú"
+                "name": "CUÑAPIRÚ"
             },
             {
-                "name": "Paso Hospital"
+                "name": "PASO HOSPITAL"
             },
             {
-                "name": "Lapuente"
+                "name": "LAPUENTE"
             },
             {
-                "name": "Las Flores"
+                "name": "LAS FLORES"
             },
             {
-                "name": "Moirones"
+                "name": "MOIRONES"
             },
             {
-                "name": "Puntas de Corrales"
+                "name": "PUNTAS DE CORRALES"
             },
             {
-                "name": "San Gregorio"
+                "name": "SAN GREGORIO"
             },
             {
-                "name": "La Pedrera"
+                "name": "LA PEDRERA"
             },
             {
-                "name": "Mandubí"
+                "name": "MANDUBÍ"
             },
             {
-                "name": "Lagunón"
+                "name": "LAGUNÓN"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Alborada"
+                "name": "ALBORADA"
             },
             {
-                "name": "Amarillo"
+                "name": "AMARILLO"
             },
             {
-                "name": "Batoví"
+                "name": "BATOVÍ"
             },
             {
-                "name": "Berruti"
+                "name": "BERRUTI"
             },
             {
-                "name": "Blanquillos"
+                "name": "BLANQUILLOS"
             },
             {
-                "name": "Capón Alto"
+                "name": "CAPÓN ALTO"
             },
             {
-                "name": "Carpintería"
+                "name": "CARPINTERÍA"
             },
             {
-                "name": "Carpintería de Yaguarí"
+                "name": "CARPINTERÍA DE YAGUARÍ"
             },
             {
-                "name": "Cerrillada"
+                "name": "CERRILLADA"
             },
             {
-                "name": "Cerro Alegre"
+                "name": "CERRO ALEGRE"
             },
             {
-                "name": "Cerros de la Calera"
+                "name": "CERROS DE LA CALERA"
             },
             {
-                "name": "Cerros Blancos de Cuñapirú"
+                "name": "CERROS BLANCOS DE CUÑAPIRÚ"
             },
             {
-                "name": "Coronilla"
+                "name": "CORONILLA"
             },
             {
-                "name": "Coronilla de Corrales"
+                "name": "CORONILLA DE CORRALES"
             },
             {
-                "name": "Cruz de San Pedro"
+                "name": "CRUZ DE SAN PEDRO"
             },
             {
-                "name": "Cuchilla de Tres Cerros"
+                "name": "CUCHILLA DE TRES CERROS"
             },
             {
-                "name": "Cuchilla Mangueras"
+                "name": "CUCHILLA MANGUERAS"
             },
             {
-                "name": "Guaviyú"
+                "name": "GUAVIYÚ"
             },
             {
-                "name": "La Chilca"
+                "name": "LA CHILCA"
             },
             {
-                "name": "Lagos del Norte"
+                "name": "LAGOS DEL NORTE"
             },
             {
-                "name": "Laureles"
+                "name": "LAURELES"
             },
             {
-                "name": "Manuel Díaz"
+                "name": "MANUEL DÍAZ"
             },
             {
-                "name": "Masoller"
+                "name": "MASOLLER"
             },
             {
-                "name": "Minas de Cuñapirú"
+                "name": "MINAS DE CUÑAPIRÚ"
             },
             {
-                "name": "Minas de Zapucay"
+                "name": "MINAS DE ZAPUCAY"
             },
             {
-                "name": "Parada Medina"
+                "name": "PARADA MEDINA"
             },
             {
-                "name": "Paso de Amarillo"
+                "name": "PASO DE AMARILLO"
             },
             {
-                "name": "Paso de los Ataques"
+                "name": "PASO DE LOS ATAQUES"
             },
             {
-                "name": "Paso de Serpa"
+                "name": "PASO DE SERPA"
             },
             {
-                "name": "Paso de Tapado"
+                "name": "PASO DE TAPADO"
             },
             {
-                "name": "Paso del Parque"
+                "name": "PASO DEL PARQUE"
             },
             {
-                "name": "Piedras Blancas"
+                "name": "PIEDRAS BLANCAS"
             },
             {
-                "name": "Platón"
+                "name": "PLATÓN"
             },
             {
-                "name": "Puntas de Abrojal"
+                "name": "PUNTAS DE ABROJAL"
             },
             {
-                "name": "Rincón de Rodríguez"
+                "name": "RINCÓN DE RODRÍGUEZ"
             },
             {
-                "name": "Rincón de Roland"
+                "name": "RINCÓN DE ROLAND"
             },
             {
-                "name": "Rincón los Tres Cerros"
+                "name": "RINCÓN LOS TRES CERROS"
             },
             {
-                "name": "Rubio Chico"
+                "name": "RUBIO CHICO"
             },
             {
-                "name": "Sarandí de Río Negro"
+                "name": "SARANDÍ DE RÍO NEGRO"
             },
             {
-                "name": "Sauzal"
+                "name": "SAUZAL"
             },
             {
-                "name": "Villa Indart"
+                "name": "VILLA INDART"
             },
             {
-                "name": "Yaguarí"
+                "name": "YAGUARÍ"
             },
             {
-                "name": "Zanja Honda 01"
+                "name": "ZANJA HONDA 01"
             },
             {
-                "name": "Zanja Honda 02"
+                "name": "ZANJA HONDA 02"
             }
         ]
     },
@@ -2595,193 +2595,193 @@ const departments = [
         "name": "ROCHA",
         "cities": [
             {
-                "name": "Rocha"
+                "name": "ROCHA"
             },
             {
-                "name": "Castillos"
+                "name": "CASTILLOS"
             },
             {
-                "name": "Lascano"
+                "name": "LASCANO"
             },
             {
-                "name": "Chuy"
+                "name": "CHUY"
             },
             {
-                "name": "Cebollatí"
+                "name": "CEBOLLATÍ"
             },
             {
-                "name": "Velázquez"
+                "name": "VELÁZQUEZ"
             },
             {
-                "name": "18 de Julio"
+                "name": "18 DE JULIO"
             },
             {
-                "name": "La Paloma"
+                "name": "LA PALOMA"
             },
             {
-                "name": "San Luis al Medio"
+                "name": "SAN LUIS AL MEDIO"
             },
             {
-                "name": "La Aguada y Costa Azul"
+                "name": "LA AGUADA Y COSTA AZUL"
             },
             {
-                "name": "Diecinueve de Abril"
+                "name": "DIECINUEVE DE ABRIL"
             },
             {
-                "name": "La Coronilla"
+                "name": "LA CORONILLA"
             },
             {
-                "name": "Paso Barrancas"
+                "name": "PASO BARRANCAS"
             },
             {
-                "name": "Barrio Pereira"
+                "name": "BARRIO PEREIRA"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Isla"
+                "name": "ISLA"
             },
             {
-                "name": "Aguas Dulces"
+                "name": "AGUAS DULCES"
             },
             {
-                "name": "Arrozal Victoria"
+                "name": "ARROZAL VICTORIA"
             },
             {
-                "name": "Barra del Chuy"
+                "name": "BARRA DEL CHUY"
             },
             {
-                "name": "Barrio Torres"
+                "name": "BARRIO TORRES"
             },
             {
-                "name": "Buena Vista"
+                "name": "BUENA VISTA"
             },
             {
-                "name": "Cabo Polonio"
+                "name": "CABO POLONIO"
             },
             {
-                "name": "Capacho"
+                "name": "CAPACHO"
             },
             {
-                "name": "Cerro de los Rocha"
+                "name": "CERRO DE LOS ROCHA"
             },
             {
-                "name": "Costas del Ceibo"
+                "name": "COSTAS DEL CEIBO"
             },
             {
-                "name": "Cuchilla de Garzón"
+                "name": "CUCHILLA DE GARZÓN"
             },
             {
-                "name": "Cuchilla de India Muerta"
+                "name": "CUCHILLA DE INDIA MUERTA"
             },
             {
-                "name": "El Canelón"
+                "name": "EL CANELÓN"
             },
             {
-                "name": "El Caracol"
+                "name": "EL CARACOL"
             },
             {
-                "name": "El Ceibo"
+                "name": "EL CEIBO"
             },
             {
-                "name": "El Chimango"
+                "name": "EL CHIMANGO"
             },
             {
-                "name": "Estero Pelotas Arrocera"
+                "name": "ESTERO PELOTAS ARROCERA"
             },
             {
-                "name": "Estiva de Chafalote"
+                "name": "ESTIVA DE CHAFALOTE"
             },
             {
-                "name": "Barra de Valizas"
+                "name": "BARRA DE VALIZAS"
             },
             {
-                "name": "La Esmeralda"
+                "name": "LA ESMERALDA"
             },
             {
-                "name": "La Pedrera"
+                "name": "LA PEDRERA"
             },
             {
-                "name": "Lagunita"
+                "name": "LAGUNITA"
             },
             {
-                "name": "La Garzas"
+                "name": "LA GARZAS"
             },
             {
-                "name": "Los Tacuruses Arrocera"
+                "name": "LOS TACURUSES ARROCERA"
             },
             {
-                "name": "Mena"
+                "name": "MENA"
             },
             {
-                "name": "Palmar"
+                "name": "PALMAR"
             },
             {
-                "name": "Parallé"
+                "name": "PARALLÉ"
             },
             {
-                "name": "Parque Nac. de Santa Teresa"
+                "name": "PARQUE NAC. DE SANTA TERESA"
             },
             {
-                "name": "Paso del Bañado"
+                "name": "PASO DEL BAÑADO"
             },
             {
-                "name": "Picada Techera Arrocera"
+                "name": "PICADA TECHERA ARROCERA"
             },
             {
-                "name": "Poblado Correa"
+                "name": "POBLADO CORREA"
             },
             {
-                "name": "Puerto de los Botes"
+                "name": "PUERTO DE LOS BOTES"
             },
             {
-                "name": "Quebracho"
+                "name": "QUEBRACHO"
             },
             {
-                "name": "Rincón de Nieto"
+                "name": "RINCÓN DE NIETO"
             },
             {
-                "name": "Rincón de los Olivera"
+                "name": "RINCÓN DE LOS OLIVERA"
             },
             {
-                "name": "Puimayen"
+                "name": "PUIMAYEN"
             },
             {
-                "name": "Tres Islas"
+                "name": "TRES ISLAS"
             },
             {
-                "name": "Arachania"
+                "name": "ARACHANIA"
             },
             {
-                "name": "Pta. Rubia y Sta. Isabel de la\nPedrera"
+                "name": "PTA. RUBIA Y STA. ISABEL DE LA\nPEDRERA"
             },
             {
-                "name": "Atlántica"
+                "name": "ATLÁNTICA"
             },
             {
-                "name": "Punta del Diablo"
+                "name": "PUNTA DEL DIABLO"
             },
             {
-                "name": "Palmares de la Coronilla"
+                "name": "PALMARES DE LA CORONILLA"
             },
             {
-                "name": "La Ribiera"
+                "name": "LA RIBIERA"
             },
             {
-                "name": "Puente Valizas"
+                "name": "PUENTE VALIZAS"
             },
             {
-                "name": "Oceanía del Polonio"
+                "name": "OCEANÍA DEL POLONIO"
             },
             {
-                "name": "Pueblo Nuevo"
+                "name": "PUEBLO NUEVO"
             },
             {
-                "name": "Tajamares de la Pedrera"
+                "name": "TAJAMARES DE LA PEDRERA"
             },
             {
-                "name": "San Antonio"
+                "name": "SAN ANTONIO"
             }
         ]
     },
@@ -2789,226 +2789,226 @@ const departments = [
         "name": "SALTO",
         "cities": [
             {
-                "name": "Salto"
+                "name": "SALTO"
             },
             {
-                "name": "Belén"
+                "name": "BELÉN"
             },
             {
-                "name": "Constitución"
+                "name": "CONSTITUCIÓN"
             },
             {
-                "name": "Fernández"
+                "name": "FERNÁNDEZ"
             },
             {
-                "name": "San Antonio"
+                "name": "SAN ANTONIO"
             },
             {
-                "name": "Chacras de Belén"
+                "name": "CHACRAS DE BELÉN"
             },
             {
-                "name": "Itapebí"
+                "name": "ITAPEBÍ"
             },
             {
-                "name": "Albisu"
+                "name": "ALBISU"
             },
             {
-                "name": "Biassini"
+                "name": "BIASSINI"
             },
             {
-                "name": "Campo de Todos"
+                "name": "CAMPO DE TODOS"
             },
             {
-                "name": "Cayetano"
+                "name": "CAYETANO"
             },
             {
-                "name": "Cuchilla de Guaviyú"
+                "name": "CUCHILLA DE GUAVIYÚ"
             },
             {
-                "name": "Hipódromo"
+                "name": "HIPÓDROMO"
             },
             {
-                "name": "Termas del Daymán"
+                "name": "TERMAS DEL DAYMÁN"
             },
             {
-                "name": "Palomas"
+                "name": "PALOMAS"
             },
             {
-                "name": "Paso del Parque del Daymán"
+                "name": "PASO DEL PARQUE DEL DAYMÁN"
             },
             {
-                "name": "Quintana"
+                "name": "QUINTANA"
             },
             {
-                "name": "Sarandí del Arapey"
+                "name": "SARANDÍ DEL ARAPEY"
             },
             {
-                "name": "Saucedo"
+                "name": "SAUCEDO"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Alcain"
+                "name": "ALCAIN"
             },
             {
-                "name": "Alvez"
+                "name": "ALVEZ"
             },
             {
-                "name": "Sopas"
+                "name": "SOPAS"
             },
             {
-                "name": "Arenitas Blancas"
+                "name": "ARENITAS BLANCAS"
             },
             {
-                "name": "Baltasar Brum"
+                "name": "BALTASAR BRUM"
             },
             {
-                "name": "Bordenave"
+                "name": "BORDENAVE"
             },
             {
-                "name": "Cancela"
+                "name": "CANCELA"
             },
             {
-                "name": "Cancela o Varesse"
+                "name": "CANCELA O VARESSE"
             },
             {
-                "name": "Carumbé"
+                "name": "CARUMBÉ"
             },
             {
-                "name": "Casco"
+                "name": "CASCO"
             },
             {
-                "name": "Celeste"
+                "name": "CELESTE"
             },
             {
-                "name": "Cerrillada"
+                "name": "CERRILLADA"
             },
             {
-                "name": "Cerrillada de Saucedo"
+                "name": "CERRILLADA DE SAUCEDO"
             },
             {
-                "name": "Cerro Chato"
+                "name": "CERRO CHATO"
             },
             {
-                "name": "Cerros de Vera"
+                "name": "CERROS DE VERA"
             },
             {
-                "name": "El Espinillar"
+                "name": "EL ESPINILLAR"
             },
             {
-                "name": "Farías"
+                "name": "FARÍAS"
             },
             {
-                "name": "Ferreira"
+                "name": "FERREIRA"
             },
             {
-                "name": "Garibaldi"
+                "name": "GARIBALDI"
             },
             {
-                "name": "La Bolsa"
+                "name": "LA BOLSA"
             },
             {
-                "name": "La Bolsa 02"
+                "name": "LA BOLSA 02"
             },
             {
-                "name": "La Bolsa 03"
+                "name": "LA BOLSA 03"
             },
             {
-                "name": "Termas del Arapey"
+                "name": "TERMAS DEL ARAPEY"
             },
             {
-                "name": "Las Flores"
+                "name": "LAS FLORES"
             },
             {
-                "name": "Laureles"
+                "name": "LAURELES"
             },
             {
-                "name": "Lluveras"
+                "name": "LLUVERAS"
             },
             {
-                "name": "Mario Rubio"
+                "name": "MARIO RUBIO"
             },
             {
-                "name": "Mataojito"
+                "name": "MATAOJITO"
             },
             {
-                "name": "Migliaro"
+                "name": "MIGLIARO"
             },
             {
-                "name": "Olivera"
+                "name": "OLIVERA"
             },
             {
-                "name": "Parada Herrería"
+                "name": "PARADA HERRERÍA"
             },
             {
-                "name": "Paso de las Cañas"
+                "name": "PASO DE LAS CAÑAS"
             },
             {
-                "name": "Paso del Tropero"
+                "name": "PASO DEL TROPERO"
             },
             {
-                "name": "Paso del Tapado"
+                "name": "PASO DEL TAPADO"
             },
             {
-                "name": "Paso Nuevo del Arapey"
+                "name": "PASO NUEVO DEL ARAPEY"
             },
             {
-                "name": "Pepe Núñez"
+                "name": "PEPE NÚÑEZ"
             },
             {
-                "name": "Paso de las Piedras de Arerunguá"
+                "name": "PASO DE LAS PIEDRAS DE ARERUNGUÁ"
             },
             {
-                "name": "Puntas de Cañas"
+                "name": "PUNTAS DE CAÑAS"
             },
             {
-                "name": "Puntas de Valentín"
+                "name": "PUNTAS DE VALENTÍN"
             },
             {
-                "name": "Ramos"
+                "name": "RAMOS"
             },
             {
-                "name": "Sarandí"
+                "name": "SARANDÍ"
             },
             {
-                "name": "Sauce Chico"
+                "name": "SAUCE CHICO"
             },
             {
-                "name": "Soto"
+                "name": "SOTO"
             },
             {
-                "name": "Toro Negro"
+                "name": "TORO NEGRO"
             },
             {
-                "name": "Rincón de Valentín"
+                "name": "RINCÓN DE VALENTÍN"
             },
             {
-                "name": "Colonia 18 de Julio"
+                "name": "COLONIA 18 DE JULIO"
             },
             {
-                "name": "Santa Ana"
+                "name": "SANTA ANA"
             },
             {
-                "name": "Arapey"
+                "name": "ARAPEY"
             },
             {
-                "name": "Parque José Luis"
+                "name": "PARQUE JOSÉ LUIS"
             },
             {
-                "name": "Colonia Itapebí"
+                "name": "COLONIA ITAPEBÍ"
             },
             {
-                "name": "Guaviyú de Arapey"
+                "name": "GUAVIYÚ DE ARAPEY"
             },
             {
-                "name": "Russo"
+                "name": "RUSSO"
             },
             {
-                "name": "Paso Cementerio"
+                "name": "PASO CEMENTERIO"
             },
             {
-                "name": "Osimani y Llerena"
+                "name": "OSIMANI Y LLERENA"
             }
         ]
     },
@@ -3016,169 +3016,169 @@ const departments = [
         "name": "SAN JOSE",
         "cities": [
             {
-                "name": "San José de Mayo"
+                "name": "SAN JOSÉ DE MAYO"
             },
             {
-                "name": "Libertad"
+                "name": "LIBERTAD"
             },
             {
-                "name": "Delta del Tigre y Villas"
+                "name": "DELTA DEL TIGRE Y VILLAS"
             },
             {
-                "name": "Rodríguez"
+                "name": "RODRÍGUEZ"
             },
             {
-                "name": "Ituzaingó"
+                "name": "ITUZAINGÓ"
             },
             {
-                "name": "Santa Mónica"
+                "name": "SANTA MÓNICA"
             },
             {
-                "name": "Ismael Cortinas"
+                "name": "ISMAEL CORTINAS"
             },
             {
-                "name": "Puntas de Valdez"
+                "name": "PUNTAS DE VALDEZ"
             },
             {
-                "name": "González"
+                "name": "GONZÁLEZ"
             },
             {
-                "name": "Mal Abrigo"
+                "name": "MAL ABRIGO"
             },
             {
-                "name": "Playa Pascual"
+                "name": "PLAYA PASCUAL"
             },
             {
-                "name": "18 de Julio (Pueblo Nuevo)"
+                "name": "18 DE JULIO (PUEBLO NUEVO)"
             },
             {
-                "name": "Rafael Peraza"
+                "name": "RAFAEL PERAZA"
             },
             {
-                "name": "Raigón"
+                "name": "RAIGÓN"
             },
             {
-                "name": "Tala de Pereira"
+                "name": "TALA DE PEREIRA"
             },
             {
-                "name": "Safici (Parque Postel)"
+                "name": "SAFICI (PARQUE POSTEL)"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Arroyo Llano"
+                "name": "ARROYO LLANO"
             },
             {
-                "name": "Bella Vista"
+                "name": "BELLA VISTA"
             },
             {
-                "name": "Juan Soler"
+                "name": "JUAN SOLER"
             },
             {
-                "name": "Bocas del Cufré"
+                "name": "BOCAS DEL CUFRÉ"
             },
             {
-                "name": "Capurro"
+                "name": "CAPURRO"
             },
             {
-                "name": "Villa María"
+                "name": "VILLA MARÍA"
             },
             {
-                "name": "Colonia América"
+                "name": "COLONIA AMÉRICA"
             },
             {
-                "name": "Cuchilla del Vichadero"
+                "name": "CUCHILLA DEL VICHADERO"
             },
             {
-                "name": "Ecilda Paullier"
+                "name": "ECILDA PAULLIER"
             },
             {
-                "name": "Escudero"
+                "name": "ESCUDERO"
             },
             {
-                "name": "Fajina"
+                "name": "FAJINA"
             },
             {
-                "name": "Kiyú - Ordeig"
+                "name": "KIYÚ - ORDEIG"
             },
             {
-                "name": "La Boyada"
+                "name": "LA BOYADA"
             },
             {
-                "name": "La Boyada Ruta1 Km 91,2"
+                "name": "LA BOYADA RUTA1 KM 91,2"
             },
             {
-                "name": "La Candelaria"
+                "name": "LA CANDELARIA"
             },
             {
-                "name": "La Cuchilla"
+                "name": "LA CUCHILLA"
             },
             {
-                "name": "Ordeig"
+                "name": "ORDEIG"
             },
             {
-                "name": "Pavón"
+                "name": "PAVÓN"
             },
             {
-                "name": "Cañada Grande"
+                "name": "CAÑADA GRANDE"
             },
             {
-                "name": "Puntas de Gregorio"
+                "name": "PUNTAS DE GREGORIO"
             },
             {
-                "name": "Puntas de Laurel"
+                "name": "PUNTAS DE LAUREL"
             },
             {
-                "name": "Rapetti"
+                "name": "RAPETTI"
             },
             {
-                "name": "Rincón de Nazaret"
+                "name": "RINCÓN DE NAZARET"
             },
             {
-                "name": "Rincón de Buschental"
+                "name": "RINCÓN DE BUSCHENTAL"
             },
             {
-                "name": "Rincón del Pino"
+                "name": "RINCÓN DEL PINO"
             },
             {
-                "name": "San Gregorio"
+                "name": "SAN GREGORIO"
             },
             {
-                "name": "Scavino"
+                "name": "SCAVINO"
             },
             {
-                "name": "Tropas Viejas"
+                "name": "TROPAS VIEJAS"
             },
             {
-                "name": "Valdez Chico"
+                "name": "VALDEZ CHICO"
             },
             {
-                "name": "Monte Grande"
+                "name": "MONTE GRANDE"
             },
             {
-                "name": "Aguas Corrientes"
+                "name": "AGUAS CORRIENTES"
             },
             {
-                "name": "Cerámicas del Sur"
+                "name": "CERÁMICAS DEL SUR"
             },
             {
-                "name": "Radial"
+                "name": "RADIAL"
             },
             {
-                "name": "Cololó - Tinosa"
+                "name": "COLÓLÓ - TINOSA"
             },
             {
-                "name": "Mangrullo"
+                "name": "MANGRULLO"
             },
             {
-                "name": "Carreta Quemada"
+                "name": "CARRETA QUEMADA"
             },
             {
-                "name": "Costas de Pereira"
+                "name": "COSTAS DE PEREIRA"
             },
             {
-                "name": "Colonia Delta"
+                "name": "COLONIA DELTA"
             }
         ]
     },
@@ -3186,127 +3186,127 @@ const departments = [
         "name": "SORIANO",
         "cities": [
             {
-                "name": "Mercedes"
+                "name": "MERCEDES"
             },
             {
-                "name": "Dolores"
+                "name": "DOLORES"
             },
             {
-                "name": "Cardona"
+                "name": "CARDONA"
             },
             {
-                "name": "José Enrique Rodó"
+                "name": "JOSÉ ENRIQUE RODÓ"
             },
             {
-                "name": "Palmitas"
+                "name": "PALMITAS"
             },
             {
-                "name": "Villa Soriano"
+                "name": "VILLA SORIANO"
             },
             {
-                "name": "Palmar"
+                "name": "PALMAR"
             },
             {
-                "name": "Egaña"
+                "name": "EGAÑA"
             },
             {
-                "name": "Santa Catalina"
+                "name": "SANTA CATALINA"
             },
             {
-                "name": "Ismael Cortinas"
+                "name": "ISMAEL CORTINAS"
             },
             {
-                "name": "Agraciada"
+                "name": "AGRACIADA"
             },
             {
-                "name": "Cañada Paraguaya"
+                "name": "CAÑADA PARAGUAYA"
             },
             {
-                "name": "Castillos"
+                "name": "CASTILLOS"
             },
             {
-                "name": "Risso"
+                "name": "RISSO"
             },
             {
-                "name": "Sacachispas"
+                "name": "SACACHISPAS"
             },
             {
-                "name": "Cañada Nieto"
+                "name": "CAÑADA NIETO"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Islas"
+                "name": "ISLAS"
             },
             {
-                "name": "Arroyo Grande"
+                "name": "ARROYO GRANDE"
             },
             {
-                "name": "Bequeló Ruta 14 Km 4"
+                "name": "BEQUELÓ RUTA 14 KM 4"
             },
             {
-                "name": "Bequeló Ruta 14 Km 7"
+                "name": "BEQUELÓ RUTA 14 KM 7"
             },
             {
-                "name": "Bizcocho"
+                "name": "BIZCOCHO"
             },
             {
-                "name": "Calvo"
+                "name": "CALVO"
             },
             {
-                "name": "Colonia Díaz"
+                "name": "COLONIA DÍAZ"
             },
             {
-                "name": "Cuchilla del Perdido"
+                "name": "CUCHILLA DEL PERDIDO"
             },
             {
-                "name": "El Tala"
+                "name": "EL TALA"
             },
             {
-                "name": "Jackson"
+                "name": "JACKSON"
             },
             {
-                "name": "La Concordia"
+                "name": "LA CONCORDIA"
             },
             {
-                "name": "La Loma"
+                "name": "LA LOMA"
             },
             {
-                "name": "Olivera"
+                "name": "OLIVERA"
             },
             {
-                "name": "Pamer"
+                "name": "PAMER"
             },
             {
-                "name": "Rincón de Cololó"
+                "name": "RINCÓN DE COLÓLÓ"
             },
             {
-                "name": "San Dios"
+                "name": "SAN DIOS"
             },
             {
-                "name": "San Martín"
+                "name": "SAN MARTÍN"
             },
             {
-                "name": "Sarandí Chico"
+                "name": "SARANDÍ CHICO"
             },
             {
-                "name": "Zanja Honda"
+                "name": "ZANJA HONDA"
             },
             {
-                "name": "Palo Solo"
+                "name": "PALO SOLO"
             },
             {
-                "name": "Chacras de Dolores"
+                "name": "CHACRAS DE DOLORES"
             },
             {
-                "name": "Colonia Concordia"
+                "name": "COLONIA CONCORDIA"
             },
             {
-                "name": "Perseverano"
+                "name": "PERSEVERANO"
             },
             {
-                "name": "Lares"
+                "name": "LARES"
             }
         ]
     },
@@ -3314,265 +3314,265 @@ const departments = [
         "name": "TACUAREMBO",
         "cities": [
             {
-                "name": "Tacuarembó"
+                "name": "TACUAREMBÓ"
             },
             {
-                "name": "Paso de los Toros"
+                "name": "PASO DE LOS TOROS"
             },
             {
-                "name": "San Gregorio de Polanco"
+                "name": "SAN GREGORIO DE POLANCO"
             },
             {
-                "name": "Tambores"
+                "name": "TAMBORES"
             },
             {
-                "name": "Achar"
+                "name": "ACHAR"
             },
             {
-                "name": "Ansina"
+                "name": "ANSINA"
             },
             {
-                "name": "Curtina"
+                "name": "CURTINA"
             },
             {
-                "name": "Paso del Cerro"
+                "name": "PASO DEL CERRO"
             },
             {
-                "name": "Rincón de Martinote"
+                "name": "RINCÓN DE MARTINOTE"
             },
             {
-                "name": "Clara"
+                "name": "CLARA"
             },
             {
-                "name": "Clavijo"
+                "name": "CLAVIJO"
             },
             {
-                "name": "Cuchilla de Caraguatá"
+                "name": "CUCHILLA DE CARAGUATÁ"
             },
             {
-                "name": "Cuchilla del Ombú"
+                "name": "CUCHILLA DEL OMBÚ"
             },
             {
-                "name": "La Hilera"
+                "name": "LA HILERA"
             },
             {
-                "name": "Las Toscas"
+                "name": "LAS TOSCAS"
             },
             {
-                "name": "Paso Bonilla"
+                "name": "PASO BONILLA"
             },
             {
-                "name": "Pueblo de Arriba"
+                "name": "PUEBLO DE ARRIBA"
             },
             {
-                "name": "Pueblo del Barro"
+                "name": "PUEBLO DEL BARRO"
             },
             {
-                "name": "Rincón de la Aldea"
+                "name": "RINCÓN DE LA ALDEA"
             },
             {
-                "name": "Rincón del Bonete"
+                "name": "RINCÓN DEL BONETE"
             },
             {
-                "name": "Balneario Iporá"
+                "name": "BALNEARIO IPORÁ"
             },
             {
-                "name": "Zapará"
+                "name": "ZAPARÁ"
             },
             {
-                "name": "Los Rodríguez"
+                "name": "LOS RODRÍGUEZ"
             },
             {
-                "name": "Piedra Sola"
+                "name": "PIEDRA SOLA"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Aldea San Joaquín"
+                "name": "ALDEA SAN JOAQUÍN"
             },
             {
-                "name": "Ataques"
+                "name": "ATAQUES"
             },
             {
-                "name": "Bañado de Rocha"
+                "name": "BAÑADO DE ROCHA"
             },
             {
-                "name": "Cardozo"
+                "name": "CARDOZO"
             },
             {
-                "name": "Cardozo Chico"
+                "name": "CARDOZO CHICO"
             },
             {
-                "name": "Cerro de la Ventana"
+                "name": "CERRO DE LA VENTANA"
             },
             {
-                "name": "Chamberlain"
+                "name": "CHAMBERLAIN"
             },
             {
-                "name": "Colman"
+                "name": "COLMAN"
             },
             {
-                "name": "Cuchilla de la Palma"
+                "name": "CUCHILLA DE LA PALMA"
             },
             {
-                "name": "Cuchilla de Peralta"
+                "name": "CUCHILLA DE PERALTA"
             },
             {
-                "name": "Heriberto"
+                "name": "HERIBERTO"
             },
             {
-                "name": "La Aldea"
+                "name": "LA ALDEA"
             },
             {
-                "name": "La Bolsa 01"
+                "name": "LA BOLSA 01"
             },
             {
-                "name": "La Bolsa 02"
+                "name": "LA BOLSA 02"
             },
             {
-                "name": "La Humedad"
+                "name": "LA HUMEDAD"
             },
             {
-                "name": "La Pedrera"
+                "name": "LA PEDRERA"
             },
             {
-                "name": "La Rosada"
+                "name": "LA ROSADA"
             },
             {
-                "name": "Lambaré"
+                "name": "LAMBARÉ"
             },
             {
-                "name": "Larrayos"
+                "name": "LARRAYOS"
             },
             {
-                "name": "Las Arenas"
+                "name": "LAS ARENAS"
             },
             {
-                "name": "La Chircas"
+                "name": "LA CHIRCAS"
             },
             {
-                "name": "Los Feos"
+                "name": "LOS FEOS"
             },
             {
-                "name": "Los Ferreira"
+                "name": "LOS FERREIRA"
             },
             {
-                "name": "Los García"
+                "name": "LOS GARCÍA"
             },
             {
-                "name": "Los Gómez"
+                "name": "LOS GÓMEZ"
             },
             {
-                "name": "Los Magariños"
+                "name": "LOS MAGARIÑOS"
             },
             {
-                "name": "Los Novillos"
+                "name": "LOS NOVILLOS"
             },
             {
-                "name": "Laureles"
+                "name": "LAURELES"
             },
             {
-                "name": "Los Ortiz"
+                "name": "LOS ORTIZ"
             },
             {
-                "name": "Los Rosanos"
+                "name": "LOS ROSANOS"
             },
             {
-                "name": "Los Rosas"
+                "name": "LOS ROSAS"
             },
             {
-                "name": "Los Semper"
+                "name": "LOS SEMPER"
             },
             {
-                "name": "Los Vázquez"
+                "name": "LOS VÁZQUEZ"
             },
             {
-                "name": "Laura"
+                "name": "LAURA"
             },
             {
-                "name": "Matutina"
+                "name": "MATUTINA"
             },
             {
-                "name": "Minuano"
+                "name": "MINUANO"
             },
             {
-                "name": "Montevideo Chico"
+                "name": "MONTEVIDEO CHICO"
             },
             {
-                "name": "Paso de Ceferino"
+                "name": "PASO DE CEFERINO"
             },
             {
-                "name": "Paso de las Carretas"
+                "name": "PASO DE LAS CARRETAS"
             },
             {
-                "name": "Paso del Medio"
+                "name": "PASO DEL MEDIO"
             },
             {
-                "name": "Picada de Cuello"
+                "name": "PICADA DE CUELLO"
             },
             {
-                "name": "Quiebra Yugos"
+                "name": "QUIEBRA YUGOS"
             },
             {
-                "name": "Cerro de Pastoreo"
+                "name": "CERRO DE PASTOREO"
             },
             {
-                "name": "Rincón de la Laguna"
+                "name": "RINCÓN DE LA LAGUNA"
             },
             {
-                "name": "Rincón de Giloca"
+                "name": "RINCÓN DE GILOCA"
             },
             {
-                "name": "Rincón de Freitas"
+                "name": "RINCÓN DE FREITAS"
             },
             {
-                "name": "Rivera Chico"
+                "name": "RIVERA CHICO"
             },
             {
-                "name": "Santa Rita"
+                "name": "SANTA RITA"
             },
             {
-                "name": "Santander"
+                "name": "SANTANDER"
             },
             {
-                "name": "Sauce de Batoví"
+                "name": "SAUCE DE BATOVÍ"
             },
             {
-                "name": "Sauce de Tranqueras"
+                "name": "SAUCE DE TRANQUERAS"
             },
             {
-                "name": "Sauce Solo 02"
+                "name": "SAUCE SOLO 02"
             },
             {
-                "name": "Treinta y Tres ó Cañas"
+                "name": "TREINTA Y TRES Ó CAÑAS"
             },
             {
-                "name": "Tres Guitarras"
+                "name": "TRES GUITARRAS"
             },
             {
-                "name": "Turupí"
+                "name": "TURUPÍ"
             },
             {
-                "name": "Valle Edén"
+                "name": "VALLE EDÉN"
             },
             {
-                "name": "Zapucay"
+                "name": "ZAPUCAY"
             },
             {
-                "name": "Capón de la Yerba"
+                "name": "CAPÓN DE LA YERBA"
             },
             {
-                "name": "Puntas de Cinco Sauces"
+                "name": "PUNTAS DE CINCO SAUCES"
             },
             {
-                "name": "Rincón de Pereira"
+                "name": "RINCÓN DE PEREIRA"
             },
             {
-                "name": "Punta de Carretera"
+                "name": "PUNTA DE CARRETERA"
             },
             {
-                "name": "Cruz de los Caminos"
+                "name": "CRUZ DE LOS CAMINOS"
             }
         ]
     },
@@ -3580,178 +3580,178 @@ const departments = [
         "name": "TREINTA Y TRES",
         "cities": [
             {
-                "name": "Treinta y Tres"
+                "name": "TREINTA Y TRES"
             },
             {
-                "name": "Santa Clara de Olimar"
+                "name": "SANTA CLARA DE OLIMAR"
             },
             {
-                "name": "Vergara"
+                "name": "VERGARA"
             },
             {
-                "name": "Arrozal Treinta y Tres"
+                "name": "ARROZAL TREINTA Y TRES"
             },
             {
-                "name": "Gral. Enrique Martínez"
+                "name": "GRAL. ENRIQUE MARTÍNEZ"
             },
             {
-                "name": "Villa Sara"
+                "name": "VILLA SARA"
             },
             {
-                "name": "Cerro Chato"
+                "name": "CERRO CHATO"
             },
             {
-                "name": "Estación Rincón"
+                "name": "ESTACIÓN RINCÓN"
             },
             {
-                "name": "Isla Patrulla (María Isabel)"
+                "name": "ISLA PATRULLA (MARÍA ISABEL)"
             },
             {
-                "name": "Picada Techera"
+                "name": "PICADA TECHERA"
             },
             {
-                "name": "Valentines"
+                "name": "VALENTINES"
             },
             {
-                "name": "Rural"
+                "name": "RURAL"
             },
             {
-                "name": "Acosta"
+                "name": "ACOSTA"
             },
             {
-                "name": "Poblado Alonzo"
+                "name": "POBLADO ALONZO"
             },
             {
-                "name": "Arrozal Florencio Barreto"
+                "name": "ARROZAL FLORENCIO BARRETO"
             },
             {
-                "name": "Arrocera Rincón"
+                "name": "ARROCERA RINCÓN"
             },
             {
-                "name": "Arrozal Santa María"
+                "name": "ARROZAL SANTA MARÍA"
             },
             {
-                "name": "Bañado de los Olivera"
+                "name": "BAÑADO DE LOS OLIVERA"
             },
             {
-                "name": "Cañada Chica"
+                "name": "CAÑADA CHICA"
             },
             {
-                "name": "Cañada de los Cuervos"
+                "name": "CAÑADA DE LOS CUERVOS"
             },
             {
-                "name": "Cerros de Amaro"
+                "name": "CERROS DE AMARO"
             },
             {
-                "name": "Cipa Olimar"
+                "name": "CIPA OLIMAR"
             },
             {
-                "name": "Cipa Secador"
+                "name": "CIPA SECADOR"
             },
             {
-                "name": "Costa del Arroyo Malo"
+                "name": "COSTA DEL ARROYO MALO"
             },
             {
-                "name": "Cuchilla de Dionisio"
+                "name": "CUCHILLA DE DIONISIO"
             },
             {
-                "name": "Embarque Arrozal Treinta y Tres"
+                "name": "EMBARQUE ARROZAL TREINTA Y TRES"
             },
             {
-                "name": "Julio María Sanz"
+                "name": "JULIO MARÍA SANZ"
             },
             {
-                "name": "La Calavera"
+                "name": "LA CALAVERA"
             },
             {
-                "name": "La Lata"
+                "name": "LA LATA"
             },
             {
-                "name": "Lechiguana de Corrales"
+                "name": "LECHIGUANA DE CORRALES"
             },
             {
-                "name": "Arrocera Los Ceibos"
+                "name": "ARROCERA LOS CEIBOS"
             },
             {
-                "name": "María Albina"
+                "name": "MARÍA ALBINA"
             },
             {
-                "name": "Mendizábal (El Oro)"
+                "name": "MENDIZÁBAL (EL ORO)"
             },
             {
-                "name": "Paso de Píriz"
+                "name": "PASO DE PÍRIZ"
             },
             {
-                "name": "Pastor"
+                "name": "PASTOR"
             },
             {
-                "name": "Poblado Medina"
+                "name": "POBLADO MEDINA"
             },
             {
-                "name": "Puntas del Parao"
+                "name": "PUNTAS DEL PARAO"
             },
             {
-                "name": "Rincón de Gadea"
+                "name": "RINCÓN DE GADEA"
             },
             {
-                "name": "Rincón de los Francos"
+                "name": "RINCÓN DE LOS FRANCOS"
             },
             {
-                "name": "San Juan"
+                "name": "SAN JUAN"
             },
             {
-                "name": "Sierra del Yerbal"
+                "name": "SIERRA DEL YERBAL"
             },
             {
-                "name": "Siete Casas"
+                "name": "SIETE CASAS"
             },
             {
-                "name": "Tres Bocas"
+                "name": "TRES BOCAS"
             },
             {
-                "name": "Verde Alto"
+                "name": "VERDE ALTO"
             },
             {
-                "name": "Villa Passano"
+                "name": "VILLA PASSANO"
             },
             {
-                "name": "Ejido de Treinta y Tres"
+                "name": "EJIDO DE TREINTA Y TRES"
             },
             {
-                "name": "El Bellaco"
+                "name": "EL BELLACO"
             },
             {
-                "name": "Arrocera Los Teros"
+                "name": "ARROCERA LOS TEROS"
             },
             {
-                "name": "Arrocera Bonomo"
+                "name": "ARROCERA BONOMO"
             },
             {
-                "name": "Arrocera El Tigre"
+                "name": "ARROCERA EL TIGRE"
             },
             {
-                "name": "Arrocera La Catumbera"
+                "name": "ARROCERA LA CATUMBERA"
             },
             {
-                "name": "Arrocera La Querencia"
+                "name": "ARROCERA LA QUERENCIA"
             },
             {
-                "name": "Arrocera Las Palmas"
+                "name": "ARROCERA LAS PALMAS"
             },
             {
-                "name": "Arrocera Mini"
+                "name": "ARROCERA MINI"
             },
             {
-                "name": "Arrocera Procipa"
+                "name": "ARROCERA PROCIPA"
             },
             {
-                "name": "Arrocera San Fernando"
+                "name": "ARROCERA SAN FERNANDO"
             },
             {
-                "name": "Arrocera Santa Fe"
+                "name": "ARROCERA SANTA FE"
             },
             {
-                "name": "Arrocera Zapata"
+                "name": "ARROCERA ZAPATA"
             }
         ]
     }

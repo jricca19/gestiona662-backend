@@ -37,7 +37,7 @@ const getPublicationsController = async (req, res, next) => {
             publications: paginatedPublications,
         });
     } catch (error) {
-        next(error);
+        res.status(400).json({ error: error.message });
     }
 };
 
@@ -60,6 +60,11 @@ const getPublicationController = async (req, res, next) => {
 const postPublicationController = async (req, res, next) => {
     try {
         const { body } = req;
+
+        if (!body.schoolId || !body.startDate || !body.endDate || !body.shift || (body.grade < 0 &&  body.grade > 6)) {
+            return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
+        }
+
         await createPublication(body.schoolId, body.grade, body.startDate, body.endDate, body.shift);
         res.status(201).json({
             message: "Publicación creada correctamente",
@@ -91,7 +96,6 @@ const deletePublicationController = (req, res) => {
 
 const putPublicationController = (req, res) => {
     try{
-    console.log(req.body);
     const publicationId = req.params.id;
     const { body } = req;
     const publication = findPublication(publicationId);
