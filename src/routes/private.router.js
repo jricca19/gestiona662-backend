@@ -49,6 +49,22 @@ const {
     putRatingController,
 } = require("../controllers/ratings.controller");
 
+const {
+    getPostulationDaysController,
+    getPostulationDayController,
+    postPostulationDayController,
+    deletePostulationDayController,
+    putPostulationDayController,
+} = require("../controllers/postulationDays.controller");
+
+const {
+    getSubstitutionDaysController,
+    getSubstitutionDayController,
+    postSubstitutionDayController,
+    deleteSubstitutionDayController,
+    putSubstitutionDayController,
+} = require("../controllers/substitutionDays.controller");
+
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const {createPublicationSchema, updatePublicationSchema} = require("./validations/publication.validation");
 const SchoolSchema = require("./validations/school.validation");
@@ -56,6 +72,8 @@ const TeacherSchema = require("./validations/teacher.validation");
 const {createPostulationSchema, updatePostulationSchema} = require("./validations/postulation.validation");
 const SchoolAdministratorSchema = require("./validations/schoolAdministrator.validation");
 const RatingSchema = require("./validations/rating.validation");
+const PostulationDaySchema = require("./validations/postulationDay.validation");
+const SubstitutionDaySchema = require("./validations/substitutionDay.validation");
 
 privateRouter.get("/publications", getPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
@@ -92,5 +110,17 @@ privateRouter.get("/ratings/:id", getRatingController);
 privateRouter.post("/ratings", payloadMiddleWare(RatingSchema), postRatingController);
 privateRouter.delete("/ratings/:id", deleteRatingController);
 privateRouter.put("/ratings/:id", payloadMiddleWare(RatingSchema), putRatingController);
+
+privateRouter.get("/postulationDays", getPostulationDaysController);
+privateRouter.get("/postulationDays/:id", getPostulationDayController);
+privateRouter.post("/postulationDays", payloadMiddleWare(PostulationDaySchema), postPostulationDayController);
+privateRouter.delete("/postulationDays/:id", deletePostulationDayController);
+privateRouter.put("/postulationDays/:id", payloadMiddleWare(PostulationDaySchema), putPostulationDayController);
+
+privateRouter.get("/substitutionDays", getSubstitutionDaysController);
+privateRouter.get("/substitutionDays/:id", getSubstitutionDayController);
+privateRouter.post("/substitutionDays", payloadMiddleWare(SubstitutionDaySchema), postSubstitutionDayController);
+privateRouter.delete("/substitutionDays/:id", deleteSubstitutionDayController);
+privateRouter.put("/substitutionDays/:id", payloadMiddleWare(SubstitutionDaySchema), putSubstitutionDayController);
 
 module.exports = privateRouter;
