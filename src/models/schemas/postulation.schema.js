@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const createPostulationSchema = new mongoose.Schema({
     teacherId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Teacher", // Reference to the Teacher collection
+        ref: "Teacher",
         required: true,
     },
     publicationId: { type: Number, required: true },
@@ -13,7 +13,7 @@ const createPostulationSchema = new mongoose.Schema({
 const updatePostulationSchema = new mongoose.Schema({
     teacherId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Teacher", // Reference to the Teacher collection
+        ref: "Teacher",
         required: true,
     },
     publicationId: { type: Number, required: true },

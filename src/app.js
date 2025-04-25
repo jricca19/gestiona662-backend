@@ -11,7 +11,6 @@ app.listen(PORT, () => {
   console.log(`The server is running on port: ${PORT}`);
 });
 
-
 const authMiddleWare = require("./middlewares/auth.middleware");
 const xssMiddleware = require("./middlewares/xss.middleware");
 const privateRouter = require("./routes/private.router");

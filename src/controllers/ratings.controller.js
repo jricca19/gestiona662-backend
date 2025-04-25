@@ -8,7 +8,6 @@ const {
 
 const getRatingsController = async (req, res) => {
     try {
-        console.log(req.query);
         const ratings = await getRatings();
         res.status(200).json(ratings);
     } catch (error) {

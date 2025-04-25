@@ -8,7 +8,5 @@ const schoolSchema = new mongoose.Schema({
 });
 
 schoolSchema.index({ schoolNumber: 1, departmentId: 1, cityName: 1 }, { unique: true });
-//TODO: si creamos una escuela en un departamento y ciudad, y luego intentamos crear
-// la misma escuela y ciudad en otro departamento da error, reparar
 
 module.exports = schoolSchema;

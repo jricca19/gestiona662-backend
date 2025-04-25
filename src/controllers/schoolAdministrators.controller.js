@@ -8,7 +8,6 @@ const {
 
 const getSchoolAdministratorsController = async (req, res) => {
     try {
-        console.log(req.query);
         const schoolAdministrators = await getSchoolAdministrators();
         res.status(200).json(schoolAdministrators);
     } catch (error) {

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Postulation = require("../models/postulation.model");
 
 const getPostulations = async () => {
-    return await Postulation.find().select("teacherId publicationId status createdAt");
+    return await Postulation.find().select("_id teacherId publicationId status createdAt");
 };
 
 const createPostulation = async (teacherId,publicationId,status,createdAt) => {
@@ -26,7 +26,7 @@ const findPostulation = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe postulación ID: ${id}`);
     }
-    return await Postulation.findById(id).select("teacherId publicationId status createdAt");
+    return await Postulation.findById(id).select("_id teacherId publicationId status createdAt");
 };
 
 const deletePostulation = async (id) => {

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Rating = require("../models/rating.model");
 
 const getRatings = async () => {
-    return await Rating.find().select("teacherId publicationId score comment createdAt");
+    return await Rating.find().select("_id teacherId publicationId score comment createdAt");
 };
 
 const createRating = async (teacherId,publicationId,score,comment,createdAt) => {
@@ -21,7 +21,7 @@ const findRating = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe rating con ID: ${id}`);
     }
-    return await Rating.findById(id).select("teacherId publicationId score comment createdAt");
+    return await Rating.findById(id).select("_id teacherId publicationId score comment createdAt");
 };
 
 const deleteRating = async (id) => {
