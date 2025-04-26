@@ -13,3 +13,7 @@ Aplicación backend desarrollada con [Express.js](https://expressjs.com/)
 3. Ejecutar desde terminal la carga de departamentos y ciudades de ./src/utils/populateDatabase.js:
    node node src/utils/node src/utils/populateDatabase.js
 4. npm run dev
+
+### Consideraciones
+Verificar variables de entorno en .env para apuntar a conexiones locales o de producción según corresponda.
+Verificar llamada en package.json según corresponda ejecutar dev.js o index.js (este ultimo usado para deploy en Vercel).
