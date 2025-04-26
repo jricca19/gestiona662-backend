@@ -1,17 +1,17 @@
 const jwt = require("jsonwebtoken");
 
 const {
-  saveUser,
+  createUser,
   findUser,
   isValidPassword,
-} = require("../models/users.model");
+} = require("../repositories/user.repository");
 
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
 const postAuthLogin = async (req, res) => {
   const { body } = req;
   const { username, password } = body;
-  const user = findUser(username);
+  const user = await findUser(username);
 
   if (!user) {
     res.status(400).json({ message: "Credenciales inválidas" });
@@ -37,11 +37,13 @@ const postAuthSignUp = async (req, res) => {
   const { body } = req;
   const { name, username, password } = body;
 
-  if (findUser(username)) {
+  const user = await findUser(username);
+
+  if (user) {
     res.status(400).json({ message: "Nombre de usuario ya en uso" });
     return;
   }
-  const userID = await saveUser(name, username, password);
+  const userID = await createUser(name, username, password);
 
   if (!userID) {
     res.status(500).json({ message: "Error al crear el usuario" });
