@@ -23,6 +23,18 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         throw new Error(`No existe una escuela con el ID: ${schoolId}`);
     }
 
+    const duplicated = await findDuplicatePublication(
+        schoolId,
+        grade,
+        shift,
+        startDate,
+        endDate
+    );
+
+    if (duplicated) {
+        throw new Error("Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.");
+    }
+
     const newPublication = new Publication({
         schoolId,
         grade,
@@ -42,6 +54,17 @@ const findPublication = async (id) => {
         throw new Error(`No existe ID: ${id}`);
     }
     return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
+};
+
+const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
+    return await Publication.findOne({
+        schoolId: schoolId,
+        grade: grade,
+        shift: shift,
+        status: "OPEN",
+        startDate: { $lte: new Date(endDate) },
+        endDate: { $gte: new Date(startDate) }
+    }).select("_id");
 };
 
 const deletePublication = async (id) => {
