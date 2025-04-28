@@ -2,11 +2,11 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
 
 const getUsers = async () => {
-  return await User.find().select("_id name username active");
+  return await User.find().select("name email active");
 };
 
-const findUser = async (username) => {
-  return await User.findOne({ username });
+const findUser = async (email) => {
+  return await User.findOne({ email: email.toLowerCase() });
 };
 
 const isValidPassword = async (password, userPassword) => {
@@ -14,12 +14,19 @@ const isValidPassword = async (password, userPassword) => {
   return result;
 };
 
-const createUser = async (name, username, password) => {
+const createUser = async (name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
     name,
-    username,
+    lastName,
+    ci,
+    email,
     password: hashedPassword,
+    phoneNumber,
+    role,
+    isEffectiveTeacher,
+    teacherProfile,
+    staffProfile,
     active: true,
   });
   await newUser.save();
@@ -27,7 +34,7 @@ const createUser = async (name, username, password) => {
 };
 
 const findUserById = async (id) => {
-  return await User.findById(id).select("_id name username active");
+  return await User.findById(id).select("name email active");
 };
 
 const deleteUser = async (id) => {
