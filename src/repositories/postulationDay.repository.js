@@ -12,6 +12,13 @@ const createPostulationDay = async (postulationId,substitutionDayId) => {
     if (!mongoose.Types.ObjectId.isValid(postulationId)) {
         throw new Error(`Día de sustitución con ID ${substitutionDayId} inválido`);
     }
+    const duplicated = await findDuplicatePostulationDay(
+        postulationId,substitutionDayId
+    );
+
+    if (duplicated) {
+        throw new Error("Ya existe un día de postulación asignado para esa postulación y ese día de suplencia");
+    }
     const newPostulationDay = new PostulationDay({
         postulationId,
         substitutionDayId
@@ -25,6 +32,12 @@ const findPostulationDay = async (id) => {
         throw new Error(`No existe ID: ${id}`);
     }
     return await PostulationDay.findById(id).select("postulationId substitutionDayId");
+};
+
+const findDuplicatePostulationDay = async (postulationId,substitutionDayId) => {
+    return await PostulationDay.findOne({
+        postulationId,substitutionDayId
+    }).select("_id");
 };
 
 const deletePostulationDay = async (id) => {
