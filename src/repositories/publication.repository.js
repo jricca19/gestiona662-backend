@@ -1,9 +1,16 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const { findSchool } = require("./school.repository");
+const connectToRedis = require("../services/redis.service");
 
 const getPublications = async () => {
-    return await Publication.find().select("_id schoolId grade startDate endDate shift status");
+    const redisClient = connectToRedis();
+    let publications = await redisClient.get("publications");
+    if (!publications) {
+        publications = await Publication.find().select("_id schoolId grade startDate endDate shift status");
+        redisClient.set("publications", JSON.stringify(publications),{ ex: 3600});
+    }
+    return publications;
 };
 
 const createPublication = async (schoolId, grade, startDate, endDate, shift) => {
@@ -36,6 +43,8 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         shift,
         status: "OPEN",
     });
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
     await newPublication.save();
     return newPublication;
 };
@@ -62,6 +71,8 @@ const deletePublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
     return await Publication.deleteOne({ _id: id });
 };
 
@@ -77,6 +88,8 @@ const updatePublication = async (id, payload) => {
         });
         await publication.save();
     }
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
     return publication;
 };
 
