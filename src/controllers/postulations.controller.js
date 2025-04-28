@@ -19,7 +19,7 @@ const getPostulationController = async (req, res) => {
     try {
         const postulationId = req.params.id;
         const postulation = await findPostulation(postulationId);
-        if (school) {
+        if (postulation) {
             res.status(200).json(postulation);
             return;
         }
