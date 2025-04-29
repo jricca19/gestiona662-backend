@@ -6,6 +6,13 @@ const getRatings = async () => {
 };
 
 const createRating = async (teacherId,publicationId,score,comment,createdAt) => {
+    const duplicated = await findDuplicateRating(
+        teacherId,publicationId
+    );
+
+    if (duplicated) {
+        throw new Error("Ya existe un rating para ese maestro en esa publicación");
+    }
     const newRating = new Rating({
         teacherId,
         publicationId,
@@ -22,6 +29,12 @@ const findRating = async (id) => {
         throw new Error(`No existe rating con ID: ${id}`);
     }
     return await Rating.findById(id).select("_id teacherId publicationId score comment createdAt");
+};
+
+const findDuplicateRating = async (teacherId,publicationId) => {
+    return await Rating.findOne({
+        teacherId,publicationId
+    }).select("_id");
 };
 
 const deleteRating = async (id) => {

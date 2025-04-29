@@ -10,6 +10,7 @@ const {
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
 const postAuthLogin = async (req, res) => {
+  try{
   const { body } = req;
   const { email, password } = body;
   const user = await findUser(email);
@@ -32,9 +33,13 @@ const postAuthLogin = async (req, res) => {
     }
   );
   res.status(200).json({ token: token });
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
 };
 
 const postAuthSignUp = async (req, res) => {
+  try{
   const { body } = req;
   const { name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile } = body;
 
@@ -81,6 +86,9 @@ const postAuthSignUp = async (req, res) => {
   );
 
   res.status(201).json({ message: "Usuario creado exitosamente", token: token });
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
 };
 
 module.exports = {
