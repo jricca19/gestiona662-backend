@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const validator = require("validator");
 
 const {
   createUser,
@@ -37,16 +36,6 @@ const postAuthLogin = async (req, res) => {
 const postAuthSignUp = async (req, res) => {
   const { body } = req;
   const { name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile } = body;
-
-  if (!validator.isEmail(email)) {
-    res.status(400).json({ message: "Correo electrónico inválido" });
-    return;
-  }
-
-  if (!validator.isFQDN(email.split("@")[1])) {
-    res.status(400).json({ message: "Dominio del correo inválido" });
-    return;
-  }
 
   const user = await findUser(email);
 
