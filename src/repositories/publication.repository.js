@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const { findSchool } = require("./school.repository");
+const {createPublicationDay,deletePublicationDaysByPublicationId}=require("./publicationDay.repository");
 const connectToRedis = require("../services/redis.service");
 
 const getPublications = async () => {
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");
     if (!publications) {
-        publications = await Publication.find().select("_id schoolId grade startDate endDate shift status");
+        publications = await Publication.find().populate("publicationDays").select("_id schoolId grade startDate endDate shift status");
         redisClient.set("publications", JSON.stringify(publications),{ ex: 3600});
     }
     return publications;
@@ -46,7 +47,26 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     const redisClient = connectToRedis();
     redisClient.del("publications");
     await newPublication.save();
+    await generatePublicationDays(newPublication._id, startDate, endDate);
     return newPublication;
+};
+
+const generatePublicationDays = async (publicationId, startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const publicationDays = [];
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const day = new Date(d);
+        const weekday = day.getDay();
+
+        if (weekday >= 1 && weekday <= 5) { // Lunes (1) a Viernes (5)
+            const createdDay = await createPublicationDay(publicationId, day,null,"AVAILABLE");
+            publicationDays.push(createdDay);
+        }
+    }
+
+    return publicationDays;
 };
 
 const findPublication = async (id) => {
@@ -73,6 +93,7 @@ const deletePublication = async (id) => {
     }
     const redisClient = connectToRedis();
     redisClient.del("publications");
+    await deletePublicationDaysByPublicationId(id);
     return await Publication.deleteOne({ _id: id });
 };
 
