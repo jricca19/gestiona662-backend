@@ -53,7 +53,7 @@ const validDocument = (ci) => {
 const postAuthSignUp = async (req, res) => {
   try{
   const { body } = req;
-  const { name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile } = body;
+  const { name, lastName, ci, email, password, phoneNumber, role } = body;
 
   const user = await findUserByEmail(email);
   if (user) {
@@ -72,7 +72,7 @@ const postAuthSignUp = async (req, res) => {
     return;
   }
 
-  const newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile);
+  const newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role);
 
   if (!newUser) {
     res.status(500).json({ message: "Error al crear el usuario" });
