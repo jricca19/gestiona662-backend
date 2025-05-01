@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   role: { type: String, enum: ["TEACHER", "STAFF"], required: true },
-  isEffectiveTeacher: { type: Boolean, default: false },
   teacherProfile: {
+    isEffectiveTeacher: { type: Boolean, default: false },
     address: { type: String },
     graduationDate: { type: Date },
     competitionNumber: { type: Number },
@@ -20,9 +20,7 @@ const userSchema = new mongoose.Schema({
     preferredShifts: [{ type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"] }],
   },
   staffProfile: {
-    schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School" },
-    isCurrent: { type: Boolean },
-    assignedAt: { type: Date },
+    schoolIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "School" }],
   },
   active: { type: Boolean, default: true },
 }, { timestamps: true });

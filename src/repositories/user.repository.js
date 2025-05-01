@@ -5,8 +5,16 @@ const getUsers = async () => {
   return await User.find().select("name email active");
 };
 
-const findUser = async (email) => {
+const findUserById = async (id) => {
+  return await User.findById(id).select("name email active");
+};
+
+const findUserByEmail = async (email) => {
   return await User.findOne({ email: email.toLowerCase() });
+};
+
+const findUserByCI = async (ci) => {
+  return await User.findOne({ ci });
 };
 
 const isValidPassword = async (password, userPassword) => {
@@ -27,14 +35,9 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
     isEffectiveTeacher,
     teacherProfile,
     staffProfile,
-    active: true,
   });
   await newUser.save();
   return newUser;
-};
-
-const findUserById = async (id) => {
-  return await User.findById(id).select("name email active");
 };
 
 const deleteUser = async (id) => {
@@ -54,7 +57,9 @@ const updateUser = async (id, payload) => {
 };
 
 module.exports = {  
-  findUser, 
+  findUserById,
+  findUserByEmail, 
+  findUserByCI,
   isValidPassword, 
   getUsers, 
   createUser, 

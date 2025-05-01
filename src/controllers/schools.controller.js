@@ -32,6 +32,7 @@ const getSchoolController = async (req, res) => {
 }
 
 const postSchoolController = async (req, res) => {
+    // TODO: crear escuela con usuario como admin si la escuela no existe o actualizar la escuela colocando al usario como standard si la escuela existe
     try {
         const { body } = req;
 
