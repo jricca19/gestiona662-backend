@@ -1,12 +1,11 @@
-const { teacherValidationSchema, staffValidationSchema } = require("../routes/validations/user.validation");
+const { teacherValidationSchema } = require("../routes/validations/user.validation");
 
 const putUserProfile = async (req, res) => {
-  const { role } = req.user; // El rol viene del token decodificado en el middleware
+  const { role } = req.user;
   const { body } = req;
 
   const validationSchema =
     role === "TEACHER" ? teacherValidationSchema :
-    role === "STAFF" ? staffValidationSchema :
     null;
 
   if (!validationSchema) {

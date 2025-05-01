@@ -82,24 +82,8 @@ const teacherValidationSchema = Joi.object({
   }),
 });
 
-const staffValidationSchema = Joi.object({
-  schoolId: Joi.string().required().messages({
-    'string.empty': 'El ID de la escuela es obligatorio',
-    'any.required': 'El ID de la escuela es obligatorio'
-  }),
-  isCurrent: Joi.boolean().required().messages({
-    'boolean.base': 'El valor de isCurrent debe ser verdadero o falso',
-    'any.required': 'El valor de isCurrent es obligatorio'
-  }),
-  assignedAt: Joi.date().required().messages({
-    'date.base': 'La fecha de asignación debe ser válida',
-    'any.required': 'La fecha de asignación es obligatoria'
-  }),
-});
-
 module.exports = {
   signupValidationSchema,
   loginValidationSchema,
   teacherValidationSchema,
-  staffValidationSchema,
 };

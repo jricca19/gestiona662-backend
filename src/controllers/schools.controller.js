@@ -6,16 +6,16 @@ const {
     updateSchool
 } = require("../repositories/school.repository");
 
-const getSchoolsController = async (req, res) => {
+const getSchoolsController = async (req, res, next) => {
     try {
         const schools = await getSchools();
         res.status(200).json(schools);
     } catch (error) {
         next(error);
     }
-}
+};
 
-const getSchoolController = async (req, res) => {
+const getSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
         const school = await findSchool(schoolId);
@@ -25,13 +25,13 @@ const getSchoolController = async (req, res) => {
         }
         res.status(404).json({
             message: `No se ha encontrado la escuela con id: ${schoolId}`
-        })
+        });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
-}
+};
 
-const postSchoolController = async (req, res) => {
+const postSchoolController = async (req, res, next) => {
     // TODO: crear escuela con usuario como admin si la escuela no existe o actualizar la escuela colocando al usario como standard si la escuela existe
     try {
         const { body } = req;
@@ -45,23 +45,23 @@ const postSchoolController = async (req, res) => {
             message: "Escuela creada correctamente"
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
-}
+};
 
-const deleteSchoolController = async (req, res) => {
+const deleteSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
         await deleteSchool(schoolId);
         res.status(200).json({
             message: "Escuela eliminada correctamente"
-        })
+        });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
-}
+};
 
-const putSchoolController = async (req, res) => {
+const putSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
         const { body } = req;
@@ -75,9 +75,9 @@ const putSchoolController = async (req, res) => {
             message: `No se ha encontrado la escuela con id: ${schoolId}`
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
-}
+};
 
 module.exports = {
     getSchoolsController,
@@ -85,4 +85,4 @@ module.exports = {
     postSchoolController,
     putSchoolController,
     deleteSchoolController,
-}
+};

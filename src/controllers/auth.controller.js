@@ -10,33 +10,33 @@ const {
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
 const postAuthLogin = async (req, res) => {
-  try{
-  const { body } = req;
-  const { email, password } = body;
-  const user = await findUserByEmail(email);
+  try {
+    const { body } = req;
+    const { email, password } = body;
+    const user = await findUserByEmail(email);
 
-  if (!user) {
-    res.status(400).json({ message: "Credenciales inválidas" });
-    return;
-  }
-
-  const isValidPass = await isValidPassword(password, user.password);
-  if (!isValidPass) {
-    res.status(401).json({ message: "Credenciales inválidas" });
-    return;
-  }
-
-  const token = jwt.sign(
-    { id: user._id, name: user.name, lastName: user.lastName, email: user.email, role: user.role },
-    AUTH_SECRET_KEY,
-    {
-      expiresIn: "24h",
+    if (!user) {
+      res.status(400).json({ message: "Credenciales inválidas" });
+      return;
     }
-  );
-  res.status(200).json({ token: token });
-} catch (error) {
-  res.status(400).json({ error: error.message });
-}
+
+    const isValidPass = await isValidPassword(password, user.password);
+    if (!isValidPass) {
+      res.status(401).json({ message: "Credenciales inválidas" });
+      return;
+    }
+
+    const token = jwt.sign(
+      { id: user._id, name: user.name, lastName: user.lastName, email: user.email, role: user.role },
+      AUTH_SECRET_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+    res.status(200).json({ token: token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const validDocument = (ci) => {
@@ -51,46 +51,46 @@ const validDocument = (ci) => {
 };
 
 const postAuthSignUp = async (req, res) => {
-  try{
-  const { body } = req;
-  const { name, lastName, ci, email, password, phoneNumber, role } = body;
+  try {
+    const { body } = req;
+    const { name, lastName, ci, email, password, phoneNumber, role } = body;
 
-  const user = await findUserByEmail(email);
-  if (user) {
-    res.status(400).json({ message: "Correo electrónico ya registrado" });
-    return;
-  }
-
-  const existingCI = await findUserByCI(ci);
-  if (existingCI) {
-    res.status(400).json({ message: "Cédula de identidad ya registrada" });
-    return;
-  }
-
-  if (!validDocument(ci)) {
-    res.status(400).json({ message: "Cédula de identidad inválida" });
-    return;
-  }
-
-  const newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role);
-
-  if (!newUser) {
-    res.status(500).json({ message: "Error al crear el usuario" });
-    return;
-  }
-
-  const token = jwt.sign(
-    { id: newUser._id, name: newUser.name, lastName: newUser.lastName, email: newUser.email, role: newUser.role },
-    AUTH_SECRET_KEY,
-    {
-      expiresIn: "24h",
+    const user = await findUserByEmail(email);
+    if (user) {
+      res.status(400).json({ message: "Correo electrónico ya registrado" });
+      return;
     }
-  );
 
-  res.status(201).json({ message: "Usuario creado exitosamente", token: token });
-} catch (error) {
-  res.status(400).json({ error: error.message });
-}
+    const existingCI = await findUserByCI(ci);
+    if (existingCI) {
+      res.status(400).json({ message: "Cédula de identidad ya registrada" });
+      return;
+    }
+
+    if (!validDocument(ci)) {
+      res.status(400).json({ message: "Cédula de identidad inválida" });
+      return;
+    }
+
+    const newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role);
+
+    if (!newUser) {
+      res.status(500).json({ message: "Error al crear el usuario" });
+      return;
+    }
+
+    const token = jwt.sign(
+      { id: newUser._id, name: newUser.name, lastName: newUser.lastName, email: newUser.email, role: newUser.role },
+      AUTH_SECRET_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    res.status(201).json({ message: "Usuario creado exitosamente", token: token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 module.exports = {
