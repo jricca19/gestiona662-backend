@@ -3,8 +3,12 @@ const {
     createSchool,
     findSchool,
     deleteSchool,
-    updateSchool
+    updateSchool,
+    addUserToSchool,
 } = require("../repositories/school.repository");
+
+const { findUserById } = require("../repositories/user.repository");
+const { findDepartmentById, findCityByName } = require("../repositories/department.repository");
 
 const getSchoolsController = async (req, res, next) => {
     try {
@@ -32,17 +36,48 @@ const getSchoolController = async (req, res, next) => {
 };
 
 const postSchoolController = async (req, res, next) => {
-    // TODO: crear escuela con usuario como admin si la escuela no existe o actualizar la escuela colocando al usario como standard si la escuela existe
+// TODO: crear escuela con usuario como admin si la escuela no existe o actualizar la escuela colocando al usario como standard si la escuela existe
     try {
-        const { body } = req;
+        const { schoolNumber, departmentId, cityName, address } = req.body;
+        const { userId } = req.user;
 
-        if (!body.schoolNumber || !body.departmentId || !body.cityName || !body.address) {
-            return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
+        const user = await findUserById(userId);
+        if (!user) {
+            res.status(404).json({
+                message: `No se ha encontrado el usuario con id: ${userId}`
+            });
+            return;
         }
 
-        await createSchool(body.schoolNumber, body.departmentId, body.cityName, body.address);
+        const department = await findDepartmentById(departmentId);
+        if (!department) {
+            res.status(404).json({
+                message: `No se ha encontrado el departamento con id: ${departmentId}`
+            });
+            return;
+        }
+
+        const city = await findCityByName(departmentId, cityName);
+        if (!city) {
+            res.status(404).json({
+                message: `No se ha encontrado la ciudad ${cityName} en el departamento ${department.name}`
+            });
+            return;
+        }
+        //TODO: se agrega infinitamente el usuario a la escuela, se debe validar si ya existe el usuario en la escuela
+        let school = await findSchool(schoolNumber, departmentId, cityName);
+        if (school) {
+            await addUserToSchool(user._id, school, "SECONDARY");
+            res.status(200).json({
+                message: `Usuario agregado correctamente a la escuela existente. Debe ser aprobado por el director.`
+            });
+            return;
+        }
+
+        school = await createSchool(schoolNumber, departmentId, cityName, address);
+        await addUserToSchool(userId, school, "PRIMARY");
         res.status(201).json({
-            message: "Escuela creada correctamente"
+            message: "Escuela creada correctamente y usuario agregado como principal."
         });
     } catch (error) {
         next(error);

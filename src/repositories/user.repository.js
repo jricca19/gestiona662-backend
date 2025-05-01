@@ -5,8 +5,8 @@ const getUsers = async () => {
   return await User.find().select("name email active");
 };
 
-const findUserById = async (id) => {
-  return await User.findById(id).select("name email active");
+const findUserById = async (userId) => {
+  return await User.findById(userId);
 };
 
 const findUserByEmail = async (email) => {
@@ -22,9 +22,18 @@ const isValidPassword = async (password, userPassword) => {
   return result;
 };
 
-const createUser = async (name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile) => {
+const createUser = async (name, lastName, ci, email, password, phoneNumber, role) => {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = new User({ name, lastName, ci, email, password: hashedPassword, phoneNumber, role, });
+  const newUser =
+    new User({
+      name,
+      lastName,
+      ci,
+      email: email.toLowerCase(),
+      password: hashedPassword,
+      phoneNumber,
+      role: role.toUpperCase(),
+    });
   await newUser.save();
   return newUser;
 };

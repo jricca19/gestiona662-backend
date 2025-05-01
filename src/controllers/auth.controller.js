@@ -11,8 +11,7 @@ const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
 const postAuthLogin = async (req, res) => {
   try {
-    const { body } = req;
-    const { email, password } = body;
+    const { email, password } = req.body;
     const user = await findUserByEmail(email);
 
     if (!user) {
@@ -27,7 +26,7 @@ const postAuthLogin = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, name: user.name, lastName: user.lastName, email: user.email, role: user.role },
+      { userId: user._id, name: user.name, lastName: user.lastName, email: user.email, role: user.role },
       AUTH_SECRET_KEY,
       {
         expiresIn: "24h",
@@ -35,7 +34,7 @@ const postAuthLogin = async (req, res) => {
     );
     res.status(200).json({ token: token });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -52,8 +51,7 @@ const validDocument = (ci) => {
 
 const postAuthSignUp = async (req, res) => {
   try {
-    const { body } = req;
-    const { name, lastName, ci, email, password, phoneNumber, role } = body;
+    const { name, lastName, ci, email, password, phoneNumber, role } = req.body;
 
     const user = await findUserByEmail(email);
     if (user) {
@@ -80,16 +78,17 @@ const postAuthSignUp = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: newUser._id, name: newUser.name, lastName: newUser.lastName, email: newUser.email, role: newUser.role },
+      { userId: newUser._id, name: newUser.name, lastName: newUser.lastName, email: newUser.email, role: newUser.role },
       AUTH_SECRET_KEY,
       {
         expiresIn: "24h",
       }
     );
-
+    
     res.status(201).json({ message: "Usuario creado exitosamente", token: token });
+
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    next(error);
   }
 };
 

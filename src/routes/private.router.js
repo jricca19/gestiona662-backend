@@ -75,8 +75,8 @@ privateRouter.put("/postulations/:id", payloadMiddleWare(updatePostulationSchema
 privateRouter.get("/schools", getSchoolsController);
 privateRouter.get("/schools/:id", getSchoolController);
 privateRouter.post("/schools", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), postSchoolController);
-privateRouter.delete("/schools/:id", deleteSchoolController);
-privateRouter.put("/schools/:id", payloadMiddleWare(schoolValidationSchema), putSchoolController);
+privateRouter.delete("/schools/:id", roleMiddleware("STAFF"), deleteSchoolController);
+privateRouter.put("/schools/:id", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), putSchoolController);
 
 privateRouter.get("/ratings", getRatingsController);
 privateRouter.get("/ratings/:id", getRatingController);
