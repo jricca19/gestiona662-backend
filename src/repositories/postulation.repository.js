@@ -6,6 +6,7 @@ const getPostulations = async () => {
 };
 
 const createPostulation = async (teacherId, publicationId, createdAt) => {
+    console.log({ teacherId, publicationId, createdAt });
     if (!mongoose.Types.ObjectId.isValid(teacherId)) {
         throw new Error(`Maestro con ID ${teacherId} inválido`);
     }
@@ -21,7 +22,7 @@ const createPostulation = async (teacherId, publicationId, createdAt) => {
         throw new Error("Ya existe una postulación registrada de ese maestro para esa publicación.");
     }
     const newPostulation = new Postulation({
-        teacherId, publicationId, status: "PENDING", createdAt
+        teacherId, publicationId, createdAt
     });
     await newPostulation.save();
     return newPostulation;

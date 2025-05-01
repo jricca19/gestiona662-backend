@@ -15,6 +15,4 @@ const postulationSchema = new mongoose.Schema({
     createdAt: { type: Date, required: true }
 });
 
-module.exports = {
-    postulationSchema
-};
+module.exports = postulationSchema;

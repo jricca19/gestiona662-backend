@@ -12,6 +12,13 @@ const createSubstitutionDay = async (publicationId,date,assignedTeacherId,status
     if (!mongoose.Types.ObjectId.isValid(assignedTeacherId)) {
         throw new Error(`Maestro con ID ${assignedTeacherId} inválido`);
     }
+    const duplicated = await findDuplicateSubstitutionDay(
+        publicationId,date,assignedTeacherId
+    );
+
+    if (duplicated) {
+        throw new Error("Ya existe un día de suplencia asignado para esa fecha, publicación y profesor.");
+    }
     const newSubstitutionDay = new SubstitutionDay({
         publicationId,date,assignedTeacherId,status
     });
@@ -24,6 +31,14 @@ const findSubstitutionDay = async (id) => {
         throw new Error(`No existe ID: ${id}`);
     }
     return await SubstitutionDay.findById(id).select("publicationId date assignedTeacherId status");
+};
+
+const findDuplicateSubstitutionDay = async (publicationId,date,assignedTeacherId) => {
+    return await SubstitutionDay.findOne({
+        publicationId:publicationId,
+        date:date,
+        assignedTeacherId:assignedTeacherId
+    }).select("_id");
 };
 
 const deleteSubstitutionDay = async (id) => {

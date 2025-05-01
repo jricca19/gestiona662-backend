@@ -24,6 +24,19 @@ const isValidPassword = async (password, userPassword) => {
 
 const createUser = async (name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile) => {
   const hashedPassword = await bcrypt.hash(password, 10);
+  const duplicatedEmail = await findDuplicateEmail(
+  email
+);
+const duplicatedCi = await findDuplicateCi(
+  ci
+);
+
+if (duplicatedEmail) {
+    throw new Error("Ya existe un usuario registrado con ese email");
+}
+if (duplicatedCi) {
+  throw new Error("Ya existe un usuario registrado con esa cédula");
+}
   const newUser = new User({
     name,
     lastName,
@@ -38,6 +51,10 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
   });
   await newUser.save();
   return newUser;
+};
+
+const findUserById = async (id) => {
+  return await User.findById(id).select("name email active");
 };
 
 const deleteUser = async (id) => {
