@@ -5,8 +5,16 @@ const getUsers = async () => {
   return await User.find().select("name email active");
 };
 
-const findUser = async (email) => {
+const findUserById = async (id) => {
+  return await User.findById(id).select("name email active");
+};
+
+const findUserByEmail = async (email) => {
   return await User.findOne({ email: email.toLowerCase() });
+};
+
+const findUserByCI = async (ci) => {
+  return await User.findOne({ ci });
 };
 
 const isValidPassword = async (password, userPassword) => {
@@ -16,50 +24,9 @@ const isValidPassword = async (password, userPassword) => {
 
 const createUser = async (name, lastName, ci, email, password, phoneNumber, role, isEffectiveTeacher, teacherProfile, staffProfile) => {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const duplicatedEmail = await findDuplicateEmail(
-  email
-);
-const duplicatedCi = await findDuplicateCi(
-  ci
-);
-
-if (duplicatedEmail) {
-    throw new Error("Ya existe un usuario registrado con ese email");
-}
-if (duplicatedCi) {
-  throw new Error("Ya existe un usuario registrado con esa cédula");
-}
-  const newUser = new User({
-    name,
-    lastName,
-    ci,
-    email,
-    password: hashedPassword,
-    phoneNumber,
-    role,
-    isEffectiveTeacher,
-    teacherProfile,
-    staffProfile,
-    active: true,
-  });
+  const newUser = new User({ name, lastName, ci, email, password: hashedPassword, phoneNumber, role, });
   await newUser.save();
   return newUser;
-};
-
-const findUserById = async (id) => {
-  return await User.findById(id).select("name email active");
-};
-
-const findDuplicateEmail= async (email) => {
-    return await User.findOne({
-        email:email
-    }).select("_id");
-};
-
-const findDuplicateCi= async (ci) => {
-  return await User.findOne({
-      ci:ci
-  }).select("_id");
 };
 
 const deleteUser = async (id) => {
@@ -78,12 +45,14 @@ const updateUser = async (id, payload) => {
   return user;
 };
 
-module.exports = {  
-  findUser, 
-  isValidPassword, 
-  getUsers, 
-  createUser, 
-  findUserById, 
-  deleteUser, 
-  updateUser 
+module.exports = {
+  findUserById,
+  findUserByEmail,
+  findUserByCI,
+  isValidPassword,
+  getUsers,
+  createUser,
+  findUserById,
+  deleteUser,
+  updateUser
 };

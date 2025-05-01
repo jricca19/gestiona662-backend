@@ -7,7 +7,7 @@ const authMiddleWare = (req, res, next) => {
   if (!authHeader)
     return res
       .status(401)
-      .json({ message: "Unauthorized - No token provided" });
+      .json({ message: "Encabezado de autorización inválido" });
 
   // Check if the token has the 'Bearer ' prefix for swagger compatibility
   const token = authHeader.startsWith("Bearer ")
@@ -17,7 +17,7 @@ const authMiddleWare = (req, res, next) => {
   if (!token)
     return res
       .status(401)
-      .json({ message: "Unauthorized - Invalid token format" });
+      .json({ message: "Token inválido" });
 
   try {
     const verified = jwt.verify(token, AUTH_SECRET_KEY);

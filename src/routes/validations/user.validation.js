@@ -1,45 +1,105 @@
 const Joi = require("joi");
 
-const signupSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required(),
-  lastName: Joi.string().min(3).max(20).required(),
-  ci: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(8).max(20).required(),
-  phoneNumber: Joi.string().pattern(/^\+\d{1,15}$/).required(),
-  role: Joi.string().valid("TEACHER", "STAFF").required(),
-  isEffectiveTeacher: Joi.boolean().optional(),
-  teacherProfile: Joi.when("role", {
-    is: "TEACHER",
-    then: Joi.object({
-      address: Joi.string().required(),
-      graduationDate: Joi.date().required(),
-      competitionNumber: Joi.number().required(),
-      healthCertificateStatus: Joi.boolean().required(),
-      criminalRecordDate: Joi.date().required(),
-      law19889CertificateDate: Joi.date().required(),
-      gradeExperience: Joi.array().items(Joi.string()).required(),
-      preferredShifts: Joi.array().items(Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY")).required()
-    }).required(),
-    otherwise: Joi.forbidden(),
+const signupValidationSchema = Joi.object({
+  name: Joi.string().min(3).max(20).required().messages({
+    'string.min': 'El nombre debe tener al menos 3 caracteres',
+    'string.max': 'El nombre no puede tener más de 20 caracteres',
+    'string.empty': 'El nombre es obligatorio',
+    'any.required': 'El nombre es obligatorio'
   }),
-  staffProfile: Joi.when("role", {
-    is: "STAFF",
-    then: Joi.object({
-      schoolId: Joi.string().required(),
-      isCurrent: Joi.boolean().required(),
-      assignedAt: Joi.date().required(),
-    }).required(),
-    otherwise: Joi.forbidden(),
+  lastName: Joi.string().min(3).max(20).required().messages({
+    'string.min': 'El apellido debe tener al menos 3 caracteres',
+    'string.max': 'El apellido no puede tener más de 20 caracteres',
+    'string.empty': 'El apellido es obligatorio',
+    'any.required': 'El apellido es obligatorio'
+  }),
+  ci: Joi.string().required().messages({
+    'string.empty': 'El CI es obligatorio',
+    'any.required': 'El CI es obligatorio'
+  }),
+  email: Joi.string().email().required().messages({
+    'string.email': 'El correo electrónico no es válido',
+    'string.empty': 'El correo electrónico es obligatorio',
+    'any.required': 'El correo electrónico es obligatorio'
+  }),
+  password: Joi.string().min(8).max(20).required().messages({
+    'string.min': 'La contraseña debe tener al menos 8 caracteres',
+    'string.max': 'La contraseña no puede tener más de 20 caracteres',
+    'string.empty': 'La contraseña es obligatoria',
+    'any.required': 'La contraseña es obligatoria'
+  }),
+  phoneNumber: Joi.string().required().messages({
+    'string.empty': 'El número de teléfono es obligatorio',
+    'any.required': 'El número de teléfono es obligatorio'
+  }),
+  role: Joi.string().valid("TEACHER", "STAFF").required().messages({
+    'any.only': 'El rol debe ser TEACHER o STAFF',
+    'string.empty': 'El rol es obligatorio',
+    'any.required': 'El rol es obligatorio'
   }),
 });
 
-const loginSchema = Joi.object({
+const loginValidationSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(8).max(20).required(),
+});
+
+const teacherValidationSchema = Joi.object({
+  isEffectiveTeacher: Joi.boolean().optional().messages({
+    'boolean.base': 'El valor de isEffectiveTeacher debe ser verdadero o falso'
+  }),
+  address: Joi.string().required().messages({
+    'string.empty': 'La dirección es obligatoria',
+    'any.required': 'La dirección es obligatoria'
+  }),
+  graduationDate: Joi.date().required().messages({
+    'date.base': 'La fecha de graduación debe ser válida',
+    'any.required': 'La fecha de graduación es obligatoria'
+  }),
+  competitionNumber: Joi.number().required().messages({
+    'number.base': 'El número de competencia debe ser un número',
+    'any.required': 'El número de competencia es obligatorio'
+  }),
+  healthCertificateStatus: Joi.boolean().required().messages({
+    'boolean.base': 'El estado del certificado de salud debe ser verdadero o falso',
+    'any.required': 'El estado del certificado de salud es obligatorio'
+  }),
+  criminalRecordDate: Joi.date().required().messages({
+    'date.base': 'La fecha del certificado de antecedentes penales debe ser válida',
+    'any.required': 'La fecha del certificado de antecedentes penales es obligatoria'
+  }),
+  law19889CertificateDate: Joi.date().required().messages({
+    'date.base': 'La fecha del certificado de la Ley 19889 debe ser válida',
+    'any.required': 'La fecha del certificado de la Ley 19889 es obligatoria'
+  }),
+  gradeExperience: Joi.array().items(Joi.number().integer().min(0).max(6)).required().messages({
+    'array.base': 'La experiencia por grado debe ser una lista de números',
+    'any.required': 'La experiencia por grado es obligatoria'
+  }),
+  preferredShifts: Joi.array().items(Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY")).required().messages({
+    'array.base': 'Los turnos preferidos deben ser una lista de valores válidos',
+    'any.required': 'Los turnos preferidos son obligatorios'
+  }),
+});
+
+const staffValidationSchema = Joi.object({
+  schoolId: Joi.string().required().messages({
+    'string.empty': 'El ID de la escuela es obligatorio',
+    'any.required': 'El ID de la escuela es obligatorio'
+  }),
+  isCurrent: Joi.boolean().required().messages({
+    'boolean.base': 'El valor de isCurrent debe ser verdadero o falso',
+    'any.required': 'El valor de isCurrent es obligatorio'
+  }),
+  assignedAt: Joi.date().required().messages({
+    'date.base': 'La fecha de asignación debe ser válida',
+    'any.required': 'La fecha de asignación es obligatoria'
+  }),
 });
 
 module.exports = {
-  signupSchema,
-  loginSchema,
+  signupValidationSchema,
+  loginValidationSchema,
+  teacherValidationSchema,
+  staffValidationSchema,
 };
