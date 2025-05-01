@@ -53,10 +53,6 @@ if (duplicatedCi) {
   return newUser;
 };
 
-const findUserById = async (id) => {
-  return await User.findById(id).select("name email active");
-};
-
 const deleteUser = async (id) => {
   return await User.deleteOne({ _id: id });
 };
