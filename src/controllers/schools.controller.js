@@ -2,6 +2,7 @@ const {
     getSchools,
     createSchool,
     findSchool,
+    findUserInSchool,
     deleteSchool,
     updateSchool,
     addUserToSchool,
@@ -36,7 +37,6 @@ const getSchoolController = async (req, res, next) => {
 };
 
 const postSchoolController = async (req, res, next) => {
-// TODO: crear escuela con usuario como admin si la escuela no existe o actualizar la escuela colocando al usario como standard si la escuela existe
     try {
         const { schoolNumber, departmentId, cityName, address } = req.body;
         const { userId } = req.user;
@@ -64,10 +64,17 @@ const postSchoolController = async (req, res, next) => {
             });
             return;
         }
-        //TODO: se agrega infinitamente el usuario a la escuela, se debe validar si ya existe el usuario en la escuela
         let school = await findSchool(schoolNumber, departmentId, cityName);
+        const userInSchool = school?.staff?.find(staff => staff.userId.toString() === userId);
+
         if (school) {
-            await addUserToSchool(user._id, school, "SECONDARY");
+            if (userInSchool) {
+                res.status(400).json({
+                    message: `El usuario ya está registrado en la escuela ${schoolNumber} en ${cityName}`
+                });
+                return;
+            }
+            await addUserToSchool(userId, school, "SECONDARY");
             res.status(200).json({
                 message: `Usuario agregado correctamente a la escuela existente. Debe ser aprobado por el director.`
             });

@@ -6,8 +6,8 @@ const getSchools = async () => {
 };
 
 const findSchool = async (schoolNumber, departmentId, cityName) => {
-    const school = await School.findOne({ schoolNumber, departmentId, cityName });
-    return await School.findOne({ schoolNumber }).populate("staff.userId", "name email");
+    return await School.findOne({ schoolNumber, departmentId, cityName: cityName.trim().toUpperCase() })
+        .populate("staff.userId", "name email");
 };
 
 const findSchoolById = async (schoolId) => {
@@ -59,11 +59,6 @@ const updateSchool = async (id, payload) => {
 const addUserToSchool = async (userId, school, role) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw new Error(`ID de usuario inválido: ${userId}`);
-    }
-
-    const existingStaff = school.staff.find(staff => staff.userId.toString() === userId);
-    if (existingStaff) {
-        throw new Error(`El usuario ya está asociado con esta escuela.`);
     }
 
     const isApproved = role === "PRIMARY" ? true : false;
