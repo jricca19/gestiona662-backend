@@ -42,12 +42,12 @@ const {
 } = require("../controllers/postulationDays.controller");
 
 const {
-    getSubstitutionDaysController,
-    getSubstitutionDayController,
-    postSubstitutionDayController,
-    deleteSubstitutionDayController,
-    putSubstitutionDayController,
-} = require("../controllers/substitutionDays.controller");
+    getPublicationDaysController,
+    getPublicationDayController,
+    postPublicationDayController,
+    deletePublicationDayController,
+    putPublicationDayController,
+} = require("../controllers/publicationDays.controller");
 
 const { putUserProfile } = require("../controllers/user.controller");
 
@@ -57,7 +57,7 @@ const schoolValidationSchema = require("./validations/school.validation");
 const { createPostulationSchema, updatePostulationSchema } = require("./validations/postulation.validation");
 const RatingSchema = require("./validations/rating.validation");
 const PostulationDaySchema = require("./validations/postulationDay.validation");
-const SubstitutionDaySchema = require("./validations/substitutionDay.validation");
+const PublicationDaySchema = require("./validations/publicationDay.validation");
 const roleMiddleware = require("../middlewares/role.middleware");
 
 privateRouter.get("/publications", getPublicationsController);
@@ -90,11 +90,11 @@ privateRouter.post("/postulationDays", payloadMiddleWare(PostulationDaySchema), 
 privateRouter.delete("/postulationDays/:id", deletePostulationDayController);
 privateRouter.put("/postulationDays/:id", payloadMiddleWare(PostulationDaySchema), putPostulationDayController);
 
-privateRouter.get("/substitutionDays", getSubstitutionDaysController);
-privateRouter.get("/substitutionDays/:id", getSubstitutionDayController);
-privateRouter.post("/substitutionDays", payloadMiddleWare(SubstitutionDaySchema), postSubstitutionDayController);
-privateRouter.delete("/substitutionDays/:id", deleteSubstitutionDayController);
-privateRouter.put("/substitutionDays/:id", payloadMiddleWare(SubstitutionDaySchema), putSubstitutionDayController);
+privateRouter.get("/publicationDays", getPublicationDaysController);
+privateRouter.get("/publicationDays/:id", getPublicationDayController);
+privateRouter.post("/publicationDays", payloadMiddleWare(PublicationDaySchema), postPublicationDayController);
+privateRouter.delete("/publicationDays/:id", deletePublicationDayController);
+privateRouter.put("/publicationDays/:id", payloadMiddleWare(PublicationDaySchema), putPublicationDayController);
 
 privateRouter.put("/users/profile", putUserProfile);
 

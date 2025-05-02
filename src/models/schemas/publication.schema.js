@@ -13,4 +13,12 @@ const publicationSchema = new mongoose.Schema({
   status: { type: String, enum: ["OPEN", "FILLED", "CANCELLED", "EXPIRED"], default: "OPEN" },
 });
 
+publicationSchema.virtual("publicationDays", {
+  ref: "PublicationDay",            // Nombre del modelo relacionado
+  localField: "_id",                // Campo local en Publication
+  foreignField: "publicationId",    // Campo en PublicationDay que referencia a Publication
+});
+publicationSchema.set("toObject", { virtuals: true });
+publicationSchema.set("toJSON", { virtuals: true });
+
 module.exports = publicationSchema;
