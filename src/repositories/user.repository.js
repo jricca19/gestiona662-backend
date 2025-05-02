@@ -54,6 +54,22 @@ const updateUser = async (id, payload) => {
   return user;
 };
 
+const addSchoolToUserProfile = async (user, schoolId) => {
+  if (user && user.staffProfile) {
+    if (!user.staffProfile.schoolIds.includes(schoolId)) {
+      user.staffProfile.schoolIds.push(schoolId);
+      await user.save();
+    }
+  }
+};
+
+const removeSchoolFromUserProfiles = async (schoolId) => {
+  await User.updateMany(
+    { "staffProfile.schoolIds": schoolId },
+    { $pull: { "staffProfile.schoolIds": schoolId } }
+  );
+};
+
 module.exports = {
   findUserById,
   findUserByEmail,
@@ -63,5 +79,7 @@ module.exports = {
   createUser,
   findUserById,
   deleteUser,
-  updateUser
+  updateUser,
+  addSchoolToUserProfile,
+  removeSchoolFromUserProfiles,
 };
