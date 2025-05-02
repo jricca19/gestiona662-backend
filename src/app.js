@@ -13,6 +13,7 @@ const publicRouter = require("./routes/public.router");
 const authRouter = require("./routes/auth.router");
 const connectMongoDB = require("./models/mongo.client");
 const connectToRedis = require("./services/redis.service");
+const errorMiddleware = require("./middlewares/error.middleware");
 
 (async () => {
   try {
@@ -60,5 +61,8 @@ app.use(authMiddleWare);
 
 // Private
 app.use("/v1", privateRouter);
+
+// Error middleware
+app.use(errorMiddleware);
 
 module.exports = app;

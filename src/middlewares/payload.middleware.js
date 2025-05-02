@@ -4,8 +4,7 @@ const payloadMiddleWare = (validationSchema) => {
 
         if (error) {
             return res.status(400).json({
-                error: "Validation error",
-                message: error.details[0].message,
+                error: error.details[0].message,
             });
         }
         next();

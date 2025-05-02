@@ -6,8 +6,7 @@ const schoolValidationSchema = Joi.object({
         'number.min': 'El número de escuela debe ser mayor o igual a 1',
         'any.required': 'El número de escuela es obligatorio'
     }),
-    departmentId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().messages({
-        'string.pattern.base': 'El ID del departamento debe ser un ID de MongoDB válido',
+    departmentId: Joi.string().required().messages({
         'string.empty': 'El ID del departamento es obligatorio',
         'any.required': 'El ID del departamento es obligatorio'
     }),

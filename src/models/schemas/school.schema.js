@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const staffSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    role: { type: String, enum: ["OWNER", "STAFF"], required: true },
+    role: { type: String, enum: ["PRIMARY", "SECONDARY"], required: true },
     isApproved: { type: Boolean, default: false },
     assignedAt: { type: Date, required: true }
 });
