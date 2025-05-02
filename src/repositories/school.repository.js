@@ -36,14 +36,14 @@ const createSchool = async (schoolNumber, departmentId, cityName, address) => {
 
 const deleteSchool = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe escuela con ID: ${id}`);
+        throw new Error(`ID de escuela inválido: ${id}`);
     }
     return await School.deleteOne({ _id: id });
 };
 
 const updateSchool = async (id, payload) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe escuela con ID: ${id}`);
+        throw new Error(`ID de escuela inválido: ${id}`);
     }
     const school = await School.findOne({ _id: id });
 

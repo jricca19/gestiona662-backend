@@ -2,7 +2,6 @@ const {
     getSchools,
     createSchool,
     findSchool,
-    findUserInSchool,
     deleteSchool,
     updateSchool,
     addUserToSchool,
@@ -94,6 +93,15 @@ const postSchoolController = async (req, res, next) => {
 const deleteSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
+
+        const school = await findSchoolById(schoolId);
+        if (!school) {
+            res.status(404).json({
+                message: `No se ha encontrado la escuela con id: ${schoolId}`
+            });
+            return;
+        }
+
         await deleteSchool(schoolId);
         res.status(200).json({
             message: "Escuela eliminada correctamente"
@@ -107,15 +115,17 @@ const putSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
         const { body } = req;
-        let school = await findSchool(schoolId);
-        if (school) {
-            school = await updateSchool(schoolId, body);
-            res.status(200).json(school);
+
+        const school = await findSchoolById(schoolId);
+        if (!school) {
+            res.status(404).json({
+                message: `No se ha encontrado la escuela con id: ${schoolId}`
+            });
             return;
         }
-        res.status(404).json({
-            message: `No se ha encontrado la escuela con id: ${schoolId}`
-        });
+
+        const updatedSchool = await updateSchool(schoolId, body);
+        res.status(200).json(updatedSchool);
     } catch (error) {
         next(error);
     }
