@@ -4,6 +4,7 @@ const { findSchool } = require("./school.repository");
 const {createPublicationDay,deletePublicationDaysByPublicationId}=require("./publicationDay.repository");
 const connectToRedis = require("../services/redis.service");
 
+//TODO: acá solo conviene devolver los que son OPEN para que quede mas simple getPublicationsController
 const getPublications = async () => {
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");

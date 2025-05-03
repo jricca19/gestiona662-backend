@@ -10,7 +10,7 @@ const {
 
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
-const postAuthLogin = async (req, res) => {
+const postAuthLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await findUserByEmail(email);
@@ -50,7 +50,7 @@ const validDocument = (ci) => {
   return checkDigit === parseInt(ci[7]);
 };
 
-const postAuthSignUp = async (req, res) => {
+const postAuthSignUp = async (req, res, next) => {
   try {
     const { name, lastName, ci, email, password, phoneNumber, role } = req.body;
 

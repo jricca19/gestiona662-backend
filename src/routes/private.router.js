@@ -49,7 +49,7 @@ const {
     putPublicationDayController,
 } = require("../controllers/publicationDays.controller");
 
-const { putUserProfile } = require("../controllers/user.controller");
+const { putTeacherProfile, putUserProfile } = require("../controllers/user.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const { createPublicationSchema, updatePublicationSchema } = require("./validations/publication.validation");
@@ -58,6 +58,7 @@ const { createPostulationSchema, updatePostulationSchema } = require("./validati
 const RatingSchema = require("./validations/rating.validation");
 const PostulationDaySchema = require("./validations/postulationDay.validation");
 const PublicationDaySchema = require("./validations/publicationDay.validation");
+const { updateUserValidationSchema, updateTeacherValidationSchema } = require("./validations/user.validation");
 const roleMiddleware = require("../middlewares/role.middleware");
 
 privateRouter.get("/publications", getPublicationsController);
@@ -96,6 +97,8 @@ privateRouter.post("/publicationDays", payloadMiddleWare(PublicationDaySchema), 
 privateRouter.delete("/publicationDays/:id", deletePublicationDayController);
 privateRouter.put("/publicationDays/:id", payloadMiddleWare(PublicationDaySchema), putPublicationDayController);
 
-privateRouter.put("/users/profile", putUserProfile);
+privateRouter.put("/users/profileTeacher", roleMiddleware("TEACHER"), payloadMiddleWare(updateTeacherValidationSchema), putTeacherProfile);
+privateRouter.put("/users/profile", payloadMiddleWare(updateUserValidationSchema), putUserProfile);
+
 
 module.exports = privateRouter;

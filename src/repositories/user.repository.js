@@ -24,16 +24,16 @@ const isValidPassword = async (password, userPassword) => {
 
 const createUser = async (name, lastName, ci, email, password, phoneNumber, role) => {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser =
-    new User({
-      name,
-      lastName,
-      ci,
-      email: email.toLowerCase(),
-      password: hashedPassword,
-      phoneNumber,
-      role: role.toUpperCase(),
-    });
+  const newUser = new User({
+    name,
+    lastName,
+    ci,
+    email: email.toLowerCase(),
+    password: hashedPassword,
+    phoneNumber,
+    role: role.toUpperCase(),
+  });
+
   await newUser.save();
   return newUser;
 };
@@ -42,15 +42,29 @@ const deleteUser = async (id) => {
   return await User.deleteOne({ _id: id });
 };
 
-const updateUser = async (id, payload) => {
-  const user = await User.findOne({ _id: id });
-
-  if (user) {
-    Object.entries(payload).forEach(([key, value]) => {
+const updateUser = async (user, payload) => {
+  Object.entries(payload).forEach(([key, value]) => {
+    if (key in user) {
       user[key] = value;
-    });
-    await user.save();
+    }
+  });
+
+  await user.save();
+  return user;
+};
+
+const updateTeacher = async (user, payload) => {
+  if (!user.teacherProfile) {
+    user.teacherProfile = {};
   }
+
+  Object.entries(payload).forEach(([key, value]) => {
+    if (key in user.teacherProfile) {
+      user.teacherProfile[key] = value;
+    }
+  });
+
+  await user.save();
   return user;
 };
 
@@ -80,6 +94,7 @@ module.exports = {
   findUserById,
   deleteUser,
   updateUser,
+  updateTeacher,
   addSchoolToUserProfile,
   removeSchoolFromUserProfiles,
 };
