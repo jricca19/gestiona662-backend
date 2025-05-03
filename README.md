@@ -17,3 +17,12 @@ Aplicación backend desarrollada con [Express.js](https://expressjs.com/)
 ### Consideraciones
 Verificar variables de entorno en .env para apuntar a conexiones locales o de producción según corresponda.
 Verificar llamada en package.json según corresponda ejecutar dev.js o index.js (este ultimo usado para deploy en Vercel).
+
+### Observabilidad
+Implementada con sentry (ver src\utils\instrument.js)
+
+### Testing
+Para realizar el test se debe instalar k6:
+   En windows desde terminal ejecutar--> choco install k6
+Configuramos la prueba a realizar en src\utils\loadtest.js
+Con el proyecto levantado ejecutamos: k6 run .\src\utils\loadtest.js -e AUTH_TOKEN="TOKEN_DE_AUTORIZACION"
