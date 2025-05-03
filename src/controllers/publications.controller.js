@@ -7,7 +7,7 @@ const {
 } = require("../repositories/publication.repository");
 
 const getPublicationsController = async (req, res, next) => {
-    //TODO: next se debe usar? en caso de ser así incluir en el catch de cada controller
+    //TODO:  incluir next en el catch de cada controller
     try {
         const { page = 1, limit = 10 } = req.query;
 

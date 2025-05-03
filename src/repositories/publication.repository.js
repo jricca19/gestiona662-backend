@@ -76,6 +76,7 @@ const findPublication = async (id) => {
     return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
 };
 
+//TODO: si el estado es filled debe tenerlo en cuenta también?
 const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
     return await Publication.findOne({
         schoolId: schoolId,

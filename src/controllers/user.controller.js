@@ -1,5 +1,6 @@
 const { teacherValidationSchema } = require("../routes/validations/user.validation");
 
+//TODO: actualizacion de datos de usuario
 const putUserProfile = async (req, res) => {
   const { role } = req.user;
   const { body } = req;
