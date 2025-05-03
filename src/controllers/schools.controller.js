@@ -7,7 +7,7 @@ const {
     addUserToSchool,
 } = require("../repositories/school.repository");
 
-const { findUserById } = require("../repositories/user.repository");
+const { findUserById, addSchoolToUserProfile, removeSchoolFromUserProfiles } = require("../repositories/user.repository");
 const { findDepartmentById, findCityByName } = require("../repositories/department.repository");
 
 const getSchoolsController = async (req, res, next) => {
@@ -63,6 +63,7 @@ const postSchoolController = async (req, res, next) => {
             });
             return;
         }
+
         let school = await findSchool(schoolNumber, departmentId, cityName);
         const userInSchool = school?.staff?.find(staff => staff.userId.toString() === userId);
 
@@ -74,6 +75,7 @@ const postSchoolController = async (req, res, next) => {
                 return;
             }
             await addUserToSchool(userId, school, "SECONDARY");
+            await addSchoolToUserProfile(user, school._id);
             res.status(200).json({
                 message: `Usuario agregado correctamente a la escuela existente. Debe ser aprobado por el director.`
             });
@@ -82,6 +84,7 @@ const postSchoolController = async (req, res, next) => {
 
         school = await createSchool(schoolNumber, departmentId, cityName, address);
         await addUserToSchool(userId, school, "PRIMARY");
+        await addSchoolToUserProfile(user, school._id);
         res.status(201).json({
             message: "Escuela creada correctamente y usuario agregado como principal."
         });
@@ -103,6 +106,8 @@ const deleteSchoolController = async (req, res, next) => {
         }
 
         await deleteSchool(schoolId);
+        await removeSchoolFromUserProfiles(schoolId);
+
         res.status(200).json({
             message: "Escuela eliminada correctamente"
         });

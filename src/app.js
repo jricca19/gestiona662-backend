@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../gestiona-api/swagger.json");
 const app = express();
+const Sentry = require("./utils/instrument");
 
 const authMiddleWare = require("./middlewares/auth.middleware");
 const xssMiddleware = require("./middlewares/xss.middleware");
@@ -64,5 +65,7 @@ app.use("/v1", privateRouter);
 
 // Error middleware
 app.use(errorMiddleware);
+
+Sentry.setupExpressErrorHandler(app);
 
 module.exports = app;

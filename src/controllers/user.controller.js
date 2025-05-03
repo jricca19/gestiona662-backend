@@ -1,27 +1,44 @@
-const { teacherValidationSchema } = require("../routes/validations/user.validation");
+const { findUserById, updateUser, updateTeacher } = require("../repositories/user.repository");
 
-const putUserProfile = async (req, res) => {
-  const { role } = req.user;
+const putTeacherProfile = async (req, res, next) => {
   const { body } = req;
+  const { userId } = req.user;
 
-  const validationSchema =
-    role === "TEACHER" ? teacherValidationSchema :
-    null;
+  try {
+    const user = await findUserById(userId);
 
-  if (!validationSchema) {
-    return res.status(400).json({ message: "Rol inválido" });
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    const updatedUser = await updateTeacher(user, body);
+
+    res.status(200).json({ message: "Perfil de maestro actualizado exitosamente", user: updatedUser });
+  } catch (error) {
+    next(error);
   }
+};
 
-  const { error } = validationSchema.validate(body);
-  if (error) {
-    return res.status(400).json({ message: error.details[0].message });
+const putUserProfile = async (req, res, next) => {
+  const { body } = req;
+  const { userId } = req.user;
+
+  try {
+    const user = await findUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    const updatedUser = await updateUser(user, body);
+
+    res.status(200).json({ message: "Perfil actualizado exitosamente", user: updatedUser });
+  } catch (error) {
+    next(error);
   }
-
-  // Aquí puedes agregar la lógica para actualizar el perfil en la base de datos
-  // usando el rol para determinar qué campos actualizar.
-  res.status(200).json({ message: "Perfil actualizado exitosamente" });
 };
 
 module.exports = {
-    putUserProfile,
+  putTeacherProfile,
+  putUserProfile,
 };

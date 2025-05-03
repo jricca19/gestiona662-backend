@@ -4,6 +4,7 @@ const { findSchool } = require("./school.repository");
 const {createPublicationDay,deletePublicationDaysByPublicationId}=require("./publicationDay.repository");
 const connectToRedis = require("../services/redis.service");
 
+//TODO: acá solo conviene devolver los que son OPEN para que quede mas simple getPublicationsController
 const getPublications = async () => {
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");
@@ -76,6 +77,7 @@ const findPublication = async (id) => {
     return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
 };
 
+//TODO: si el estado es filled debe tenerlo en cuenta también?
 const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
     return await Publication.findOne({
         schoolId: schoolId,
