@@ -121,7 +121,7 @@ const deleteSchoolController = async (req, res, next) => {
 
         if (!isPrimary) {
             return res.status(403).json({
-                message: "No tienes permiso para eliminar esta escuela. Debes ser el propietario aprobado."
+                message: "No tienes permiso para eliminar esta escuela."
             });
         }
 
@@ -177,7 +177,15 @@ const putSchoolController = async (req, res, next) => {
             }
         }
 
-        //TODO: validar que el usuario es el principal de la escuela
+        const isPrimary = school.staff?.some(staff => 
+            staff.userId.toString() === userId && staff.role === "PRIMARY"
+        );
+
+        if (!isPrimary) {
+            return res.status(403).json({
+                message: "No tienes permiso para modificar esta escuela."
+            });
+        }
 
         const updatedSchool = await updateSchool(school, { schoolNumber, departmentId, cityName, address });
         res.status(200).json(updatedSchool);
