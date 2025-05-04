@@ -1,82 +1,129 @@
 const {
-    getRatings,
     createRating,
-    findRating,
+    findRatingById,
+    findDuplicateRating,
     deleteRating,
-    updateRating
+    getRatingsByType
 } = require("../repositories/rating.repository");
+const { findSchoolById, isUserStaffMemberOfSchool } = require("../repositories/school.repository");
+const { findUserById } = require("../repositories/user.repository");
+const { findPublication, isTeacherInPublicationDays } = require("../repositories/publication.repository");
 
-const getRatingsController = async (req, res) => {
+const getRatingsByUserController = async (req, res, next) => {
     try {
-        const ratings = await getRatings();
-        res.status(200).json(ratings);
+        const { teacherId, schoolId } = req.body;
+
+        if (teacherId) {
+            const teacher = await findUserById(teacherId);
+            if (!teacher) {
+                return res.status(404).json({ message: `No se ha encontrado el maestro con id: ${teacherId}` });
+            }
+            const ratings = await getRatingsByType(teacherId);
+            return res.status(200).json(ratings);
+        }
+
+        if (schoolId) {
+            const school = await findSchoolById(schoolId);
+            if (!school) {
+                return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
+            }
+            const ratings = await getRatingsByType(schoolId);
+            return res.status(200).json(ratings);
+        }
+
+        res.status(400).json({ message: "Debes proporcionar un ID de maestro o escuela" });
+
     } catch (error) {
         next(error);
     }
-}
+};
 
-const getRatingController = async (req, res) => {
+const getRatingController = async (req, res, next) => {
     try {
         const ratingId = req.params.id;
-        const rating = await findRating(ratingId);
-        if (rating) {
-            res.status(200).json(rating);
-            return;
+        const rating = await findRatingById(ratingId);
+        if (!rating) {
+            return res.status(404).json({ message: `No se ha encontrado el rating con id: ${ratingId}` });
         }
-        res.status(404).json({
-            message: `No se ha encontrado el rating con id: ${ratingId}`
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-}
 
-const postRatingController = async (req, res) => {
+        res.status(200).json(rating);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+const postRatingController = async (req, res, next) => {
     try {
-        const { body } = req;
-        await createRating(body.teacherId,body.publicationId,body.score,body.comment,body.createdAt);
-        res.status(201).json({
-            message: "Rating creado correctamente"
-        });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-}
+        const { publicationId, teacherId, score, comment } = req.body;
+        const { userId, role } = req.user;
 
-const deleteRatingController = async (req, res) => {
+        let providedTeacherId = teacherId || null;
+        let schoolId = null;
+        let type;
+
+        const user = await findUserById(userId);
+        if (!user) {
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
+        }
+
+        const publication = await findPublication(publicationId);
+        if (!publication) {
+            return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}` });
+        }
+
+        schoolId = publication.schoolId;
+
+        if (role === "STAFF") {
+            type = "STAFF_TO_TEACHER";
+
+            const isStaffMember = await isUserStaffMemberOfSchool(schoolId, userId);
+            if (!isStaffMember) {
+                return res.status(403).json({ message: "No tienes permiso para calificar a este maestro" });
+            }
+
+            if (!providedTeacherId) {
+                return res.status(400).json({ message: "Debes proporcionar un ID de maestro para calificar" });
+            }
+        } else if (role === "TEACHER") {
+            type = "TEACHER_TO_SCHOOL";
+            providedTeacherId = userId;
+        } else {
+            return res.status(400).json({ message: "Rol de usuario inválido para realizar una calificación" });
+        }
+
+        const isTeacherValid = isTeacherInPublicationDays(publication, providedTeacherId);
+        if (!isTeacherValid) {
+            return res.status(400).json({ message: "El maestro proporcionado no está asignado a ningún día de esta publicación" });
+        }
+
+        const duplicatedRating = await findDuplicateRating(providedTeacherId, schoolId, publicationId, type);
+        if (duplicatedRating) {
+            return res.status(409).json({ message: "Ya existe un rating para este contexto" });
+        }
+
+        const rating = await createRating(providedTeacherId, schoolId, publicationId, score, comment, type);
+        res.status(201).json({ message: "Rating creado correctamente", rating });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const deleteRatingController = async (req, res, next) => {
     try {
         const ratingId = req.params.id;
         await deleteRating(ratingId);
         res.status(200).json({
             message: "Rating eliminado correctamente"
-        })
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-}
-
-const putRatingController = async (req, res) => {
-    try {
-        const ratingId = req.params.id;
-        const { body } = req;
-        let rating = await findRating(ratingId);
-        if (rating) {
-            rating = await updateRating(ratingId, body);
-            res.status(200).json(rating);
-            return;
-        }
-        res.status(404).json({
-            message: `No se ha encontrado el rating con id: ${ratingId}`
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
-}
+};
 
 module.exports = {
-    getRatingsController,
     getRatingController,
     postRatingController,
-    putRatingController,
     deleteRatingController,
-}
+    getRatingsByUserController,
+};

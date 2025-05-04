@@ -1,68 +1,50 @@
 const mongoose = require("mongoose");
 const Rating = require("../models/rating.model");
 
-const getRatings = async () => {
-    return await Rating.find().select("_id teacherId publicationId score comment createdAt");
+const getRatingsByType = async (tacherOrSchoolID) => {
+    if (!mongoose.Types.ObjectId.isValid(tacherOrSchoolID)) {
+        throw new Error(`ID inválido: ${tacherOrSchoolID}`);
+    }
+    return await Rating.find(tacherOrSchoolID);
 };
 
-const createRating = async (teacherId,publicationId,score,comment,createdAt) => {
-    const duplicated = await findDuplicateRating(
-        teacherId,publicationId
-    );
-
-    if (duplicated) {
-        throw new Error("Ya existe un rating para ese maestro en esa publicación");
+const findRatingById = async (ratingId) => {
+    if (!mongoose.Types.ObjectId.isValid(ratingId)) {
+        throw new Error(`No existe rating con ID: ${ratingId}`);
     }
-    const newRating = new Rating({
-        teacherId,
-        publicationId,
-        score,
-        comment,
-        createdAt
-    });
+    return await Rating.findById(ratingId);
+};
+
+const findDuplicateRating = async (teacherId, schoolId, publicationId, type) => {
+    if (!mongoose.Types.ObjectId.isValid(teacherId) || !mongoose.Types.ObjectId.isValid(schoolId) || !mongoose.Types.ObjectId.isValid(publicationId)) {
+        throw new Error(`ID inválido.`);
+    }
+    return await Rating.findOne({ teacherId, schoolId, publicationId, type }).select("_id");
+};
+
+const createRating = async (teacherId, schoolId, publicationId, score, comment, type) => {
+    if (!mongoose.Types.ObjectId.isValid(teacherId) || !mongoose.Types.ObjectId.isValid(schoolId) || !mongoose.Types.ObjectId.isValid(publicationId)) {
+        throw new Error(`ID inválido.`);
+    }
+
+    const newRating = new Rating({ type, teacherId, schoolId, publicationId, score, comment, });
+
     await newRating.save();
     return newRating;
 };
 
-const findRating = async (id) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe rating con ID: ${id}`);
+const deleteRating = async (ratingId) => {
+    if (!mongoose.Types.ObjectId.isValid(ratingId)) {
+        throw new Error(`No existe rating con ID: ${ratingId}`);
     }
-    return await Rating.findById(id).select("_id teacherId publicationId score comment createdAt");
+    return await Rating.deleteOne({ _id: ratingId });
 };
 
-const findDuplicateRating = async (teacherId,publicationId) => {
-    return await Rating.findOne({
-        teacherId,publicationId
-    }).select("_id");
-};
-
-const deleteRating = async (id) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe rating con ID: ${id}`);
-    }
-    return await Rating.deleteOne({ _id: id });
-};
-
-const updateRating = async (id, payload) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe escuela con ID: ${id}`);
-    }
-    const rating = await Rating.findOne({ _id: id });
-
-    if (rating) {
-        Object.entries(payload).forEach(([key, value]) => {
-            rating[key] = value;
-        });
-        await rating.save();
-    }
-    return rating;
-};
 
 module.exports = {
-    getRatings,
-    findRating,
+    findRatingById,
+    findDuplicateRating,
     createRating,
     deleteRating,
-    updateRating,
+    getRatingsByType,
 };

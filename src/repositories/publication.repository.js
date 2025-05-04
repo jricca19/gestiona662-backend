@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const { findSchool } = require("./school.repository");
-const {createPublicationDay,deletePublicationDaysByPublicationId}=require("./publicationDay.repository");
+const { createPublicationDay, deletePublicationDaysByPublicationId } = require("./publicationDay.repository");
 const connectToRedis = require("../services/redis.service");
+
+//TODO: crear script para que cada día se ejecute y compruebe por fechas las publicaciones caducadas y las cierre
 
 //TODO: acá solo conviene devolver los que son OPEN para que quede mas simple getPublicationsController
 const getPublications = async () => {
@@ -10,7 +12,7 @@ const getPublications = async () => {
     let publications = await redisClient.get("publications");
     if (!publications) {
         publications = await Publication.find().populate("publicationDays").select("_id schoolId grade startDate endDate shift status");
-        redisClient.set("publications", JSON.stringify(publications),{ ex: 3600});
+        redisClient.set("publications", JSON.stringify(publications), { ex: 3600 });
     }
     return publications;
 };
@@ -62,7 +64,7 @@ const generatePublicationDays = async (publicationId, startDate, endDate) => {
         const weekday = day.getDay();
 
         if (weekday >= 1 && weekday <= 5) { // Lunes (1) a Viernes (5)
-            const createdDay = await createPublicationDay(publicationId, day,null,"AVAILABLE");
+            const createdDay = await createPublicationDay(publicationId, day, null, "AVAILABLE");
             publicationDays.push(createdDay);
         }
     }
@@ -74,7 +76,7 @@ const findPublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
-    return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
+    return await Publication.findById(id); // Sin populate
 };
 
 //TODO: si el estado es filled debe tenerlo en cuenta también?
@@ -116,10 +118,19 @@ const updatePublication = async (id, payload) => {
     return publication;
 };
 
+const isTeacherInPublicationDays = (publication, teacherId) => {
+    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
+        throw new Error(`ID de maestro inválido: ${teacherId}`);
+    }
+
+    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId);
+};
+
 module.exports = {
     getPublications,
     findPublication,
     createPublication,
     deletePublication,
     updatePublication,
+    isTeacherInPublicationDays,
 };

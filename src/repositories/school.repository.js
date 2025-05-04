@@ -98,6 +98,14 @@ const addUserToSchool = async (userId, school, role) => {
     return school;
 };
 
+const isUserStaffMemberOfSchool = async (schoolId, userId) => {
+    if (!mongoose.Types.ObjectId.isValid(schoolId) || !mongoose.Types.ObjectId.isValid(userId)) {
+        throw new Error(`ID inválido: schoolId (${schoolId}) o userId (${userId})`);
+    }
+
+    return school.staff.some(staff => staff.userId.toString() === userId);
+};
+
 module.exports = {
     getSchools,
     findSchool,
@@ -106,4 +114,5 @@ module.exports = {
     deleteSchool,
     updateSchool,
     addUserToSchool,
+    isUserStaffMemberOfSchool,
 };
