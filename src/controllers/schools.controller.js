@@ -115,7 +115,7 @@ const deleteSchoolController = async (req, res, next) => {
             return;
         }
 
-        const isPrimary = school.staff?.some(staff => 
+        const isPrimary = school.staff?.some(staff =>
             staff.userId.toString() === userId && staff.role === "PRIMARY"
         );
 
@@ -139,55 +139,71 @@ const deleteSchoolController = async (req, res, next) => {
 const putSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
+        const { userId } = req.user;
         const { schoolNumber, departmentId, cityName, address } = req.body;
+
+        const payload = {};
+        if (schoolNumber !== undefined) payload.schoolNumber = schoolNumber;
+        if (departmentId !== undefined) payload.departmentId = departmentId;
+        if (cityName !== undefined) payload.cityName = cityName;
+        if (address !== undefined) payload.address = address;
+
+        if (!schoolId) {
+            return res.status(400).json({ message: "El ID de la escuela es obligatorio." });
+        }
 
         const user = await findUserById(userId);
         if (!user) {
-            res.status(404).json({
-                message: `No se ha encontrado el usuario con id: ${userId}`
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
         }
 
         const school = await findSchoolById(schoolId);
         if (!school) {
-            res.status(404).json({
-                message: `No se ha encontrado la escuela con id: ${schoolId}`
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
         }
 
-        if (departmentId) {
-            const department = await findDepartmentById(departmentId);
-            if (!department) {
-                res.status(404).json({
-                    message: `No se ha encontrado el departamento con id: ${departmentId}`
-                });
-                return;
+        let department = null;
+        let city = null;
+        if (departmentId || cityName !== undefined) {
+            if (departmentId) {
+                department = await findDepartmentById(departmentId);
+                if (!department) {
+                    return res.status(404).json({ message: `No se ha encontrado el departamento con id: ${departmentId}` });
+                }
             }
-        }
 
-        if (cityName && departmentId) {
-            const city = await findCityByName(departmentId, cityName);
+            const normalizedCityName = cityName && cityName.trim() !== "" ? cityName : school.cityName;
+
+            city = await findCityByName(departmentId || school.departmentId, normalizedCityName);
             if (!city) {
-                res.status(404).json({
-                    message: `No se ha encontrado la ciudad ${cityName} en el departamento especificado`
-                });
-                return;
+                return res.status(404).json({ message: `No se ha encontrado la ciudad ${normalizedCityName} en el departamento especificado` });
             }
         }
 
-        const isPrimary = school.staff?.some(staff => 
+        const isPrimary = school.staff?.some(staff =>
             staff.userId.toString() === userId && staff.role === "PRIMARY"
         );
 
         if (!isPrimary) {
-            return res.status(403).json({
-                message: "No tienes permiso para modificar esta escuela."
-            });
+            return res.status(403).json({ message: "No tienes permiso para modificar esta escuela." });
         }
 
-        const updatedSchool = await updateSchool(school, { schoolNumber, departmentId, cityName, address });
+        if (schoolNumber || departmentId || cityName !== undefined) {
+            const normalizedCityName = cityName && cityName.trim() !== "" ? cityName.trim().toUpperCase() : school.cityName;
+            const existingSchool = await findSchool(
+                schoolNumber || school.schoolNumber,
+                departmentId || school.departmentId,
+                normalizedCityName
+            );
+
+            if (existingSchool && existingSchool._id.toString() !== schoolId) {
+                return res.status(400).json({
+                    message: "Ya existe una escuela con el mismo número, departamento y ciudad."
+                });
+            }
+        }
+
+        const updatedSchool = await updateSchool(school, payload);
         res.status(200).json(updatedSchool);
     } catch (error) {
         next(error);

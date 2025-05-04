@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const Rating = require("../models/rating.model");
 
-const getRatingsByType = async (tacherOrSchoolID) => {
-    if (!mongoose.Types.ObjectId.isValid(tacherOrSchoolID)) {
-        throw new Error(`ID inválido: ${tacherOrSchoolID}`);
+const getRatingsByType = async (id, type) => {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error(`ID inválido: ${id}`);
     }
-    return await Rating.find(tacherOrSchoolID);
+
+    const filter = type === "teacher" ? { teacherId: id } : { schoolId: id };
+    return await Rating.find(filter);
 };
 
 const findRatingById = async (ratingId) => {

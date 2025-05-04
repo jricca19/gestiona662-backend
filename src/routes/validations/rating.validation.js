@@ -28,7 +28,7 @@ const ratingsValidationSchema = Joi.object({
         'string.empty': 'El ID de la escuela no puede estar vacío',
     }),
 }).xor('teacherId', 'schoolId').messages({
-    'object.missing': 'Debe proporcionar al menos teacherId o schoolId, pero no ambos',
+    'object.missing': 'Debe proporcionar al menos teacherId o schoolId.',
 });
 
 module.exports = {

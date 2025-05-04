@@ -12,22 +12,37 @@ const { findPublication, isTeacherInPublicationDays } = require("../repositories
 const getRatingsByUserController = async (req, res, next) => {
     try {
         const { teacherId, schoolId } = req.body;
+        const { userId } = req.user;
 
         if (teacherId) {
             const teacher = await findUserById(teacherId);
             if (!teacher) {
                 return res.status(404).json({ message: `No se ha encontrado el maestro con id: ${teacherId}` });
             }
-            const ratings = await getRatingsByType(teacherId);
+            if (teacherId.toString() !== userId.toString()) {
+                return res.status(403).json({ message: "No tienes permiso para ver las calificaciones de este maestro" });
+            }
+            const ratings = await getRatingsByType(teacherId, "teacher");
             return res.status(200).json(ratings);
         }
 
         if (schoolId) {
+            const user = await findUserById(userId);
+            if (!user) {
+                return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
+            }
+
             const school = await findSchoolById(schoolId);
             if (!school) {
                 return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
             }
-            const ratings = await getRatingsByType(schoolId);
+
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === userId);
+            if (!isStaffMember) {
+                return res.status(403).json({ message: "No tienes permiso para ver las calificaciones de esta escuela" });
+            }
+
+            const ratings = await getRatingsByType(schoolId, "school");
             return res.status(200).json(ratings);
         }
 
@@ -41,9 +56,34 @@ const getRatingsByUserController = async (req, res, next) => {
 const getRatingController = async (req, res, next) => {
     try {
         const ratingId = req.params.id;
+        const { userId, role } = req.user;
+
+        const user = await findUserById(userId);
+        if (!user) {
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
+        }
+
         const rating = await findRatingById(ratingId);
         if (!rating) {
             return res.status(404).json({ message: `No se ha encontrado el rating con id: ${ratingId}` });
+        }
+
+        const { teacherId, schoolId, type } = rating;
+
+        if (role === "STAFF") {
+            const school = await findSchoolById(schoolId);
+            if (!school) {
+                return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
+            }
+
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === userId);
+            if (!isStaffMember) {
+                return res.status(403).json({ message: "No tienes permiso para ver este rating" });
+            }
+        } else if (role === "TEACHER") {
+            if (teacherId.toString() !== userId.toString()) {
+                return res.status(403).json({ message: "No tienes permiso para ver este rating" });
+            }
         }
 
         res.status(200).json(rating);

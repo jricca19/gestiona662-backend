@@ -59,15 +59,13 @@ const deleteSchool = async (id) => {
 };
 
 const updateSchool = async (school, payload) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`ID de escuela inválido: ${id}`);
-    }
     Object.entries(payload).forEach(([key, value]) => {
         if (key in school) {
             school[key] = value;
         }
     });
-    await school.save();
+    
+    await school.save({ validateModifiedOnly: true });
 
     const redisClient = connectToRedis();
     redisClient.del("schools");

@@ -64,44 +64,6 @@ const loginValidationSchema = Joi.object({
   password: Joi.string().min(8).max(20).required(),
 });
 
-const teacherValidationSchema = Joi.object({
-  isEffectiveTeacher: Joi.boolean().optional().messages({
-    'boolean.base': 'El valor de isEffectiveTeacher debe ser verdadero o falso'
-  }),
-  address: Joi.string().required().messages({
-    'string.empty': 'La dirección es obligatoria',
-    'any.required': 'La dirección es obligatoria'
-  }),
-  graduationDate: Joi.date().required().messages({
-    'date.base': 'La fecha de graduación debe ser válida',
-    'any.required': 'La fecha de graduación es obligatoria'
-  }),
-  competitionNumber: Joi.number().required().messages({
-    'number.base': 'El número de competencia debe ser un número',
-    'any.required': 'El número de competencia es obligatorio'
-  }),
-  healthCertificateStatus: Joi.boolean().required().messages({
-    'boolean.base': 'El estado del certificado de salud debe ser verdadero o falso',
-    'any.required': 'El estado del certificado de salud es obligatorio'
-  }),
-  criminalRecordDate: Joi.date().required().messages({
-    'date.base': 'La fecha del certificado de antecedentes penales debe ser válida',
-    'any.required': 'La fecha del certificado de antecedentes penales es obligatoria'
-  }),
-  law19889CertificateDate: Joi.date().required().messages({
-    'date.base': 'La fecha del certificado de la Ley 19889 debe ser válida',
-    'any.required': 'La fecha del certificado de la Ley 19889 es obligatoria'
-  }),
-  gradeExperience: Joi.array().items(Joi.number().integer().min(0).max(6)).required().messages({
-    'array.base': 'La experiencia por grado debe ser una lista de números',
-    'any.required': 'La experiencia por grado es obligatoria'
-  }),
-  preferredShifts: Joi.array().items(Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY")).required().messages({
-    'array.base': 'Los turnos preferidos deben ser una lista de valores válidos',
-    'any.required': 'Los turnos preferidos son obligatorios'
-  }),
-});
-
 const updateTeacherValidationSchema = Joi.object({
   isEffectiveTeacher: Joi.boolean().optional().messages({
     'boolean.base': 'El valor de isEffectiveTeacher debe ser verdadero o falso',
@@ -141,6 +103,5 @@ module.exports = {
   signupValidationSchema,
   updateUserValidationSchema,
   loginValidationSchema,
-  teacherValidationSchema,
   updateTeacherValidationSchema,
 };

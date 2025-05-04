@@ -56,7 +56,7 @@ const updateUser = async (user, payload) => {
     }
   });
 
-  await user.save();
+  await user.save({ validateModifiedOnly: true });
   return user;
 };
 
@@ -71,7 +71,7 @@ const updateTeacher = async (user, payload) => {
     }
   });
 
-  await user.save();
+  await user.save({ validateModifiedOnly: true });
   return user;
 };
 
