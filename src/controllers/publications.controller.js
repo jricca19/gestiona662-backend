@@ -4,21 +4,19 @@ const {
     findPublication,
     deletePublication,
     updatePublication,
+    findDuplicatePublication,
 } = require("../repositories/publication.repository");
+const { findSchoolById } = require("../repositories/school.repository");
+const { findUserById } = require("../repositories/user.repository");
 
 const getPublicationsController = async (req, res, next) => {
-    //TODO: next se debe usar? en caso de ser así incluir en el catch de cada controller
     try {
         const { page = 1, limit = 10 } = req.query;
 
         const pageNumber = parseInt(page);
         const limitNumber = parseInt(limit);
 
-        if (isNaN(pageNumber) || isNaN(limitNumber) || pageNumber <= 0 || limitNumber <= 0) {
-            return res.status(400).json({ error: "Número de página o límite incorrecto" });
-        }
-
-        const publications = await getPublications(); // Fetch publications from the database
+        const publications = await getPublications();
 
         // Filter by status
         const openPublications = publications.filter((publication) => publication.status === "OPEN");
@@ -38,7 +36,7 @@ const getPublicationsController = async (req, res, next) => {
             publications: paginatedPublications,
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
 };
 
@@ -54,63 +52,91 @@ const getPublicationController = async (req, res, next) => {
             message: `No se ha encontrado la publicación con id: ${publicationId}`,
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
 };
 
 const postPublicationController = async (req, res, next) => {
     try {
-        const { body } = req;
-        if (!body.schoolId || !body.startDate || !body.endDate || !body.shift || (body.grade < 0 &&  body.grade > 6)) {
-            return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
+        const { schoolId, grade, startDate, endDate, shift } = req.body;
+        const { userId } = req.user;
+
+        const user = await findUserById(userId);
+        if (!user) {
+            res.status(404).json({
+                message: `No se ha encontrado el usuario con id: ${userId}`,
+            });
+            return;
         }
 
-        await createPublication(body.schoolId, body.grade, body.startDate, body.endDate, body.shift);
+        const school = await findSchoolById(schoolId);
+        if (!school) {
+            res.status(404).json({
+                message: `No se ha encontrado la escuela con id: ${schoolId}`,
+            });
+            return;
+        }
+
+        const duplicated = await findDuplicatePublication(
+            schoolId,
+            grade,
+            shift,
+            startDate,
+            endDate
+        );
+        if (duplicated) {
+            res.status(400).json({
+                message: "Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.",
+            });
+            return;
+        }
+
+        await createPublication(schoolId, grade, startDate, endDate, shift);
         res.status(201).json({
             message: "Publicación creada correctamente",
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
 };
 
-const deletePublicationController = (req, res) => {
-    try{
-    const publicationId = req.params.id;
-    const publication = findPublication(publicationId);
+const deletePublicationController = (req, res, next) => {
+    try {
+        const publicationId = req.params.id;
+        const publication = findPublication(publicationId);
 
-    if (!publication) {
-        res.status(404).json({
-            message: `No se ha encontrado la publicación con id: ${publicationId}`,
+        if (!publication) {
+            res.status(404).json({
+                message: `No se ha encontrado la publicación con id: ${publicationId}`,
+            });
+            return;
+        }
+        deletePublication(publicationId);
+        res.status(200).json({
+            message: "Publicación eliminada correctamente",
         });
-        return;
+    } catch (error) {
+        next(error);
     }
-    deletePublication(publicationId);
-    res.status(200).json({
-        message: "Publicación eliminada correctamente",
-    });
-} catch (error) {
-    res.status(400).json({ error: error.message });
-}
 };
 
-const putPublicationController = (req, res) => {
-    try{
-    const publicationId = req.params.id;
-    const { body } = req;
-    const publication = findPublication(publicationId);
+const putPublicationController = (req, res, next) => {
+    try {
+        const publicationId = req.params.id;
+        const { body } = req;
+        const publication = findPublication(publicationId);
 
-    if (!publication) {
-        res.status(404).json({
-            message: `No se ha encontrado la publicación con id: ${publicationId}`,
-        });
-        return;
+        if (!publication) {
+            res.status(404).json({
+                message: `No se ha encontrado la publicación con id: ${publicationId}`,
+            });
+            return;
+        }
+        updatePublication(publicationId, body);
+        res.status(200).json(publication);
+    } catch (error) {
+        next(error);
     }
-    updatePublication(publicationId, body);
-    res.status(200).json(publication);
-} catch (error) {
-    res.status(400).json({ error: error.message });
-}
 };
 
 module.exports = {

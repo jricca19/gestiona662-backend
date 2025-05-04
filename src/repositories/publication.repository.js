@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
-const { findSchool } = require("./school.repository");
 const connectToRedis = require("../services/redis.service");
 
 const getPublications = async () => {
@@ -18,22 +17,6 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         throw new Error(`Escuela con ID ${schoolId} inválido`);
     }
 
-    const schoolExists = await findSchool(schoolId);
-    if (!schoolExists) {
-        throw new Error(`No existe una escuela con el ID: ${schoolId}`);
-    }
-
-    const duplicated = await findDuplicatePublication(
-        schoolId,
-        grade,
-        shift,
-        startDate,
-        endDate
-    );
-
-    if (duplicated) {
-        throw new Error("Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.");
-    }
     const publicationDays = await generatePublicationDays(startDate, endDate);
     const newPublication = new Publication({
         schoolId,
@@ -121,4 +104,5 @@ module.exports = {
     createPublication,
     deletePublication,
     updatePublication,
+    findDuplicatePublication,
 };
