@@ -13,7 +13,7 @@ const putTeacherProfile = async (req, res, next) => {
 
     const updatedUser = await updateTeacher(user, body);
 
-    res.status(200).json({ message: "Perfil de maestro actualizado exitosamente", user: updatedUser });
+    res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
@@ -32,7 +32,7 @@ const putUserProfile = async (req, res, next) => {
 
     const updatedUser = await updateUser(user, body);
 
-    res.status(200).json({ message: "Perfil actualizado exitosamente", user: updatedUser });
+    res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }

@@ -1,11 +1,11 @@
 require("dotenv").config();
+const Sentry = require("./utils/instrument");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../gestiona-api/swagger.json");
 const app = express();
-const Sentry = require("./utils/instrument");
 
 const authMiddleWare = require("./middlewares/auth.middleware");
 const xssMiddleware = require("./middlewares/xss.middleware");

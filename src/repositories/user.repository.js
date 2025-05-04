@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
 
@@ -6,6 +7,9 @@ const getUsers = async () => {
 };
 
 const findUserById = async (userId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
   return await User.findById(userId);
 };
 
@@ -38,7 +42,10 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
   return newUser;
 };
 
-const deleteUser = async (id) => {
+const deleteUser = async (userId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
   return await User.deleteOne({ _id: id });
 };
 
@@ -49,7 +56,7 @@ const updateUser = async (user, payload) => {
     }
   });
 
-  await user.save();
+  await user.save({ validateModifiedOnly: true });
   return user;
 };
 
@@ -64,7 +71,7 @@ const updateTeacher = async (user, payload) => {
     }
   });
 
-  await user.save();
+  await user.save({ validateModifiedOnly: true });
   return user;
 };
 
@@ -78,6 +85,9 @@ const addSchoolToUserProfile = async (user, schoolId) => {
 };
 
 const removeSchoolFromUserProfiles = async (schoolId) => {
+  if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+    throw new Error(`ID de escuela inválido: ${schoolId}`);
+  }
   await User.updateMany(
     { "staffProfile.schoolIds": schoolId },
     { $pull: { "staffProfile.schoolIds": schoolId } }

@@ -26,11 +26,10 @@ const {
 } = require("../controllers/postulations.controller");
 
 const {
-    getRatingsController,
     getRatingController,
-    postRatingController,
     deleteRatingController,
-    putRatingController,
+    getRatingsByUserController,
+    postRatingController,
 } = require("../controllers/ratings.controller");
 
 const {
@@ -53,13 +52,13 @@ const { putTeacherProfile, putUserProfile } = require("../controllers/user.contr
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const { createPublicationSchema, updatePublicationSchema } = require("./validations/publication.validation");
-const schoolValidationSchema = require("./validations/school.validation");
 const { createPostulationSchema, updatePostulationSchema } = require("./validations/postulation.validation");
-const RatingSchema = require("./validations/rating.validation");
 const PostulationDaySchema = require("./validations/postulationDay.validation");
 const PublicationDaySchema = require("./validations/publicationDay.validation");
 const { updateUserValidationSchema, updateTeacherValidationSchema } = require("./validations/user.validation");
+const { ratingValidationSchema, ratingsValidationSchema } = require("./validations/rating.validation");
 const roleMiddleware = require("../middlewares/role.middleware");
+const { schoolValidationSchema, updateSchoolValidationSchema } = require("./validations/school.validation");
 
 privateRouter.get("/publications", getPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
@@ -77,13 +76,12 @@ privateRouter.get("/schools", getSchoolsController);
 privateRouter.get("/schools/:id", getSchoolController);
 privateRouter.post("/schools", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), postSchoolController);
 privateRouter.delete("/schools/:id", roleMiddleware("STAFF"), deleteSchoolController);
-privateRouter.put("/schools/:id", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), putSchoolController);
+privateRouter.put("/schools/:id", roleMiddleware("STAFF"), payloadMiddleWare(updateSchoolValidationSchema), putSchoolController);
 
-privateRouter.get("/ratings", getRatingsController);
+privateRouter.get("/ratings/user", payloadMiddleWare(ratingsValidationSchema), getRatingsByUserController);
 privateRouter.get("/ratings/:id", getRatingController);
-privateRouter.post("/ratings", payloadMiddleWare(RatingSchema), postRatingController);
+privateRouter.post("/ratings", payloadMiddleWare(ratingValidationSchema), postRatingController);
 privateRouter.delete("/ratings/:id", deleteRatingController);
-privateRouter.put("/ratings/:id", payloadMiddleWare(RatingSchema), putRatingController);
 
 privateRouter.get("/postulationDays", getPostulationDaysController);
 privateRouter.get("/postulationDays/:id", getPostulationDayController);
