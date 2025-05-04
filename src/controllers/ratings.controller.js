@@ -5,7 +5,7 @@ const {
     deleteRating,
     getRatingsByType
 } = require("../repositories/rating.repository");
-const { findSchoolById, isUserStaffMemberOfSchool } = require("../repositories/school.repository");
+const { findSchoolById } = require("../repositories/school.repository");
 const { findUserById } = require("../repositories/user.repository");
 const { findPublication, isTeacherInPublicationDays } = require("../repositories/publication.repository");
 
@@ -73,11 +73,12 @@ const postRatingController = async (req, res, next) => {
         }
 
         schoolId = publication.schoolId;
+        const school = await findSchoolById(schoolId);
 
         if (role === "STAFF") {
             type = "STAFF_TO_TEACHER";
 
-            const isStaffMember = await isUserStaffMemberOfSchool(schoolId, userId);
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === userId);
             if (!isStaffMember) {
                 return res.status(403).json({ message: "No tienes permiso para calificar a este maestro" });
             }
@@ -112,6 +113,38 @@ const postRatingController = async (req, res, next) => {
 const deleteRatingController = async (req, res, next) => {
     try {
         const ratingId = req.params.id;
+        const { userId, role } = req.user;
+
+        const user = await findUserById(userId);
+        if (!user) {
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
+        }
+
+        const rating = await findRatingById(ratingId);
+        if (!rating) {
+            return res.status(404).json({ message: `No se ha encontrado el rating con id: ${ratingId}` });
+        }
+
+        const publication = await findPublication(rating.publicationId);
+        if (!publication) {
+            return res.status(404).json({ message: `No se ha encontrado la publicación asociada al rating` });
+        }
+
+        const school = await findSchoolById(publication.schoolId);
+
+        if (role === "STAFF") {
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === userId);
+            if (!isStaffMember) {
+                return res.status(403).json({ message: "No tienes permiso para eliminar este rating" });
+            }
+        } else if (role === "TEACHER") {
+            if (publication.createdBy.toString() !== userId) {
+                return res.status(403).json({ message: "No tienes permiso para eliminar este rating" });
+            }
+        } else {
+            return res.status(403).json({ message: "Rol de usuario no autorizado para eliminar ratings" });
+        }
+
         await deleteRating(ratingId);
         res.status(200).json({
             message: "Rating eliminado correctamente"

@@ -58,21 +58,19 @@ const deleteSchool = async (id) => {
     return result;
 };
 
-const updateSchool = async (id, payload) => {
+const updateSchool = async (school, payload) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`ID de escuela inválido: ${id}`);
     }
-    const school = await School.findOne({ _id: id });
-
-    if (school) {
-        Object.entries(payload).forEach(([key, value]) => {
+    Object.entries(payload).forEach(([key, value]) => {
+        if (key in school) {
             school[key] = value;
-        });
-        await school.save();
+        }
+    });
+    await school.save();
 
-        const redisClient = connectToRedis();
-        redisClient.del("schools");
-    }
+    const redisClient = connectToRedis();
+    redisClient.del("schools");
     return school;
 };
 
@@ -98,14 +96,6 @@ const addUserToSchool = async (userId, school, role) => {
     return school;
 };
 
-const isUserStaffMemberOfSchool = async (schoolId, userId) => {
-    if (!mongoose.Types.ObjectId.isValid(schoolId) || !mongoose.Types.ObjectId.isValid(userId)) {
-        throw new Error(`ID inválido: schoolId (${schoolId}) o userId (${userId})`);
-    }
-
-    return school.staff.some(staff => staff.userId.toString() === userId);
-};
-
 module.exports = {
     getSchools,
     findSchool,
@@ -114,5 +104,4 @@ module.exports = {
     deleteSchool,
     updateSchool,
     addUserToSchool,
-    isUserStaffMemberOfSchool,
 };

@@ -27,7 +27,7 @@ const createRating = async (teacherId, schoolId, publicationId, score, comment, 
         throw new Error(`ID inválido.`);
     }
 
-    const newRating = new Rating({ type, teacherId, schoolId, publicationId, score, comment, });
+    const newRating = new Rating({ teacherId, schoolId, publicationId, score, comment, type, });
 
     await newRating.save();
     return newRating;

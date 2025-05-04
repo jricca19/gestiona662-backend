@@ -59,6 +59,7 @@ const PublicationDaySchema = require("./validations/publicationDay.validation");
 const { updateUserValidationSchema, updateTeacherValidationSchema } = require("./validations/user.validation");
 const { ratingValidationSchema, ratingsValidationSchema } = require("./validations/rating.validation");
 const roleMiddleware = require("../middlewares/role.middleware");
+const { updateSchoolValidationSchema } = require("./validations/school.validation");
 
 privateRouter.get("/publications", getPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
@@ -76,7 +77,7 @@ privateRouter.get("/schools", getSchoolsController);
 privateRouter.get("/schools/:id", getSchoolController);
 privateRouter.post("/schools", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), postSchoolController);
 privateRouter.delete("/schools/:id", roleMiddleware("STAFF"), deleteSchoolController);
-privateRouter.put("/schools/:id", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), putSchoolController);
+privateRouter.put("/schools/:id", roleMiddleware("STAFF"), payloadMiddleWare(updateSchoolValidationSchema), putSchoolController);
 
 privateRouter.get("/ratings/user", payloadMiddleWare(ratingsValidationSchema), getRatingsByUserController);
 privateRouter.get("/ratings/:id", getRatingController);
