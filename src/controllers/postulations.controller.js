@@ -33,8 +33,26 @@ const getPostulationController = async (req, res) => {
 
 const postPostulationController = async (req, res) => {
     try {
-        const { body } = req;
-        await createPostulation(body.teacherId, body.publicationId, body.createdAt);
+        const { teacherId, publicationId, createdAt, appliesToAllDays, postulationDays } = req.body;
+        if (!teacherId || !publicationId) {
+            return res.status(400).json({ error: "No ha ingresado todos los datos requeridos."});
+        }
+        if (!appliesToAllDays && (!postulationDays || postulationDays.length === 0)) {
+            return res.status(400).json({ error: "Debe proporcionar postulationDays si no aplica a todos los días" });
+        }
+        if (!appliesToAllDays) {
+            const dayIds = postulationDays.map(d => d.publicationDayId);
+      
+            const validDays = await PublicationDay.find({
+              _id: { $in: dayIds },
+              publicationId: publicationId
+            });
+      
+            if (validDays.length !== dayIds.length) {
+              return res.status(400).json({ error: "Uno o más postulationDays son inválidos o no pertenecen a la publicación" });
+            }
+        }
+        await createPostulation(teacherId, publicationId, createdAt);
         res.status(201).json({
             message: "Postulación creada correctamente"
         });

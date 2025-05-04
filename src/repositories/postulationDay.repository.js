@@ -2,26 +2,26 @@ const mongoose = require("mongoose");
 const PostulationDay = require("../models/postulationDay.model");
 
 const getPostulationDays = async () => {
-    return await PostulationDay.find().select("postulationId substitutionDayId");
+    return await PostulationDay.find().select("postulationId publicationDayId");
 };
 
-const createPostulationDay = async (postulationId,substitutionDayId) => {
+const createPostulationDay = async (postulationId,publicationDayId) => {
     if (!mongoose.Types.ObjectId.isValid(postulationId)) {
         throw new Error(`Postulación con ID ${postulationId} inválido`);
     }
     if (!mongoose.Types.ObjectId.isValid(postulationId)) {
-        throw new Error(`Día de sustitución con ID ${substitutionDayId} inválido`);
+        throw new Error(`Día de sustitución con ID ${publicationDayId} inválido`);
     }
     const duplicated = await findDuplicatePostulationDay(
-        postulationId,substitutionDayId
+        postulationId,publicationDayId
     );
 
     if (duplicated) {
-        throw new Error("Ya existe un día de postulación asignado para esa postulación y ese día de suplencia");
+        throw new Error("Ya existe un día de postulación asignado para esa postulación y ese día de publicación");
     }
     const newPostulationDay = new PostulationDay({
         postulationId,
-        substitutionDayId
+        publicationDayId
     });
     await newPostulationDay.save();
     return newPostulationDay;
@@ -31,12 +31,12 @@ const findPostulationDay = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
-    return await PostulationDay.findById(id).select("postulationId substitutionDayId");
+    return await PostulationDay.findById(id).select("postulationId publicationDayId");
 };
 
-const findDuplicatePostulationDay = async (postulationId,substitutionDayId) => {
+const findDuplicatePostulationDay = async (postulationId,publicationDayId) => {
     return await PostulationDay.findOne({
-        postulationId,substitutionDayId
+        postulationId,publicationDayId
     }).select("_id");
 };
 

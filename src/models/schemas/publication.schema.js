@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const publicationDaySchema = require("./publicationDay.schema");
 
 const publicationSchema = new mongoose.Schema({
   schoolId: {
@@ -11,14 +12,7 @@ const publicationSchema = new mongoose.Schema({
   endDate: { type: Date, required: true },
   shift: { type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"], required: true },
   status: { type: String, enum: ["OPEN", "FILLED", "CANCELLED", "EXPIRED"], default: "OPEN" },
+  publicationDays: [publicationDaySchema]
 });
-
-publicationSchema.virtual("publicationDays", {
-  ref: "PublicationDay",            // Nombre del modelo relacionado
-  localField: "_id",                // Campo local en Publication
-  foreignField: "publicationId",    // Campo en PublicationDay que referencia a Publication
-});
-publicationSchema.set("toObject", { virtuals: true });
-publicationSchema.set("toJSON", { virtuals: true });
 
 module.exports = publicationSchema;

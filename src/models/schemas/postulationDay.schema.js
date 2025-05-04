@@ -6,9 +6,9 @@ const postulationDaySchema = new mongoose.Schema({
             ref: "Postulation", // Reference to the Postulation collection
             required: true,
         },
-    substitutionDayId: {
+    publicationDayId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "SubstitutionDay", // Reference to the SubstitutionDay collection
+            ref: "PublicationDay", // Reference to the PublicationDay collection
             required: true,
     }
 });

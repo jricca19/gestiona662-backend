@@ -36,11 +36,11 @@ const postPostulationDayController = async (req, res) => {
     try {
         const { body } = req;
 
-        if (!body.postulationId || !body.substitutionDayId) {
+        if (!body.postulationId || !body.publicationDayId) {
             return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
         }
 
-        await createPostulationDay(body.postulationId,body.substitutionDayId);
+        await createPostulationDay(body.postulationId,body.publicationDayId);
         res.status(201).json({
             message: "Día de postulación creado correctamente"
         });

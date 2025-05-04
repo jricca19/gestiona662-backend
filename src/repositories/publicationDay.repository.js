@@ -50,7 +50,7 @@ const deletePublicationDay = async (id) => {
 
 const deletePublicationDaysByPublicationId = async (publicationId) => {
     return await PublicationDay.deleteMany({ publicationId });
-  };
+};
 
 const updatePublicationDay = async (id, payload) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {

@@ -61,7 +61,6 @@ const getPublicationController = async (req, res, next) => {
 const postPublicationController = async (req, res, next) => {
     try {
         const { body } = req;
-
         if (!body.schoolId || !body.startDate || !body.endDate || !body.shift || (body.grade < 0 &&  body.grade > 6)) {
             return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
         }

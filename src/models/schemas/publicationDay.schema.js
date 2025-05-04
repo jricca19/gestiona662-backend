@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const publicationDaySchema = new mongoose.Schema({
-    publicationId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Publication", // Reference to the Publication collection
-            required: true,
-        },
     date:{ type: Date, required: true },
     assignedTeacherId:{
         type: mongoose.Schema.Types.ObjectId,

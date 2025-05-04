@@ -35,7 +35,7 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     if (duplicated) {
         throw new Error("Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.");
     }
-
+    const publicationDays = generatePublicationDays(startDate, endDate);
     const newPublication = new Publication({
         schoolId,
         grade,
@@ -43,37 +43,39 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         endDate,
         shift,
         status: "OPEN",
+        publicationDays
     });
     const redisClient = connectToRedis();
     redisClient.del("publications");
     await newPublication.save();
-    await generatePublicationDays(newPublication._id, startDate, endDate);
     return newPublication;
 };
 
-const generatePublicationDays = async (publicationId, startDate, endDate) => {
+const generatePublicationDays = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
+    const days = [];
 
-    const publicationDays = [];
     for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
         const day = new Date(d);
         const weekday = day.getDay();
-
-        if (weekday >= 1 && weekday <= 5) { // Lunes (1) a Viernes (5)
-            const createdDay = await createPublicationDay(publicationId, day,null,"AVAILABLE");
-            publicationDays.push(createdDay);
+        if (weekday >= 1 && weekday <= 5) {
+            days.push({
+                date: new Date(day),
+                assignedTeacherId: null,
+                status: "AVAILABLE"
+            });
         }
     }
 
-    return publicationDays;
+    return days;
 };
 
 const findPublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
-    return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
+    return await Publication.findById(id).populate("publicationDays").select("_id schoolId grade startDate endDate shift status");
 };
 
 const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
