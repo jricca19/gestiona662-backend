@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const { findSchool } = require("./school.repository");
-const {createPublicationDay,deletePublicationDaysByPublicationId}=require("./publicationDay.repository");
 const connectToRedis = require("../services/redis.service");
 
 const getPublications = async () => {
@@ -35,7 +34,7 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     if (duplicated) {
         throw new Error("Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.");
     }
-    const publicationDays = generatePublicationDays(startDate, endDate);
+    const publicationDays = await generatePublicationDays(startDate, endDate);
     const newPublication = new Publication({
         schoolId,
         grade,
@@ -51,13 +50,13 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     return newPublication;
 };
 
-const generatePublicationDays = (startDate, endDate) => {
+const generatePublicationDays = async (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
     const days = [];
-
     for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
         const day = new Date(d);
+
         const weekday = day.getDay();
         if (weekday >= 1 && weekday <= 5) {
             days.push({

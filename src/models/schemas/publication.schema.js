@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
-const publicationDaySchema = require("./publicationDay.schema");
+
+const publicationDaySchema = new mongoose.Schema({
+    date:{ type: Date, required: true },
+    assignedTeacherId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User", // Reference to the Teacher collection
+        required: false,
+    },
+    status:{ type: String, enum: ["AVAILABLE", "ASSIGNED", "CANCELLED", "EXPIRED"], required: true }
+});
 
 const publicationSchema = new mongoose.Schema({
   schoolId: {

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const PublicationDay = require("../models/publicationDay.model");
 
 const getPublicationDays = async () => {
     return await PublicationDay.find().select("publicationId date assignedTeacherId status");
