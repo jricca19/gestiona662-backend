@@ -39,51 +39,69 @@ const signupValidationSchema = Joi.object({
   }),
 });
 
+const updateUserValidationSchema = Joi.object({
+  name: Joi.string().min(3).max(20).optional().messages({
+    'string.min': 'El nombre debe tener al menos 3 caracteres',
+    'string.max': 'El nombre no puede tener más de 20 caracteres',
+  }),
+  lastName: Joi.string().min(3).max(20).optional().messages({
+    'string.min': 'El apellido debe tener al menos 3 caracteres',
+    'string.max': 'El apellido no puede tener más de 20 caracteres',
+  }),
+  ci: Joi.string().optional().messages({
+    'string.empty': 'El CI no puede estar vacío',
+  }),
+  email: Joi.string().email().optional().messages({
+    'string.email': 'El correo electrónico no es válido',
+  }),
+  phoneNumber: Joi.string().optional().messages({
+    'string.empty': 'El número de teléfono no puede estar vacío',
+  }),
+});
+
 const loginValidationSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(8).max(20).required(),
 });
 
-const teacherValidationSchema = Joi.object({
+const updateTeacherValidationSchema = Joi.object({
   isEffectiveTeacher: Joi.boolean().optional().messages({
-    'boolean.base': 'El valor de isEffectiveTeacher debe ser verdadero o falso'
+    'boolean.base': 'El valor de isEffectiveTeacher debe ser verdadero o falso',
   }),
-  address: Joi.string().required().messages({
-    'string.empty': 'La dirección es obligatoria',
-    'any.required': 'La dirección es obligatoria'
+  address: Joi.string().optional().messages({
+    'string.empty': 'La dirección no puede estar vacía',
   }),
-  graduationDate: Joi.date().required().messages({
+  graduationDate: Joi.date().optional().messages({
     'date.base': 'La fecha de graduación debe ser válida',
-    'any.required': 'La fecha de graduación es obligatoria'
   }),
-  competitionNumber: Joi.number().required().messages({
+  competitionNumber: Joi.number().optional().messages({
     'number.base': 'El número de competencia debe ser un número',
-    'any.required': 'El número de competencia es obligatorio'
   }),
-  healthCertificateStatus: Joi.boolean().required().messages({
+  healthCertificateStatus: Joi.boolean().optional().messages({
     'boolean.base': 'El estado del certificado de salud debe ser verdadero o falso',
-    'any.required': 'El estado del certificado de salud es obligatorio'
   }),
-  criminalRecordDate: Joi.date().required().messages({
+  criminalRecordDate: Joi.date().optional().messages({
     'date.base': 'La fecha del certificado de antecedentes penales debe ser válida',
-    'any.required': 'La fecha del certificado de antecedentes penales es obligatoria'
   }),
-  law19889CertificateDate: Joi.date().required().messages({
+  law19889CertificateDate: Joi.date().optional().messages({
     'date.base': 'La fecha del certificado de la Ley 19889 debe ser válida',
-    'any.required': 'La fecha del certificado de la Ley 19889 es obligatoria'
   }),
-  gradeExperience: Joi.array().items(Joi.number().integer().min(0).max(6)).required().messages({
+  gradeExperience: Joi.array().items(Joi.number().integer().min(0).max(6)).optional().messages({
     'array.base': 'La experiencia por grado debe ser una lista de números',
-    'any.required': 'La experiencia por grado es obligatoria'
+    'number.min': 'La experiencia por grado no puede ser menor a 0',
+    'number.max': 'La experiencia por grado no puede ser mayor a 6',
   }),
-  preferredShifts: Joi.array().items(Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY")).required().messages({
+  preferredShifts: Joi.array().items(Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY")).optional().messages({
     'array.base': 'Los turnos preferidos deben ser una lista de valores válidos',
-    'any.required': 'Los turnos preferidos son obligatorios'
+    'any.only': 'Los turnos preferidos deben ser MORNING, AFTERNOON o FULL_DAY',
   }),
 });
 
+
+
 module.exports = {
   signupValidationSchema,
+  updateUserValidationSchema,
   loginValidationSchema,
-  teacherValidationSchema,
+  updateTeacherValidationSchema,
 };

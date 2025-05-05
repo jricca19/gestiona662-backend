@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+//TODO: actualizar json de swagger
 
 const {
   createUser,

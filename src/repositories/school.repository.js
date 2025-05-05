@@ -1,8 +1,16 @@
 const mongoose = require("mongoose");
 const School = require("../models/school.model");
+const connectToRedis = require("../services/redis.service");
 
 const getSchools = async () => {
-    return await School.find().select("schoolNumber departmentId cityName address");
+    const redisClient = connectToRedis();
+    let schools = await redisClient.get("schools");
+
+    if (!schools) {
+        schools = await School.find();
+        redisClient.set("schools", JSON.stringify(schools));
+    }
+    return schools;
 };
 
 const findSchool = async (schoolNumber, departmentId, cityName) => {
@@ -21,7 +29,7 @@ const createSchool = async (schoolNumber, departmentId, cityName, address) => {
     if (!mongoose.Types.ObjectId.isValid(departmentId)) {
         throw new Error(`ID de departamento inválido: ${departmentId}`);
     }
-    
+
     const cityNameUpper = cityName.trim().toUpperCase();
 
     const newSchool = new School({
@@ -31,6 +39,10 @@ const createSchool = async (schoolNumber, departmentId, cityName, address) => {
         address
     });
     await newSchool.save();
+
+    const redisClient = connectToRedis();
+    redisClient.del("schools");
+
     return newSchool;
 };
 
@@ -38,21 +50,25 @@ const deleteSchool = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`ID de escuela inválido: ${id}`);
     }
-    return await School.deleteOne({ _id: id });
+    const result = await School.deleteOne({ _id: id });
+
+    const redisClient = connectToRedis();
+    redisClient.del("schools");
+
+    return result;
 };
 
-const updateSchool = async (id, payload) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`ID de escuela inválido: ${id}`);
-    }
-    const school = await School.findOne({ _id: id });
-
-    if (school) {
-        Object.entries(payload).forEach(([key, value]) => {
+const updateSchool = async (school, payload) => {
+    Object.entries(payload).forEach(([key, value]) => {
+        if (key in school) {
             school[key] = value;
-        });
-        await school.save();
-    }
+        }
+    });
+    
+    await school.save({ validateModifiedOnly: true });
+
+    const redisClient = connectToRedis();
+    redisClient.del("schools");
     return school;
 };
 
@@ -71,6 +87,10 @@ const addUserToSchool = async (userId, school, role) => {
     });
 
     await school.save();
+
+    const redisClient = connectToRedis();
+    redisClient.del("schools");
+
     return school;
 };
 

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const Department = require('../models/department.model');
+const Department = require('../src/models/department.model');
 
 const departments = [
     {

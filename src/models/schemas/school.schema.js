@@ -13,7 +13,7 @@ const schoolSchema = new mongoose.Schema({
     cityName: { type: String, required: true },
     address: { type: String, required: true },
     staff: [staffSchema]
-});
+}, { timestamps: true });
 
 schoolSchema.index({ schoolNumber: 1, departmentId: 1, cityName: 1 }, { unique: true });
 

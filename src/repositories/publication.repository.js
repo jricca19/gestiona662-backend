@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const connectToRedis = require("../services/redis.service");
 
+//TODO: crear script para que cada día se ejecute y compruebe por fechas las publicaciones caducadas y las cierre
+
+//TODO: acá solo conviene devolver los que son OPEN para que quede mas simple getPublicationsController
 const getPublications = async () => {
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");
@@ -60,6 +63,7 @@ const findPublication = async (id) => {
     return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status publicationDays");
 };
 
+//TODO: si el estado es filled debe tenerlo en cuenta también?
 const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
     return await Publication.findOne({
         schoolId: schoolId,
@@ -98,6 +102,14 @@ const updatePublication = async (id, payload) => {
     const redisClient = connectToRedis();
     redisClient.del("publications");
     return publication;
+};
+
+const isTeacherInPublicationDays = (publication, teacherId) => {
+    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
+        throw new Error(`ID de maestro inválido: ${teacherId}`);
+    }
+
+    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId);
 };
 
 module.exports = {
