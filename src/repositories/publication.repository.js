@@ -6,7 +6,7 @@ const getPublications = async () => {
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");
     if (!publications) {
-        publications = await Publication.find().populate("publicationDays").select("_id schoolId grade startDate endDate shift status");
+        publications = await Publication.find().select("_id schoolId grade startDate endDate shift status publicationDays");
         redisClient.set("publications", JSON.stringify(publications),{ ex: 3600});
     }
     return publications;
@@ -29,7 +29,8 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     });
     const redisClient = connectToRedis();
     redisClient.del("publications");
-    await newPublication.save();
+    const saved = await newPublication.save();
+console.log(saved.publicationDays);
     return newPublication;
 };
 
@@ -49,7 +50,6 @@ const generatePublicationDays = async (startDate, endDate) => {
             });
         }
     }
-
     return days;
 };
 
@@ -57,7 +57,7 @@ const findPublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
-    return await Publication.findById(id).populate("publicationDays").select("_id schoolId grade startDate endDate shift status");
+    return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status publicationDays");
 };
 
 const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
@@ -77,13 +77,15 @@ const deletePublication = async (id) => {
     }
     const redisClient = connectToRedis();
     redisClient.del("publications");
-    await deletePublicationDaysByPublicationId(id);
     return await Publication.deleteOne({ _id: id });
 };
 
 const updatePublication = async (id, payload) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe ID: ${id}`);
+        throw new Error(`No existe publicación con ID: ${id}`);
+    }
+    if (payload.schoolId&&!mongoose.Types.ObjectId.isValid(payload.schoolId)) {
+        throw new Error(`Escuela con ID ${payload.schoolId} inválido`);
     }
     const publication = await Publication.findOne({ _id: id });
 
@@ -104,5 +106,5 @@ module.exports = {
     createPublication,
     deletePublication,
     updatePublication,
-    findDuplicatePublication,
+    findDuplicatePublication
 };

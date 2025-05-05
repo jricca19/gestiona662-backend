@@ -120,7 +120,7 @@ const deletePublicationController = (req, res, next) => {
     }
 };
 
-const putPublicationController = (req, res, next) => {
+const putPublicationController = async (req, res, next) => {
     try {
         const publicationId = req.params.id;
         const { body } = req;
@@ -132,8 +132,16 @@ const putPublicationController = (req, res, next) => {
             });
             return;
         }
-        updatePublication(publicationId, body);
-        res.status(200).json(publication);
+        if(body.startDate&&body.endDate&body.startDate>body.endDate){
+            res.status(404).json({
+                message: `La fecha de fin debe ser mayor a la fecha de inicio`,
+            });
+            return;
+        }
+        await updatePublication(publicationId, body);
+        res.status(200).json({
+            message: "Publicación actualizada correctamente",
+        });
     } catch (error) {
         next(error);
     }

@@ -33,22 +33,13 @@ const {
     putRatingController,
 } = require("../controllers/ratings.controller");
 
-const {
-    getPostulationDaysController,
-    getPostulationDayController,
-    postPostulationDayController,
-    deletePostulationDayController,
-    putPostulationDayController,
-} = require("../controllers/postulationDays.controller");
-
 const { putUserProfile } = require("../controllers/user.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
-const { createPublicationSchema, updatePublicationSchema,publicationDaySchema } = require("./validations/publication.validation");
+const { createPublicationSchema, updatePublicationSchema} = require("./validations/publication.validation");
 const schoolValidationSchema = require("./validations/school.validation");
 const { createPostulationSchema, updatePostulationSchema } = require("./validations/postulation.validation");
 const RatingSchema = require("./validations/rating.validation");
-const PostulationDaySchema = require("./validations/postulationDay.validation");
 const roleMiddleware = require("../middlewares/role.middleware");
 
 privateRouter.get("/publications", getPublicationsController);
@@ -74,12 +65,6 @@ privateRouter.get("/ratings/:id", getRatingController);
 privateRouter.post("/ratings", payloadMiddleWare(RatingSchema), postRatingController);
 privateRouter.delete("/ratings/:id", deleteRatingController);
 privateRouter.put("/ratings/:id", payloadMiddleWare(RatingSchema), putRatingController);
-
-privateRouter.get("/postulationDays", getPostulationDaysController);
-privateRouter.get("/postulationDays/:id", getPostulationDayController);
-privateRouter.post("/postulationDays", payloadMiddleWare(PostulationDaySchema), postPostulationDayController);
-privateRouter.delete("/postulationDays/:id", deletePostulationDayController);
-privateRouter.put("/postulationDays/:id", payloadMiddleWare(PostulationDaySchema), putPostulationDayController);
 
 privateRouter.put("/users/profile", putUserProfile);
 
