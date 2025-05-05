@@ -8,10 +8,10 @@ Aplicación backend desarrollada con [Express.js](https://expressjs.com/)
 - [npm](https://www.npmjs.com/) (v6 o superior)
 
 ### Instalación
-1. Clonar el repositorio desde https://bitbucket.org/applicacionesmoviles/backend662/src/main/
+1. Clonar el repositorio desde https://github.com/jricca19/gestiona662-backend
 2. npm install
-3. Ejecutar desde terminal la carga de departamentos y ciudades de ./src/utils/populateDatabase.js:
-   node node src/utils/node src/utils/populateDatabase.js
+3. Ejecutar desde terminal la carga de departamentos y ciudades de ./resources/populateDatabase.js:
+   node .\resources\populateDatabase.js
 4. npm run dev
 
 ### Consideraciones
@@ -24,5 +24,5 @@ Implementada con sentry (ver src\utils\instrument.js)
 ### Testing
 Para realizar el test se debe instalar k6:
    En windows desde terminal ejecutar--> choco install k6
-Configuramos la prueba a realizar en src\utils\loadtest.js
-Con el proyecto levantado ejecutamos: k6 run .\src\utils\loadtest.js -e AUTH_TOKEN="TOKEN_DE_AUTORIZACION"
+Configuramos la prueba a realizar en .\resources\loadtest.js
+Con el proyecto levantado ejecutamos: k6 run .\resources\loadtest.js -e AUTH_TOKEN="TOKEN_DE_AUTORIZACION"
