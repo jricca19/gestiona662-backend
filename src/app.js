@@ -3,8 +3,6 @@ const Sentry = require("./utils/instrument");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("../gestiona-api/swagger.json");
 const app = express();
 
 const authMiddleWare = require("./middlewares/auth.middleware");
@@ -56,7 +54,6 @@ app.use(cors(corsOptions));
 // Public
 app.use("/", publicRouter);
 app.use("/v1/auth", authRouter);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(authMiddleWare);
 
