@@ -5,18 +5,24 @@ const getPostulations = async () => {
     return await Postulation.find().select("_id teacherId publicationId status createdAt");
 };
 
-const createPostulation = async (teacherId,publicationId,status,createdAt) => {
+const createPostulation = async (teacherId, publicationId, createdAt) => {
+    console.log({ teacherId, publicationId, createdAt });
     if (!mongoose.Types.ObjectId.isValid(teacherId)) {
         throw new Error(`Maestro con ID ${teacherId} inválido`);
     }
     if (!mongoose.Types.ObjectId.isValid(publicationId)) {
         throw new Error(`Publicación con ID ${publicationId} inválido`);
     }
-    const newPostulation = new Postulation({
+    const duplicated = await findDuplicatePostulation(
         teacherId,
-        publicationId,
-        status,
-        createdAt
+        publicationId
+    );
+
+    if (duplicated) {
+        throw new Error("Ya existe una postulación registrada de ese maestro para esa publicación.");
+    }
+    const newPostulation = new Postulation({
+        teacherId, publicationId, createdAt
     });
     await newPostulation.save();
     return newPostulation;
@@ -27,6 +33,13 @@ const findPostulation = async (id) => {
         throw new Error(`No existe postulación ID: ${id}`);
     }
     return await Postulation.findById(id).select("_id teacherId publicationId status createdAt");
+};
+
+const findDuplicatePostulation = async (teacherId,publicationId) => {
+    return await Postulation.findOne({
+        teacherId: new mongoose.Types.ObjectId(teacherId),
+        publicationId: new mongoose.Types.ObjectId(publicationId)
+    }).select("_id");
 };
 
 const deletePostulation = async (id) => {

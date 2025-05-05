@@ -1,64 +1,96 @@
 const jwt = require("jsonwebtoken");
+//TODO: actualizar json de swagger
 
 const {
   createUser,
-  findUser,
+  findUserByEmail,
+  findUserByCI,
   isValidPassword,
 } = require("../repositories/user.repository");
 
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
-const postAuthLogin = async (req, res) => {
-  const { body } = req;
-  const { username, password } = body;
-  const user = await findUser(username);
+const postAuthLogin = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await findUserByEmail(email);
 
-  if (!user) {
-    res.status(400).json({ message: "Credenciales inválidas" });
-    return;
-  }
-  const isValidPass = await isValidPassword(password, user.password);
-  if (!isValidPass) {
-    res.status(401).json({ message: "Credenciales inválidas" });
-    return;
-  }
-
-  const token = jwt.sign(
-    { id: user.id, username: user.username },
-    AUTH_SECRET_KEY,
-    {
-      expiresIn: "24h",
+    if (!user) {
+      res.status(400).json({ message: "Credenciales inválidas" });
+      return;
     }
-  );
-  res.status(200).json({ token: token });
+
+    const isValidPass = await isValidPassword(password, user.password);
+    if (!isValidPass) {
+      res.status(401).json({ message: "Credenciales inválidas" });
+      return;
+    }
+
+    const token = jwt.sign(
+      { userId: user._id, name: user.name, lastName: user.lastName, email: user.email, role: user.role },
+      AUTH_SECRET_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+    res.status(200).json({ token: token });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const postAuthSignUp = async (req, res) => {
-  const { body } = req;
-  const { name, username, password } = body;
-
-  const user = await findUser(username);
-
-  if (user) {
-    res.status(400).json({ message: "Nombre de usuario ya en uso" });
-    return;
+const validDocument = (ci) => {
+  const weights = [2, 9, 8, 7, 6, 3, 4];
+  let sum = 0;
+  for (let i = 0; i < weights.length; i++) {
+    sum += parseInt(ci[i]) * weights[i];
   }
-  const userID = await createUser(name, username, password);
+  const remainder = sum % 10;
+  const checkDigit = remainder === 0 ? 0 : 10 - remainder;
+  return checkDigit === parseInt(ci[7]);
+};
 
-  if (!userID) {
-    res.status(500).json({ message: "Error al crear el usuario" });
-    return;
-  }
+const postAuthSignUp = async (req, res, next) => {
+  try {
+    const { name, lastName, ci, email, password, phoneNumber, role } = req.body;
 
-  const token = jwt.sign(
-    { id: userID, username: username },
-    AUTH_SECRET_KEY,
-    {
-      expiresIn: "24h",
+    const user = await findUserByEmail(email);
+    if (user) {
+      res.status(400).json({ message: "Correo electrónico ya registrado" });
+      return;
     }
-  );
 
-  res.status(201).json({ message: "Usuario creado exitosamente", token: token });
+    const existingCI = await findUserByCI(ci);
+    if (existingCI) {
+      res.status(400).json({ message: "Cédula de identidad ya registrada" });
+      return;
+    }
+
+    if (!validDocument(ci)) {
+      res.status(400).json({ message: "Cédula de identidad inválida" });
+      return;
+    }
+
+    const newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role);
+
+    if (!newUser) {
+      res.status(500).json({ message: "Error al crear el usuario" });
+      return;
+    }
+
+    const token = jwt.sign(
+      { userId: newUser._id, name: newUser.name, lastName: newUser.lastName, email: newUser.email, role: newUser.role },
+      AUTH_SECRET_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+    
+    res.status(201).json({ message: "Usuario creado exitosamente", token: token });
+
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {

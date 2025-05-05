@@ -11,7 +11,7 @@ const getPostulationsController = async (req, res) => {
         const postulations = await getPostulations();
         res.status(200).json(postulations);
     } catch (error) {
-        next(error);
+        res.status(400).json({ error: error.message });;
     }
 }
 
@@ -19,7 +19,7 @@ const getPostulationController = async (req, res) => {
     try {
         const postulationId = req.params.id;
         const postulation = await findPostulation(postulationId);
-        if (school) {
+        if (postulation) {
             res.status(200).json(postulation);
             return;
         }
@@ -34,7 +34,7 @@ const getPostulationController = async (req, res) => {
 const postPostulationController = async (req, res) => {
     try {
         const { body } = req;
-        await createPostulation(body.teacherId, body.publicationId, body.status, body.createdAt);
+        await createPostulation(body.teacherId, body.publicationId, body.createdAt);
         res.status(201).json({
             message: "Postulación creada correctamente"
         });

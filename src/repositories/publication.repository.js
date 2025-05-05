@@ -1,9 +1,20 @@
 const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const { findSchool } = require("./school.repository");
+const { createPublicationDay, deletePublicationDaysByPublicationId } = require("./publicationDay.repository");
+const connectToRedis = require("../services/redis.service");
 
+//TODO: crear script para que cada día se ejecute y compruebe por fechas las publicaciones caducadas y las cierre
+
+//TODO: acá solo conviene devolver los que son OPEN para que quede mas simple getPublicationsController
 const getPublications = async () => {
-    return await Publication.find().select("_id schoolId grade startDate endDate shift status");
+    const redisClient = connectToRedis();
+    let publications = await redisClient.get("publications");
+    if (!publications) {
+        publications = await Publication.find().populate("publicationDays").select("_id schoolId grade startDate endDate shift status");
+        redisClient.set("publications", JSON.stringify(publications), { ex: 3600 });
+    }
+    return publications;
 };
 
 const createPublication = async (schoolId, grade, startDate, endDate, shift) => {
@@ -16,6 +27,18 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         throw new Error(`No existe una escuela con el ID: ${schoolId}`);
     }
 
+    const duplicated = await findDuplicatePublication(
+        schoolId,
+        grade,
+        shift,
+        startDate,
+        endDate
+    );
+
+    if (duplicated) {
+        throw new Error("Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.");
+    }
+
     const newPublication = new Publication({
         schoolId,
         grade,
@@ -24,21 +47,57 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         shift,
         status: "OPEN",
     });
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
     await newPublication.save();
+    await generatePublicationDays(newPublication._id, startDate, endDate);
     return newPublication;
+};
+
+const generatePublicationDays = async (publicationId, startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const publicationDays = [];
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const day = new Date(d);
+        const weekday = day.getDay();
+
+        if (weekday >= 1 && weekday <= 5) { // Lunes (1) a Viernes (5)
+            const createdDay = await createPublicationDay(publicationId, day, null, "AVAILABLE");
+            publicationDays.push(createdDay);
+        }
+    }
+
+    return publicationDays;
 };
 
 const findPublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
-    return await Publication.findById(id).select("_id schoolId grade startDate endDate shift status");
+    return await Publication.findById(id); // Sin populate
+};
+
+//TODO: si el estado es filled debe tenerlo en cuenta también?
+const findDuplicatePublication = async (schoolId, grade, shift, startDate, endDate) => {
+    return await Publication.findOne({
+        schoolId: schoolId,
+        grade: grade,
+        shift: shift,
+        status: "OPEN",
+        startDate: { $lte: new Date(endDate) },
+        endDate: { $gte: new Date(startDate) }
+    }).select("_id");
 };
 
 const deletePublication = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe ID: ${id}`);
     }
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
+    await deletePublicationDaysByPublicationId(id);
     return await Publication.deleteOne({ _id: id });
 };
 
@@ -54,7 +113,17 @@ const updatePublication = async (id, payload) => {
         });
         await publication.save();
     }
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
     return publication;
+};
+
+const isTeacherInPublicationDays = (publication, teacherId) => {
+    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
+        throw new Error(`ID de maestro inválido: ${teacherId}`);
+    }
+
+    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId);
 };
 
 module.exports = {
@@ -63,4 +132,5 @@ module.exports = {
     createPublication,
     deletePublication,
     updatePublication,
+    isTeacherInPublicationDays,
 };

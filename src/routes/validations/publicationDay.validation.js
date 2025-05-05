@@ -1,10 +1,10 @@
 const Joi = require("joi");
 
-const substitutionDaySchema=Joi.object({
+const publicationDaySchema=Joi.object({
     publicationId:Joi.string().required(),
     date:Joi.date().required(),
     status:Joi.string().valid("AVAILABLE", "ASSIGNED", "CANCELLED", "EXPIRED").required(),
-    assignedTeacherId:Joi.string().required()
+    assignedTeacherId:Joi.string()
 });
 
-module.exports=substitutionDaySchema;
+module.exports=publicationDaySchema;
