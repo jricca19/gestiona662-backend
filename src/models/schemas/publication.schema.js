@@ -1,25 +1,20 @@
 const mongoose = require("mongoose");
 //TODO: agregar status COMPLETED, para diferenciar cuando se completa de cuando expira sin ser cubierta 
 
+const publicationDaySchema = new mongoose.Schema({
+  date: { type: Date, required: true },
+  assignedTeacherId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, },
+  status: { type: String, enum: ["AVAILABLE", "ASSIGNED", "CANCELLED", "EXPIRED"], required: true }
+});
+
 const publicationSchema = new mongoose.Schema({
-  schoolId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "School",
-    required: true,
-  },
+  schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true, },
   grade: { type: Number, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   shift: { type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"], required: true },
-  status: { type: String, enum: ["OPEN", "FILLED", "CANCELLED", "EXPIRED"], default: "OPEN" },
+  status: { type: String, enum: ["OPEN", "FILLED", "CANCELLED", "EXPIRED", "COMPLETED"], default: "OPEN" },
+  publicationDays: [publicationDaySchema]
 });
-
-publicationSchema.virtual("publicationDays", {
-  ref: "PublicationDay",            // Nombre del modelo relacionado
-  localField: "_id",                // Campo local en Publication
-  foreignField: "publicationId",    // Campo en PublicationDay que referencia a Publication
-});
-publicationSchema.set("toObject", { virtuals: true });
-publicationSchema.set("toJSON", { virtuals: true });
 
 module.exports = publicationSchema;
