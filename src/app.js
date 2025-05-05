@@ -18,10 +18,9 @@ const errorMiddleware = require("./middlewares/error.middleware");
   try {
     await connectMongoDB();
   } catch (error) {
-    console.log(
-      "Ha ocurrido un error al intentar conectarse a MongoDB: ",
-      error
-    );
+    Sentry.captureException(error);
+    console.error("Ha ocurrido un error al intentar conectarse a MongoDB: ", error);
+    await Sentry.flush(2000);
     process.exit(1);
   }
 })();
@@ -31,7 +30,9 @@ const errorMiddleware = require("./middlewares/error.middleware");
     await connectToRedis();
     console.log("Conexión a redis establecida correctamente");
   } catch (error) {
-    console.log("Ha ocurrido un error al intentar conectarse a Redis: ", error);
+    Sentry.captureException(error);
+    console.error("Ha ocurrido un error al intentar conectarse a Redis: ", error);
+    await Sentry.flush(2000);
     process.exit(1);
   }
 })();
@@ -49,7 +50,6 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
-
 
 // Public
 app.use("/", publicRouter);
