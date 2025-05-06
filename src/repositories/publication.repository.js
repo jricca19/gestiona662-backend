@@ -84,6 +84,10 @@ const deletePublication = async (id) => {
     return await Publication.deleteOne({ _id: id });
 };
 
+const deletePublicationBySchoolId = async (schoolId) => {
+    await Publication.deleteMany({ schoolId });
+}
+
 const updatePublication = async (id, payload) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe publicación con ID: ${id}`);
@@ -118,5 +122,6 @@ module.exports = {
     createPublication,
     deletePublication,
     updatePublication,
+    deletePublicationBySchoolId,
     findDuplicatePublication
 };

@@ -40,6 +40,10 @@ const postPostulationController = async (req, res, next) => {
         if (!teacherId || !publicationId) {
             return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
         }
+        const publication = await findPublication(publicationId);
+        if (!publication) {
+            return res.status(404).json({ error: "La publicación no existe." });
+        }
         const duplicated = await findDuplicatePostulation(
             teacherId,
             publicationId
@@ -52,10 +56,16 @@ const postPostulationController = async (req, res, next) => {
             return res.status(400).json({ error: "Debe proporcionar postulationDays si no aplica a todos los días." });
         }
 
-        if (!appliesToAllDays) {
-            const publication = await findPublication(publicationId);
-            if (!publication) {
-                return res.status(404).json({ error: "La publicación no existe." });
+        let finalPostulationDays = [];
+
+        if (appliesToAllDays) {
+            // Genera todos los días de la publicación como postulationDays
+            finalPostulationDays = publication.publicationDays.map(day => ({
+                date: day.date
+            }));
+        } else {
+            if (!postulationDays || postulationDays.length === 0) {
+                return res.status(400).json({ error: "Debe proporcionar postulationDays si no aplica a todos los días." });
             }
 
             const fechasValidas = publication.publicationDays.map(day =>
@@ -70,9 +80,11 @@ const postPostulationController = async (req, res, next) => {
                     });
                 }
             }
+
+            finalPostulationDays = postulationDays;
         }
 
-        await createPostulation(teacherId, publicationId, createdAt, appliesToAllDays, postulationDays);
+        await createPostulation(teacherId, publicationId, createdAt, appliesToAllDays, finalPostulationDays);
         res.status(201).json({ message: "Postulación creada correctamente" });
 
     } catch (error) {

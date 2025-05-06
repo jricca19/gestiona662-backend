@@ -7,7 +7,8 @@ const {
     updateSchool,
     addUserToSchool,
 } = require("../repositories/school.repository");
-
+const { deleteRatingsBySchoolId } = require("../repositories/rating.repository");
+const { deletePublicationsBySchoolId } = require("../repositories/publication.repository");
 const { findUserById, addSchoolToUserProfile, removeSchoolFromUserProfiles } = require("../repositories/user.repository");
 const { findDepartmentById, findCityByName } = require("../repositories/department.repository");
 
@@ -124,7 +125,8 @@ const deleteSchoolController = async (req, res, next) => {
                 message: "No tienes permiso para eliminar esta escuela."
             });
         }
-
+        await deletePublicationsBySchoolId(schoolId);
+        await deleteRatingsBySchoolId(schoolId);
         await deleteSchool(schoolId);
         await removeSchoolFromUserProfiles(schoolId);
 

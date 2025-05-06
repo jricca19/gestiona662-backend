@@ -6,7 +6,6 @@ const putTeacherProfile = async (req, res, next) => {
 
   try {
     const user = await findUserById(userId);
-
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }

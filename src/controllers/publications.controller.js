@@ -6,6 +6,7 @@ const {
     updatePublication,
     findDuplicatePublication,
 } = require("../repositories/publication.repository");
+const { deletePostulationsByPublicationId } = require("../repositories/postulation.repository");
 const { findSchoolById } = require("../repositories/school.repository");
 const { findUserById } = require("../repositories/user.repository");
 
@@ -102,7 +103,7 @@ const postPublicationController = async (req, res, next) => {
     }
 };
 
-const deletePublicationController = (req, res, next) => {
+const deletePublicationController = async (req, res, next) => {
     try {
         const publicationId = req.params.id;
         const publication = findPublication(publicationId);
@@ -113,7 +114,8 @@ const deletePublicationController = (req, res, next) => {
             });
             return;
         }
-        deletePublication(publicationId);
+        await deletePostulationsByPublicationId(publicationId);
+        await deletePublication(publicationId);
         res.status(200).json({
             message: "Publicación eliminada correctamente",
         });
