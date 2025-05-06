@@ -60,8 +60,17 @@ const updateUserValidationSchema = Joi.object({
 });
 
 const loginValidationSchema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().min(8).max(20).required(),
+  email: Joi.string().email().required().messages({
+    'string.email': 'El correo electrónico no es válido',
+    'string.empty': 'El correo electrónico es obligatorio',
+    'any.required': 'El correo electrónico es obligatorio'
+  }),
+  password: Joi.string().min(8).max(20).required().messages({
+    'string.min': 'La contraseña debe tener al menos 8 caracteres',
+    'string.max': 'La contraseña no puede tener más de 20 caracteres',
+    'string.empty': 'La contraseña es obligatoria',
+    'any.required': 'La contraseña es obligatoria'
+  })
 });
 
 const updateTeacherValidationSchema = Joi.object({
