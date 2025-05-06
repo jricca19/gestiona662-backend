@@ -1,5 +1,6 @@
 const payloadMiddleWare = (validationSchema) => {
     return (req, res, next) => {
+        console.log("BODY:", req.body);
         const { error } = validationSchema.validate(req.body);
 
         if (error) {

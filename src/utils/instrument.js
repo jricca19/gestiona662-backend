@@ -8,4 +8,15 @@ Sentry.init({
     sendDefaultPii: true,
 });
 
+// Capture unhandled exceptions and promise rejections
+process.on('uncaughtException', (err) => {
+    Sentry.captureException(err);
+    console.error('Unhandled Exception:', err);
+});
+
+process.on('unhandledRejection', (reason) => {
+    Sentry.captureException(reason);
+    console.error('Unhandled Rejection:', reason);
+});
+
 module.exports = Sentry;

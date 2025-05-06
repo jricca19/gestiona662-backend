@@ -3,8 +3,10 @@ const {
     createPostulation,
     findPostulation,
     deletePostulation,
-    updatePostulation
+    updatePostulation,
+    findDuplicatePostulation
 } = require("../repositories/postulation.repository");
+const { findPublication } = require("../repositories/publication.repository");
 
 const getPostulationsController = async (req, res) => {
     try {
@@ -31,17 +33,52 @@ const getPostulationController = async (req, res) => {
     }
 }
 
-const postPostulationController = async (req, res) => {
+const postPostulationController = async (req, res, next) => {
     try {
-        const { body } = req;
-        await createPostulation(body.teacherId, body.publicationId, body.createdAt);
-        res.status(201).json({
-            message: "Postulación creada correctamente"
-        });
+        const { teacherId, publicationId, createdAt, appliesToAllDays, postulationDays } = req.body;
+
+        if (!teacherId || !publicationId) {
+            return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
+        }
+        const duplicated = await findDuplicatePostulation(
+            teacherId,
+            publicationId
+        );
+
+        if (duplicated) {
+            throw new Error("Ya existe una postulación registrada de ese maestro para esa publicación.");
+        }
+        if (!appliesToAllDays && (!postulationDays || postulationDays.length === 0)) {
+            return res.status(400).json({ error: "Debe proporcionar postulationDays si no aplica a todos los días." });
+        }
+
+        if (!appliesToAllDays) {
+            const publication = await findPublication(publicationId);
+            if (!publication) {
+                return res.status(404).json({ error: "La publicación no existe." });
+            }
+
+            const fechasValidas = publication.publicationDays.map(day =>
+                new Date(day.date).toISOString().split('T')[0]
+            );
+
+            for (const pd of postulationDays) {
+                const fechaPostulacion = new Date(pd.date).toISOString().split('T')[0];
+                if (!fechasValidas.includes(fechaPostulacion)) {
+                    return res.status(400).json({
+                        error: `La fecha ${fechaPostulacion} no es válida para esta publicación.`
+                    });
+                }
+            }
+        }
+
+        await createPostulation(teacherId, publicationId, createdAt, appliesToAllDays, postulationDays);
+        res.status(201).json({ message: "Postulación creada correctamente" });
+
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        next(error);
     }
-}
+};
 
 const deletePostulationController = async (req, res) => {
     try {
