@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-//TODO: agregar status COMPLETED, para diferenciar cuando se completa de cuando expira sin ser cubierta 
 
 const publicationDaySchema = new mongoose.Schema({
   date: { type: Date, required: true },

@@ -42,6 +42,10 @@ const deleteRating = async (ratingId) => {
     return await Rating.deleteOne({ _id: ratingId });
 };
 
+const deleteRatingsBySchoolId = async (schoolId) => {
+    await Rating.deleteMany({ schoolId, type: "TEACHER_TO_SCHOOL" });
+}
+
 
 module.exports = {
     findRatingById,
@@ -49,4 +53,5 @@ module.exports = {
     createRating,
     deleteRating,
     getRatingsByType,
+    deleteRatingsBySchoolId
 };

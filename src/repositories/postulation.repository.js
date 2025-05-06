@@ -5,8 +5,14 @@ const getPostulations = async () => {
     return await Postulation.find().select("_id teacherId publicationId status createdAt appliesToAllDays postulationDays");
 };
 
-const createPostulation = async (teacherId, publicationId, createdAt,appliesToAllDays,postulationDays) => {
-    console.log({ teacherId, publicationId, createdAt });
+const getPostulationsByUserId = async (userId) => {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new Error(`ID de usuario inválido: ${userId}`);
+    }
+    return await Postulation.find({ teacherId: userId }).select();
+};
+
+const createPostulation = async (teacherId, publicationId, createdAt, appliesToAllDays, postulationDays) => {
     if (!mongoose.Types.ObjectId.isValid(teacherId)) {
         throw new Error(`Maestro con ID ${teacherId} inválido`);
     }
@@ -14,18 +20,22 @@ const createPostulation = async (teacherId, publicationId, createdAt,appliesToAl
         throw new Error(`Publicación con ID ${publicationId} inválido`);
     }
     const newPostulation = new Postulation({
-        teacherId, publicationId, createdAt,appliesToAllDays,postulationDays
+        teacherId, publicationId, createdAt, appliesToAllDays, postulationDays
     });
     await newPostulation.save();
     return newPostulation;
 };
 
-const findDuplicatePostulation = async (teacherId,publicationId) => {
+const findDuplicatePostulation = async (teacherId, publicationId) => {
     return await Postulation.findOne({
         teacherId: new mongoose.Types.ObjectId(teacherId),
         publicationId: new mongoose.Types.ObjectId(publicationId)
     }).select("_id");
 };
+
+const deletePostulationsByPublicationId = async (publicationId) => {
+    await Postulation.deleteMany({ publicationId });
+}
 
 const findPostulation = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -61,6 +71,8 @@ module.exports = {
     findPostulation,
     createPostulation,
     deletePostulation,
+    deletePostulationsByPublicationId,
     updatePostulation,
-    findDuplicatePostulation
+    findDuplicatePostulation,
+    getPostulationsByUserId
 };
