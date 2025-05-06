@@ -6,7 +6,6 @@ const getPostulations = async () => {
 };
 
 const createPostulation = async (teacherId, publicationId, createdAt,appliesToAllDays,postulationDays) => {
-    console.log({ teacherId, publicationId, createdAt });
     if (!mongoose.Types.ObjectId.isValid(teacherId)) {
         throw new Error(`Maestro con ID ${teacherId} inválido`);
     }

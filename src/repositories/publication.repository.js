@@ -33,7 +33,6 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
     const redisClient = connectToRedis();
     redisClient.del("publications");
     const saved = await newPublication.save();
-console.log(saved.publicationDays);
     return newPublication;
 };
 
