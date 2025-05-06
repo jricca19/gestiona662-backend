@@ -27,6 +27,10 @@ const findDuplicatePostulation = async (teacherId,publicationId) => {
     }).select("_id");
 };
 
+const deletePostulationsByPublicationId = async (publicationId) => {
+    await Postulation.deleteMany({ publicationId });
+}
+
 const findPostulation = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe postulación ID: ${id}`);
@@ -61,6 +65,7 @@ module.exports = {
     findPostulation,
     createPostulation,
     deletePostulation,
+    deletePostulationsByPublicationId,
     updatePostulation,
     findDuplicatePostulation
 };
