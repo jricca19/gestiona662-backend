@@ -5,6 +5,7 @@ const {
     deletePublication,
     updatePublication,
     findDuplicatePublication,
+    getPublicationsBySchoolId,
 } = require("../repositories/publication.repository");
 const { deletePostulationsByPublicationId } = require("../repositories/postulation.repository");
 const { findSchoolById } = require("../repositories/school.repository");
@@ -41,6 +42,28 @@ const getPublicationController = async (req, res, next) => {
             return res.status(200).json(publication);
         }
         return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}`, });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getUserPublicationsController = async (req, res, next) => {
+    try {
+        const { userId } = req.user;
+        const { schoolId } = req.body;
+
+        const school = await findSchoolById(schoolId);
+        if (!school) {
+            return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
+        }
+
+        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === userId);
+        if (!isUserInSchool) {
+            return res.status(403).json({ message: "No tiene permiso para ver las publicaciones de esta escuela." });
+        }
+
+        const publications = await getPublicationsBySchoolId(schoolId);
+        return res.status(200).json(publications);
     } catch (error) {
         next(error);
     }
@@ -117,6 +140,7 @@ const putPublicationController = async (req, res, next) => {
 module.exports = {
     getPublicationsController,
     getPublicationController,
+    getUserPublicationsController,
     postPublicationController,
     putPublicationController,
     deletePublicationController,

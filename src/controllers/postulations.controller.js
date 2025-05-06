@@ -4,7 +4,8 @@ const {
     findPostulation,
     deletePostulation,
     updatePostulation,
-    findDuplicatePostulation
+    findDuplicatePostulation,
+    getPostulationsByUserId
 } = require("../repositories/postulation.repository");
 const { findPublication } = require("../repositories/publication.repository");
 
@@ -30,36 +31,41 @@ const getPostulationController = async (req, res, next) => {
     }
 }
 
+const getUserPostulationsController = async (req, res, next) => {
+    try {
+        const { userId } = req.user;
+
+        const postulations = await getPostulationsByUserId(userId);
+        return res.status(200).json(postulations);
+    } catch (error) {
+        next(error);
+    }
+};
+
 const postPostulationController = async (req, res, next) => {
     try {
-        const { teacherId, publicationId, createdAt, appliesToAllDays, postulationDays } = req.body;
+        const { publicationId, createdAt, appliesToAllDays, postulationDays } = req.body;
+        const { userId } = req.user;
 
-        if (!teacherId || !publicationId) {
+        if (!publicationId) {
             return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
         }
         const publication = await findPublication(publicationId);
         if (!publication) {
             return res.status(404).json({ error: "La publicación no existe." });
         }
-        const duplicated = await findDuplicatePostulation(teacherId, publicationId);
+        const duplicated = await findDuplicatePostulation(userId, publicationId);
 
         if (duplicated) {
             return res.status(409).json({ error: "Ya existe una postulación registrada de ese maestro para esa publicación." });
         }
-        if (!appliesToAllDays && (!postulationDays || postulationDays.length === 0)) {
-            return res.status(400).json({ error: "Debe proporcionar postulationDays si no aplica a todos los días." });
-        }
 
         let finalPostulationDays = [];
 
-        if (appliesToAllDays) {
-            // Generate all publication days as postulationDays
+        if (appliesToAllDays || !postulationDays || postulationDays.length === 0) {
+            // Assign all publication days if appliesToAllDays is true or postulationDays is empty
             finalPostulationDays = publication.publicationDays.map(day => ({ date: day.date }));
         } else {
-            if (!postulationDays || postulationDays.length === 0) {
-                return res.status(400).json({ error: "Debe proporcionar postulationDays si no aplica a todos los días." });
-            }
-
             const fechasValidas = publication.publicationDays.map(day => new Date(day.date).toISOString().split('T')[0]);
 
             for (const pd of postulationDays) {
@@ -72,7 +78,7 @@ const postPostulationController = async (req, res, next) => {
             finalPostulationDays = postulationDays;
         }
 
-        await createPostulation(teacherId, publicationId, createdAt, appliesToAllDays, finalPostulationDays);
+        await createPostulation(userId, publicationId, createdAt, appliesToAllDays, finalPostulationDays);
         return res.status(201).json({ message: "Postulación creada correctamente" });
 
     } catch (error) {
@@ -111,4 +117,5 @@ module.exports = {
     postPostulationController,
     putPostulationController,
     deletePostulationController,
+    getUserPostulationsController,
 }

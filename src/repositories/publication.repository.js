@@ -12,6 +12,10 @@ const getPublications = async () => {
     return publications;
 };
 
+const getPublicationsBySchoolId = async (schoolId) => {
+    return await Publication.find({ schoolId }).select();
+};
+
 const createPublication = async (schoolId, grade, startDate, endDate, shift) => {
     if (!mongoose.Types.ObjectId.isValid(schoolId)) {
         throw new Error(`Escuela con ID ${schoolId} inválido`);
@@ -118,5 +122,7 @@ module.exports = {
     deletePublication,
     updatePublication,
     deletePublicationBySchoolId,
-    findDuplicatePublication
+    findDuplicatePublication,
+    getPublicationsBySchoolId,
+    isTeacherInPublicationDays
 };
