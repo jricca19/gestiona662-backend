@@ -43,7 +43,7 @@ const deleteRating = async (ratingId) => {
 };
 
 const deleteRatingsBySchoolId = async (schoolId) => {
-    await Rating.deleteMany({ schoolId });
+    await Rating.deleteMany({ schoolId, type: "TEACHER_TO_SCHOOL" });
 }
 
 

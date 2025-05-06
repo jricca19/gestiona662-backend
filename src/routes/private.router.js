@@ -68,5 +68,4 @@ privateRouter.delete("/ratings/:id", deleteRatingController);
 privateRouter.put("/users/profileTeacher", roleMiddleware("TEACHER"), payloadMiddleWare(updateTeacherValidationSchema), putTeacherProfile);
 privateRouter.put("/users/profile", payloadMiddleWare(updateUserValidationSchema), putUserProfile);
 
-
 module.exports = privateRouter;

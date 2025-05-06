@@ -15,7 +15,7 @@ const { findDepartmentById, findCityByName } = require("../repositories/departme
 const getSchoolsController = async (req, res, next) => {
     try {
         const schools = await getSchools();
-        res.status(200).json(schools);
+        return res.status(200).json(schools);
     } catch (error) {
         next(error);
     }
@@ -26,12 +26,9 @@ const getSchoolController = async (req, res, next) => {
         const schoolId = req.params.id;
         const school = await findSchoolById(schoolId);
         if (school) {
-            res.status(200).json(school);
-            return;
+            return res.status(200).json(school);
         }
-        res.status(404).json({
-            message: `No se ha encontrado la escuela con id: ${schoolId}`
-        });
+        res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
     } catch (error) {
         next(error);
     }
@@ -44,26 +41,17 @@ const postSchoolController = async (req, res, next) => {
 
         const user = await findUserById(userId);
         if (!user) {
-            res.status(404).json({
-                message: `No se ha encontrado el usuario con id: ${userId}`
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
         }
 
         const department = await findDepartmentById(departmentId);
         if (!department) {
-            res.status(404).json({
-                message: `No se ha encontrado el departamento con id: ${departmentId}`
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado el departamento con id: ${departmentId}` });
         }
 
         const city = await findCityByName(departmentId, cityName);
         if (!city) {
-            res.status(404).json({
-                message: `No se ha encontrado la ciudad ${cityName} en el departamento ${department.name}`
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado la ciudad ${cityName} en el departamento ${department.name}` });
         }
 
         let school = await findSchool(schoolNumber, departmentId, cityName);
@@ -71,68 +59,17 @@ const postSchoolController = async (req, res, next) => {
         if (school) {
             const userInSchool = school.staff?.some(staff => staff.userId.toString() === userId);
             if (userInSchool) {
-                res.status(400).json({
-                    message: `El usuario ya está registrado en la escuela ${schoolNumber} en ${cityName}`
-                });
-                return;
+                return res.status(400).json({ message: `El usuario ya está registrado en la escuela ${schoolNumber} en ${cityName}` });
             }
             await addUserToSchool(userId, school, "SECONDARY");
             await addSchoolToUserProfile(user, school._id);
-            res.status(200).json({
-                message: `Usuario agregado correctamente a la escuela existente. Debe ser aprobado por el director.`
-            });
-            return;
+            return res.status(200).json({ message: `Usuario agregado correctamente a la escuela existente. Debe ser aprobado por el director.` });
         }
 
         school = await createSchool(schoolNumber, departmentId, cityName, address);
         await addUserToSchool(userId, school, "PRIMARY");
         await addSchoolToUserProfile(user, school._id);
-        res.status(201).json({
-            message: "Escuela creada correctamente y usuario agregado como principal."
-        });
-    } catch (error) {
-        next(error);
-    }
-};
-
-const deleteSchoolController = async (req, res, next) => {
-    try {
-        const schoolId = req.params.id;
-        const { userId } = req.user;
-
-        const user = await findUserById(userId);
-        if (!user) {
-            res.status(404).json({
-                message: `No se ha encontrado el usuario con id: ${userId}`
-            });
-            return;
-        }
-
-        const school = await findSchoolById(schoolId);
-        if (!school) {
-            res.status(404).json({
-                message: `No se ha encontrado la escuela con id: ${schoolId}`
-            });
-            return;
-        }
-
-        const isPrimary = school.staff?.some(staff =>
-            staff.userId.toString() === userId && staff.role === "PRIMARY"
-        );
-
-        if (!isPrimary) {
-            return res.status(403).json({
-                message: "No tienes permiso para eliminar esta escuela."
-            });
-        }
-        await deletePublicationsBySchoolId(schoolId);
-        await deleteRatingsBySchoolId(schoolId);
-        await deleteSchool(schoolId);
-        await removeSchoolFromUserProfiles(schoolId);
-
-        res.status(200).json({
-            message: "Escuela eliminada correctamente"
-        });
+        return res.status(201).json({ message: "Escuela creada correctamente y usuario agregado como principal." });
     } catch (error) {
         next(error);
     }
@@ -199,14 +136,44 @@ const putSchoolController = async (req, res, next) => {
             );
 
             if (existingSchool && existingSchool._id.toString() !== schoolId) {
-                return res.status(400).json({
-                    message: "Ya existe una escuela con el mismo número, departamento y ciudad."
-                });
+                return res.status(400).json({ message: "Ya existe una escuela con el mismo número, departamento y ciudad." });
             }
         }
-
         const updatedSchool = await updateSchool(school, payload);
         res.status(200).json(updatedSchool);
+    } catch (error) {
+        next(error);
+    }
+};
+
+const deleteSchoolController = async (req, res, next) => {
+    try {
+        const schoolId = req.params.id;
+        const { userId } = req.user;
+
+        const user = await findUserById(userId);
+        if (!user) {
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
+        }
+
+        const school = await findSchoolById(schoolId);
+        if (!school) {
+            return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
+        }
+
+        const isPrimary = school.staff?.some(staff =>
+            staff.userId.toString() === userId && staff.role === "PRIMARY"
+        );
+
+        if (!isPrimary) {
+            return res.status(403).json({ message: "No tienes permiso para eliminar esta escuela." });
+        }
+        await deletePublicationsBySchoolId(schoolId);
+        await deleteRatingsBySchoolId(schoolId);
+        await deleteSchool(schoolId);
+        await removeSchoolFromUserProfiles(schoolId);
+
+        return res.status(200).json({ message: "Escuela eliminada correctamente" });
     } catch (error) {
         next(error);
     }
