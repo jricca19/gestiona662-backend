@@ -1,88 +1,20 @@
-const Joi=require("joi");
+const mongoose = require("mongoose");
 
-const schoolSchema = Joi.object({
-    schoolNumber: Joi.number().required(),
-    department: Joi.string().valid(
-        "Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", 
-        "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", 
-        "Paysandú", "Río Negro", "Rivera", "Rocha", "Salto", 
-        "San José", "Soriano", "Tacuarembó", "Treinta y Tres").required(),
-        city: Joi.string().valid(
-            'Montevideo',
-            'Salto',
-            'Ciudad de la Costa',
-            'Paysandú',
-            'Las Piedras',
-            'Rivera',
-            'Maldonado',
-            'Tacuarembó',
-            'Melo',
-            'Mercedes',
-            'Artigas',
-            'Minas',
-            'San José de Mayo',
-            'Durazno',
-            'Florida',
-            'Barros Blancos',
-            'Ciudad del Plata',
-            'San Carlos',
-            'Colonia del Sacramento',
-            'Pando',
-            'Treinta y Tres',
-            'Rocha',
-            'Fray Bentos',
-            'Trinidad',
-            'La Paz',
-            'Canelones',
-            'Carmelo',
-            'Dolores',
-            'Young',
-            'Santa Lucía',
-            'Progreso',
-            'Paso de Carrasco',
-            'Río Branco',
-            'Paso de los Toros',
-            'Juan Lacaze',
-            'Bella Unión',
-            'Nueva Helvecia',
-            'Libertad',
-            'Rosario',
-            'Nueva Palmira',
-            'Chuy',
-            'Punta del Este',
-            'Piriápolis',
-            'Salinas',
-            'Parque del Plata',
-            'Lascano',
-            'Castillos',
-            'Tranqueras',
-            'Sarandí del Yí',
-            'San Ramón',
-            'Tarariras',
-            'Pan de Azúcar',
-            'Sauce',
-            'Sarandí Grande',
-            'Atlántida',
-            'José Pedro Varela',
-            'Tala',
-            'Guichón',
-            'Cardona',
-            'San Jacinto',
-            'Toledo',
-            'Vergara',
-            'Santa Rosa',
-            'Florencio Sánchez',
-            'La Paloma',
-            'San Gregorio de Polanco',
-            'Ombúes de Lavalle',
-            'Colonia Valdense',
-            'Rodríguez',
-            'Cerrillos',
-            'Aiguá',
-            'Migues',
-            'San Bautista'
-          ).required(),
-          address:Joi.string().required()
+const staffSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    role: { type: String, enum: ["PRIMARY", "SECONDARY"], required: true },
+    isApproved: { type: Boolean, default: false },
+    assignedAt: { type: Date, required: true }
 });
 
-module.exports=schoolSchema;
+const schoolSchema = new mongoose.Schema({
+    schoolNumber: { type: Number, required: true },
+    departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true },
+    cityName: { type: String, required: true },
+    address: { type: String, required: true },
+    staff: [staffSchema]
+}, { timestamps: true });
+
+schoolSchema.index({ schoolNumber: 1, departmentId: 1, cityName: 1 }, { unique: true });
+
+module.exports = schoolSchema;

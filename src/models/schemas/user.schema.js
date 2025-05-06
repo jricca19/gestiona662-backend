@@ -1,17 +1,28 @@
-const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const signupSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required(),
-  username: Joi.string().min(3).max(20).required(),
-  password: Joi.string().min(8).max(20).required(),
-});
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true, minlength: 3, maxlength: 20 },
+  lastName: { type: String, required: true, minlength: 3, maxlength: 20 },
+  ci: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+  role: { type: String, enum: ["TEACHER", "STAFF"], required: true },
+  teacherProfile: {
+    isEffectiveTeacher: { type: Boolean, default: false },
+    address: { type: String },
+    graduationDate: { type: Date },
+    competitionNumber: { type: Number },
+    healthCertificateStatus: { type: Boolean },
+    criminalRecordDate: { type: Date },
+    law19889CertificateDate: { type: Date },
+    gradeExperience: [{ type: String }],
+    preferredShifts: [{ type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"] }],
+  },
+  staffProfile: {
+    schoolIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "School" }],
+  },
+  active: { type: Boolean, default: true },
+}, { timestamps: true });
 
-const loginSchema = Joi.object({
-  username: Joi.string().min(3).max(20).required(),
-  password: Joi.string().min(8).max(20).required(),
-});
-
-module.exports = {
-  signupSchema,
-  loginSchema,
-};
+module.exports = userSchema;

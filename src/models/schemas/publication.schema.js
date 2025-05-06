@@ -1,23 +1,20 @@
-const Joi = require("joi");
+const mongoose = require("mongoose");
+//TODO: agregar status COMPLETED, para diferenciar cuando se completa de cuando expira sin ser cubierta 
 
-const createPublicationSchema = Joi.object({
-    schoolId: Joi.number().required(),
-    grade: Joi.number().min(0).required(),
-    startDate: Joi.date().required(),
-    endDate: Joi.date().required(),
-    shift: Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY").required(),
+const publicationDaySchema = new mongoose.Schema({
+  date: { type: Date, required: true },
+  assignedTeacherId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, },
+  status: { type: String, enum: ["AVAILABLE", "ASSIGNED", "CANCELLED", "EXPIRED"], required: true }
 });
 
-const updatePublicationSchema = Joi.object({
-    schoolId: Joi.number().required(),
-    grade: Joi.number().min(0).required(),
-    startDate: Joi.date().required(),
-    endDate: Joi.date().required(),
-    shift: Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY").required(),
-    status: Joi.string().valid("OPEN", "FILLED", "CANCELLED", "EXPIRED").required(),
+const publicationSchema = new mongoose.Schema({
+  schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true, },
+  grade: { type: Number, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  shift: { type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"], required: true },
+  status: { type: String, enum: ["OPEN", "FILLED", "CANCELLED", "EXPIRED", "COMPLETED"], default: "OPEN" },
+  publicationDays: [publicationDaySchema]
 });
 
-module.exports = {
-    createPublicationSchema,
-    updatePublicationSchema,
-};
+module.exports = publicationSchema;
