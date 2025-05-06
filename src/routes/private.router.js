@@ -36,7 +36,6 @@ const { putTeacherProfile, putUserProfile } = require("../controllers/user.contr
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const { createPublicationSchema, updatePublicationSchema } = require("./validations/publication.validation");
-const schoolValidationSchema = require("./validations/school.validation");
 const { createPostulationSchema, updatePostulationSchema } = require("./validations/postulation.validation");
 const { updateUserValidationSchema, updateTeacherValidationSchema } = require("./validations/user.validation");
 const { ratingValidationSchema, ratingsValidationSchema } = require("./validations/rating.validation");
