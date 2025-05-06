@@ -11,7 +11,7 @@ Aplicación backend desarrollada con [Express.js](https://expressjs.com/)
 1. Clonar el repositorio desde https://github.com/jricca19/gestiona662-backend
 2. npm install
 3. Ejecutar desde terminal la carga de departamentos y ciudades de ./resources/populateDatabase.js:
-   node .\resources\populateDatabase.js
+   node ./resources/populateDatabase.js
 4. npm run dev
 
 ### Consideraciones

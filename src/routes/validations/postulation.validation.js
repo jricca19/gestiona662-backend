@@ -8,10 +8,6 @@ const postulationDaySchema = Joi.object({
 });
 
 const createPostulationSchema = Joi.object({
-    teacherId: Joi.string().required().messages({
-        'string.empty': 'El ID del docente es obligatorio',
-        'any.required': 'El ID del docente es obligatorio'
-    }),
     publicationId: Joi.string().required().messages({
         'string.empty': 'El ID de la publicación es obligatorio',
         'any.required': 'El ID de la publicación es obligatorio'

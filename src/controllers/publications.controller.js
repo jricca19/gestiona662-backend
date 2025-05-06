@@ -5,13 +5,13 @@ const {
     deletePublication,
     updatePublication,
     findDuplicatePublication,
+    getPublicationsBySchoolId,
 } = require("../repositories/publication.repository");
 const { deletePostulationsByPublicationId } = require("../repositories/postulation.repository");
 const { findSchoolById } = require("../repositories/school.repository");
 const { findUserById } = require("../repositories/user.repository");
 
 const getPublicationsController = async (req, res, next) => {
-    //TODO: next se debe usar? en caso de ser así incluir en el catch de cada controller
     try {
         const { page = 1, limit = 10 } = req.query;
 
@@ -20,24 +20,15 @@ const getPublicationsController = async (req, res, next) => {
 
         const publications = await getPublications();
 
-        // Filter by status
-        const openPublications = publications.filter((publication) => publication.status === "OPEN");
-
-        //TODO: usar skip en base de datos para paginar
         // Calculate indexes
         const startIndex = (pageNumber - 1) * limitNumber;
         const endIndex = pageNumber * limitNumber;
 
-        // Slice the publications
-        const paginatedPublications = openPublications.slice(startIndex, endIndex);
-        const total = openPublications.length;
+        // Paginate the publications
+        const paginatedPublications = publications.slice(startIndex, endIndex);
+        const total = publications.length;
 
-        res.status(200).json({
-            total: total,
-            page: pageNumber,
-            limit: limitNumber,
-            publications: paginatedPublications,
-        });
+        return res.status(200).json({ total: total, page: pageNumber, limit: limitNumber, publications: paginatedPublications });
     } catch (error) {
         next(error);
     }
@@ -48,12 +39,31 @@ const getPublicationController = async (req, res, next) => {
         const publicationId = req.params.id;
         const publication = await findPublication(publicationId);
         if (publication) {
-            res.status(200).json(publication);
-            return;
+            return res.status(200).json(publication);
         }
-        res.status(404).json({
-            message: `No se ha encontrado la publicación con id: ${publicationId}`,
-        });
+        return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}`, });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getUserPublicationsController = async (req, res, next) => {
+    try {
+        const { userId } = req.user;
+        const { schoolId } = req.body;
+
+        const school = await findSchoolById(schoolId);
+        if (!school) {
+            return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
+        }
+
+        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === userId);
+        if (!isUserInSchool) {
+            return res.status(403).json({ message: "No tiene permiso para ver las publicaciones de esta escuela." });
+        }
+
+        const publications = await getPublicationsBySchoolId(schoolId);
+        return res.status(200).json(publications);
     } catch (error) {
         next(error);
     }
@@ -66,18 +76,12 @@ const postPublicationController = async (req, res, next) => {
 
         const user = await findUserById(userId);
         if (!user) {
-            res.status(404).json({
-                message: `No se ha encontrado el usuario con id: ${userId}`,
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}`, });
         }
 
         const school = await findSchoolById(schoolId);
         if (!school) {
-            res.status(404).json({
-                message: `No se ha encontrado la escuela con id: ${schoolId}`,
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}`, });
         }
 
         const duplicated = await findDuplicatePublication(
@@ -88,16 +92,11 @@ const postPublicationController = async (req, res, next) => {
             endDate
         );
         if (duplicated) {
-            res.status(400).json({
-                message: "Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.",
-            });
-            return;
+            return res.status(400).json({ message: "Ya existe una publicación abierta para esa escuela, grado, turno y rango de fechas.", });
         }
 
         await createPublication(schoolId, grade, startDate, endDate, shift);
-        res.status(201).json({
-            message: "Publicación creada correctamente",
-        });
+        return res.status(201).json({ message: "Publicación creada correctamente", });
     } catch (error) {
         next(error);
     }
@@ -109,16 +108,11 @@ const deletePublicationController = async (req, res, next) => {
         const publication = findPublication(publicationId);
 
         if (!publication) {
-            res.status(404).json({
-                message: `No se ha encontrado la publicación con id: ${publicationId}`,
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}`, });
         }
         await deletePostulationsByPublicationId(publicationId);
         await deletePublication(publicationId);
-        res.status(200).json({
-            message: "Publicación eliminada correctamente",
-        });
+        return res.status(200).json({ message: "Publicación eliminada correctamente", });
     } catch (error) {
         next(error);
     }
@@ -131,21 +125,13 @@ const putPublicationController = async (req, res, next) => {
         const publication = findPublication(publicationId);
 
         if (!publication) {
-            res.status(404).json({
-                message: `No se ha encontrado la publicación con id: ${publicationId}`,
-            });
-            return;
+            return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}`, });
         }
-        if(body.startDate&&body.endDate&body.startDate>body.endDate){
-            res.status(404).json({
-                message: `La fecha de fin debe ser mayor a la fecha de inicio`,
-            });
-            return;
+        if (body.startDate && body.endDate & body.startDate > body.endDate) {
+            return res.status(404).json({ message: `La fecha de fin debe ser mayor a la fecha de inicio`, });
         }
         await updatePublication(publicationId, body);
-        res.status(200).json({
-            message: "Publicación actualizada correctamente",
-        });
+        return res.status(200).json({ message: "Publicación actualizada correctamente", });
     } catch (error) {
         next(error);
     }
@@ -154,6 +140,7 @@ const putPublicationController = async (req, res, next) => {
 module.exports = {
     getPublicationsController,
     getPublicationController,
+    getUserPublicationsController,
     postPublicationController,
     putPublicationController,
     deletePublicationController,

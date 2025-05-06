@@ -1,8 +1,6 @@
 const payloadMiddleWare = (validationSchema) => {
     return (req, res, next) => {
-        console.log("BODY:", req.body);
         const { error } = validationSchema.validate(req.body);
-
         if (error) {
             return res.status(400).json({
                 error: error.details[0].message,
