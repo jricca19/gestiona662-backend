@@ -83,9 +83,14 @@ const deletePublication = async (id) => {
     return await Publication.deleteOne({ _id: id });
 };
 
-const deletePublicationBySchoolId = async (schoolId) => {
+const deletePublicationsBySchoolId = async (schoolId) => {
+    if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+        throw new Error(`Escuela con ID ${schoolId} inválido`);
+    }
+    const redisClient = connectToRedis();
+    redisClient.del("publications");
     await Publication.deleteMany({ schoolId });
-}
+};
 
 const updatePublication = async (id, payload) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -121,8 +126,8 @@ module.exports = {
     createPublication,
     deletePublication,
     updatePublication,
-    deletePublicationBySchoolId,
     findDuplicatePublication,
     getPublicationsBySchoolId,
-    isTeacherInPublicationDays
+    isTeacherInPublicationDays,
+    deletePublicationsBySchoolId
 };
