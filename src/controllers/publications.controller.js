@@ -105,14 +105,22 @@ const postPublicationController = async (req, res, next) => {
 const deletePublicationController = async (req, res, next) => {
     try {
         const publicationId = req.params.id;
-        const publication = findPublication(publicationId);
+        const publication = await findPublication(publicationId);
 
         if (!publication) {
-            return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}`, });
+            return res.status(404).json({ message: `No se ha encontrado la publicación con id: ${publicationId}` });
         }
+
+        const hasActivePublication = ["OPEN", "FILLED"].includes(publication.status) &&
+            publication.publicationDays?.some(day => day.assignedTeacherId !== null);
+
+        if (hasActivePublication) {
+            return res.status(400).json({ message: "No se puede eliminar una publicación activa que ya tiene personas asignadas" });
+        }
+
         await deletePostulationsByPublicationId(publicationId);
         await deletePublication(publicationId);
-        return res.status(200).json({ message: "Publicación eliminada correctamente", });
+        return res.status(200).json({ message: "Publicación eliminada correctamente" });
     } catch (error) {
         next(error);
     }

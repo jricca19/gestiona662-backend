@@ -8,7 +8,7 @@ const {
     addUserToSchool,
 } = require("../repositories/school.repository");
 const { deleteRatingsBySchoolId } = require("../repositories/rating.repository");
-const { deletePublicationsBySchoolId } = require("../repositories/publication.repository");
+const { deletePublicationsBySchoolId, getPublicationsBySchoolId } = require("../repositories/publication.repository");
 const { findUserById, addSchoolToUserProfile, removeSchoolFromUserProfiles } = require("../repositories/user.repository");
 const { findDepartmentById, findCityByName } = require("../repositories/department.repository");
 
@@ -168,6 +168,17 @@ const deleteSchoolController = async (req, res, next) => {
         if (!isPrimary) {
             return res.status(403).json({ message: "No tienes permiso para eliminar esta escuela." });
         }
+
+        const publications = await getPublicationsBySchoolId(schoolId);
+        const hasActivePublications = publications.some(publication =>
+            ["OPEN", "FILLED"].includes(publication.status) &&
+            publication.publicationDays?.some(day => day.assignedTeacherId !== null)
+        );
+
+        if (hasActivePublications) {
+            return res.status(400).json({ message: "No se puede eliminar la escuela porque tiene publicaciones activas con personas asignadas." });
+        }
+
         await deletePublicationsBySchoolId(schoolId);
         await deleteRatingsBySchoolId(schoolId);
         await deleteSchool(schoolId);
