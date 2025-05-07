@@ -9,6 +9,10 @@
         {
             "url": "http://localhost:3000",
             "description": "Development server"
+        },
+        {
+            "url": "https://gestiona662-backend.vercel.app",
+            "description": "Production server"
         }
     ],
     "security": [
@@ -1069,8 +1073,15 @@
                                 "healthCertificateStatus": true,
                                 "criminalRecordDate": "2023-01-01",
                                 "law19889CertificateDate": "2023-01-01",
-                                "gradeExperience": ["1", "2", "3"],
-                                "preferredShifts": ["MORNING", "AFTERNOON"]
+                                "gradeExperience": [
+                                    "1",
+                                    "2",
+                                    "3"
+                                ],
+                                "preferredShifts": [
+                                    "MORNING",
+                                    "AFTERNOON"
+                                ]
                             }
                         }
                     }
