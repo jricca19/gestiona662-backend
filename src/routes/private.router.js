@@ -12,6 +12,7 @@ const {
 
 const {
     getSchoolsController,
+    getSchoolsOfUserController,
     getSchoolController,
     postSchoolController,
     deleteSchoolController,
@@ -59,6 +60,7 @@ privateRouter.delete("/postulations/:id", deletePostulationController);
 privateRouter.put("/postulations/:id", payloadMiddleWare(updatePostulationSchema), putPostulationController);
 
 privateRouter.get("/schools", getSchoolsController);
+privateRouter.get("/schools/user", roleMiddleware("STAFF"), getSchoolsOfUserController);
 privateRouter.get("/schools/:id", getSchoolController);
 privateRouter.post("/schools", roleMiddleware("STAFF"), payloadMiddleWare(schoolValidationSchema), postSchoolController);
 privateRouter.delete("/schools/:id", roleMiddleware("STAFF"), deleteSchoolController);

@@ -13,6 +13,14 @@ const getSchools = async () => {
     return schools;
 };
 
+const getSchoolByUserId = async (userId) => {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new Error(`ID de usuario inválido: ${userId}`);
+    }
+    const schools = await School.find({ "staff.userId": userId })
+    return schools;
+}
+
 const findSchool = async (schoolNumber, departmentId, cityName) => {
     return await School.findOne({ schoolNumber, departmentId, cityName: cityName.trim().toUpperCase() })
         .populate("staff.userId", "name email");
@@ -96,6 +104,7 @@ const addUserToSchool = async (userId, school, role) => {
 
 module.exports = {
     getSchools,
+    getSchoolByUserId,
     findSchool,
     findSchoolById,
     createSchool,

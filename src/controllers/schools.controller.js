@@ -1,5 +1,6 @@
 const {
     getSchools,
+    getSchoolByUserId,
     createSchool,
     findSchool,
     findSchoolById,
@@ -20,6 +21,24 @@ const getSchoolsController = async (req, res, next) => {
         next(error);
     }
 };
+
+const getSchoolsOfUserController = async (req, res, next) => {
+    try {
+        const { userId } = req.user;
+        const user = await findUserById(userId);
+        if (!user) {
+            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
+        }
+        const schools = await getSchoolByUserId(userId);
+        if (schools.length === 0) {
+            return res.status(404).json({ message: `No se han encontrado escuelas para el usuario con id: ${userId}` });
+        }
+        return res.status(200).json(schools);
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 const getSchoolController = async (req, res, next) => {
     try {
@@ -192,6 +211,7 @@ const deleteSchoolController = async (req, res, next) => {
 
 module.exports = {
     getSchoolsController,
+    getSchoolsOfUserController,
     getSchoolController,
     postSchoolController,
     putSchoolController,

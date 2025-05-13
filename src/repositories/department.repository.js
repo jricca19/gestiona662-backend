@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Department = require("../models/department.model");
 
-const findDepartments = async () => {
+const getDepartments = async () => {
     return await Department.find().select("_id name");
 };
 
@@ -24,7 +24,7 @@ const findCityByName = async (departmentId, cityName) => {
 };
 
 module.exports = {
-    findDepartments,
+    getDepartments,
     findDepartmentById,
     findCityByName,
 };
