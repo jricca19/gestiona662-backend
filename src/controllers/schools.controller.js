@@ -65,10 +65,8 @@ const postSchoolController = async (req, res, next) => {
         }
 
         let school = await findSchool(schoolNumber, departmentId, cityName);
-
         if (school) {
-            console.log(school);//TODO: agrega al usuario como primario, como secundario y luego si no lo deja agregar nuevamente
-            const userInSchool = school.staff?.some(staff => staff.userId.toString() === _id);
+            const userInSchool = school.staff?.some(staff => staff.userId.toString() === _id.toString());
             if (userInSchool) {
                 return res.status(400).json({ message: `El usuario ya está registrado en la escuela ${schoolNumber} en ${cityName}` });
             }
@@ -125,7 +123,7 @@ const putSchoolController = async (req, res, next) => {
             }
         }
 
-        const isPrimary = school.staff?.some(staff => staff.userId.toString() === _id && staff.role === "PRIMARY");
+        const isPrimary = school.staff?.some(staff => staff.userId.toString() === _id.toString() && staff.role === "PRIMARY");
 
         if (!isPrimary) {
             return res.status(403).json({ message: "No tienes permiso para modificar esta escuela." });
@@ -160,7 +158,7 @@ const deleteSchoolController = async (req, res, next) => {
             return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
         }
 
-        const isPrimary = school.staff?.some(staff => staff.userId.toString() === _id && staff.role === "PRIMARY");
+        const isPrimary = school.staff?.some(staff => staff.userId.toString() === _id.toString() && staff.role === "PRIMARY");
 
         if (!isPrimary) {
             return res.status(403).json({ message: "No tienes permiso para eliminar esta escuela." });

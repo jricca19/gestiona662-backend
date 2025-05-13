@@ -24,7 +24,7 @@ const findUserByIdWhithCache = async (userId) => {
   if (!user) {
     user = await User.findById(userId);
     if (!user) {
-      throw new Error(`Usuario no encontrado: ${userId}`);
+      throw new Error(`Usuario ID ${userId} no encontrado.`);
     }
     redisClient.set(`user:${userId}`, JSON.stringify(user));
   }

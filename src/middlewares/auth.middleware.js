@@ -21,13 +21,10 @@ const authMiddleWare = async (req, res, next) => {
   try {
     const verified = jwt.verify(token, AUTH_SECRET_KEY);
     const user = await findUserByIdWhithCache(verified.userId);
-    if (!user || user.active === false) {
-      return res.status(401).json({ message: "Usuario no encontrado o inactivo" });
-    }
     req.user = user;
     next();
   } catch (error) {
-    res.status(403).json({ message: "Token inválido" });
+    next(error);
   }
 };
 

@@ -56,7 +56,7 @@ const getSchoolPublicationsController = async (req, res, next) => {
             return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
         }
 
-        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id);
+        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id.toString());
         if (!isUserInSchool) {
             return res.status(403).json({ message: "No tiene permiso para ver las publicaciones de esta escuela." });
         }
@@ -78,7 +78,7 @@ const postPublicationController = async (req, res, next) => {
             return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}`, });
         }
 
-        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id);
+        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id.toString());
         if (!isUserInSchool) {
             return res.status(403).json({ message: "No tiene permiso para crear publicaciones para esta escuela." });
         }
@@ -119,7 +119,7 @@ const deletePublicationController = async (req, res, next) => {
         }
 
         const school = await findSchoolById(publication.schoolId);
-        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id);
+        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id.toString());
         if (!isUserInSchool) {
             return res.status(403).json({ message: "No tiene permiso para eliminar esta publicación." });
         }
@@ -152,7 +152,7 @@ const putPublicationController = async (req, res, next) => {
         }
 
         const school = await findSchoolById(publication.schoolId);
-        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id);
+        const isUserInSchool = school.staff?.some(staff => staff.userId.toString() === _id.toString());
         if (!isUserInSchool) {
             return res.status(403).json({ message: "No tiene permiso para modificar esta publicación." });
         }

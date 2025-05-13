@@ -117,7 +117,7 @@ const isTeacherInPublicationDays = (publication, teacherId) => {
         throw new Error(`ID de maestro inválido: ${teacherId}`);
     }
 
-    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId);
+    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId.toString());
 };
 
 module.exports = {

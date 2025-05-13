@@ -33,7 +33,7 @@ const getRatingsByUserController = async (req, res, next) => {
                 return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
             }
 
-            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id);
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id.toString());
             if (!isStaffMember) {
                 return res.status(403).json({ message: "No tienes permiso para ver las calificaciones de esta escuela" });
             }
@@ -67,7 +67,7 @@ const getRatingController = async (req, res, next) => {
                 return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
             }
 
-            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id);
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id.toString());
             if (!isStaffMember) {
                 return res.status(403).json({ message: "No tienes permiso para ver este rating" });
             }
@@ -104,7 +104,7 @@ const postRatingController = async (req, res, next) => {
         if (role === "STAFF") {
             type = "STAFF_TO_TEACHER";
 
-            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id);
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id.toString());
             if (!isStaffMember) {
                 return res.status(403).json({ message: "No tienes permiso para calificar a este maestro" });
             }
@@ -154,7 +154,7 @@ const deleteRatingController = async (req, res, next) => {
         const school = await findSchoolById(publication.schoolId);
 
         if (role === "STAFF") {
-            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id);
+            const isStaffMember = school.staff?.some(staff => staff.userId.toString() === _id.toString());
             if (!isStaffMember) {
                 return res.status(403).json({ message: "No tienes permiso para eliminar este rating" });
             }
