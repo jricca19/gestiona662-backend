@@ -67,9 +67,8 @@ const postSchoolController = async (req, res, next) => {
         let school = await findSchool(schoolNumber, departmentId, cityName);
 
         if (school) {
-            console.log(school);
+            console.log(school);//TODO: agrega al usuario como primario, como secundario y luego si no lo deja agregar nuevamente
             const userInSchool = school.staff?.some(staff => staff.userId.toString() === _id);
-            console.log(userInSchool);
             if (userInSchool) {
                 return res.status(400).json({ message: `El usuario ya está registrado en la escuela ${schoolNumber} en ${cityName}` });
             }
