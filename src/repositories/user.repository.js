@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
+const connectToRedis = require("../services/redis.service");
 
 const getUsers = async () => {
   return await User.find();
@@ -11,6 +12,23 @@ const findUserById = async (userId) => {
     throw new Error(`ID de usuario inválido: ${userId}`);
   }
   return await User.findById(userId);
+};
+
+const findUserByIdWhithCache = async (userId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
+
+  const redisClient = connectToRedis();
+  let user = await redisClient.get(`user:${userId}`);
+  if (!user) {
+    user = await User.findById(userId);
+    if (!user) {
+      throw new Error(`Usuario no encontrado: ${userId}`);
+    }
+    redisClient.set(`user:${userId}`, JSON.stringify(user));
+  }
+  return user;
 };
 
 const findUserByEmail = async (email) => {
@@ -46,21 +64,33 @@ const deleteUser = async (userId) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     throw new Error(`ID de usuario inválido: ${userId}`);
   }
-  return await User.deleteOne({ _id: id });
+  const result = await User.deleteOne({ _id: userId });
+  const redisClient = connectToRedis();
+  redisClient.del(`user:${userId}`);
+  return result;
 };
 
-const updateUser = async (user, payload) => {
+const updateUser = async (userId, payload) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
+  const user = await findUserById(userId);
   Object.entries(payload).forEach(([key, value]) => {
     if (key in user) {
       user[key] = value;
     }
   });
-
-  await user.save({ validateModifiedOnly: true });
-  return user;
+  const result = await user.save({ validateModifiedOnly: true });
+  const redisClient = connectToRedis();
+  redisClient.del(`user:${user._id}`);
+  return result;
 };
 
-const updateTeacher = async (user, payload) => {
+const updateTeacher = async (userId, payload) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
+  const user = await findUserById(userId);
   if (!user.teacherProfile) {
     user.teacherProfile = {};
   }
@@ -70,38 +100,55 @@ const updateTeacher = async (user, payload) => {
       user.teacherProfile[key] = value;
     }
   });
-
-  await user.save({ validateModifiedOnly: true });
-  return user;
+  const result = await user.save({ validateModifiedOnly: true });
+  const redisClient = connectToRedis();
+  redisClient.del(`user:${user._id}`);
+  return result;
 };
 
-const addSchoolToUserProfile = async (user, schoolId) => {
-  if (user && user.staffProfile) {
-    if (!user.staffProfile.schoolIds.includes(schoolId)) {
-      user.staffProfile.schoolIds.push(schoolId);
-      await user.save();
-    }
+const addSchoolToUserProfile = async (userId, schoolId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
   }
+  if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+    throw new Error(`ID de escuela inválido: ${schoolId}`);
+  }
+  const user = await findUserById(userId);
+
+  if (!user?.staffProfile?.schoolIds.includes(schoolId)) {
+    user.staffProfile.schoolIds.push(schoolId);
+    const result = await user.save();
+    const redisClient = connectToRedis();
+    redisClient.del(`user:${user._id}`);
+    return result;
+  }
+  return;
 };
 
 const removeSchoolFromUserProfiles = async (schoolId) => {
   if (!mongoose.Types.ObjectId.isValid(schoolId)) {
     throw new Error(`ID de escuela inválido: ${schoolId}`);
   }
-  await User.updateMany(
+  const result = await User.updateMany(
     { "staffProfile.schoolIds": schoolId },
     { $pull: { "staffProfile.schoolIds": schoolId } }
   );
+  const redisClient = connectToRedis();
+  const keys = await redisClient.keys('user:*');
+  if (keys.length > 0) {
+    await redisClient.del(keys);
+  }
+  return result;
 };
 
 module.exports = {
+  getUsers,
   findUserById,
+  findUserByIdWhithCache,
   findUserByEmail,
   findUserByCI,
   isValidPassword,
-  getUsers,
   createUser,
-  findUserById,
   deleteUser,
   updateUser,
   updateTeacher,

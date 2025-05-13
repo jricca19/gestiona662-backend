@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
+const { findUserByIdWhithCache } = require("../repositories/user.repository");
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
-const authMiddleWare = (req, res, next) => {
+const authMiddleWare = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
   if (!authHeader) {
@@ -17,10 +18,13 @@ const authMiddleWare = (req, res, next) => {
     return res.status(401).json({ message: "Token inválido" });
   }
 
-
   try {
     const verified = jwt.verify(token, AUTH_SECRET_KEY);
-    req.user = verified;
+    const user = await findUserByIdWhithCache(verified.userId);
+    if (!user || user.active === false) {
+      return res.status(401).json({ message: "Usuario no encontrado o inactivo" });
+    }
+    req.user = user;
     next();
   } catch (error) {
     res.status(403).json({ message: "Token inválido" });

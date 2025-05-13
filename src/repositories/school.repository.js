@@ -7,7 +7,7 @@ const getSchools = async () => {
     let schools = await redisClient.get("schools");
 
     if (!schools) {
-        schools = await School.find();
+        schools = await School.find().select("-staff");
         redisClient.set("schools", JSON.stringify(schools));
     }
     return schools;
@@ -73,11 +73,11 @@ const updateSchool = async (school, payload) => {
         }
     });
     
-    await school.save({ validateModifiedOnly: true });
+    const result = await school.save({ validateModifiedOnly: true });
 
     const redisClient = connectToRedis();
     redisClient.del("schools");
-    return school;
+    return result;
 };
 
 const addUserToSchool = async (userId, school, role) => {
