@@ -21,12 +21,15 @@ const findUserByIdWhithCache = async (userId) => {
 
   const redisClient = connectToRedis();
   let user = await redisClient.get(`user:${userId}`);
+  console.log(user);
   if (!user) {
     user = await User.findById(userId);
     if (!user) {
       throw new Error(`Usuario ID ${userId} no encontrado.`);
     }
-    redisClient.set(`user:${userId}`, JSON.stringify(user));
+    // personal data expire in 24 hours
+    await redisClient.set(`user:${userId}`, JSON.stringify(user), { ex: 86400 });
+    console.log("Usuario guardado en caché", userId);
   }
   return user;
 };
@@ -66,7 +69,7 @@ const deleteUser = async (userId) => {
   }
   const result = await User.deleteOne({ _id: userId });
   const redisClient = connectToRedis();
-  redisClient.del(`user:${userId}`);
+  await redisClient.del(`user:${userId}`);
   return result;
 };
 
@@ -82,7 +85,7 @@ const updateUser = async (userId, payload) => {
   });
   const result = await user.save({ validateModifiedOnly: true });
   const redisClient = connectToRedis();
-  redisClient.del(`user:${user._id}`);
+  await redisClient.del(`user:${user._id}`);
   return result;
 };
 
@@ -102,7 +105,7 @@ const updateTeacher = async (userId, payload) => {
   });
   const result = await user.save({ validateModifiedOnly: true });
   const redisClient = connectToRedis();
-  redisClient.del(`user:${user._id}`);
+  await redisClient.del(`user:${user._id}`);
   return result;
 };
 
@@ -119,7 +122,7 @@ const addSchoolToUserProfile = async (userId, schoolId) => {
     user.staffProfile.schoolIds.push(schoolId);
     const result = await user.save();
     const redisClient = connectToRedis();
-    redisClient.del(`user:${user._id}`);
+    await redisClient.del(`user:${user._id}`);
     return result;
   }
   return;

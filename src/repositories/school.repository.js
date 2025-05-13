@@ -8,7 +8,7 @@ const getSchools = async () => {
 
     if (!schools) {
         schools = await School.find().select("-staff");
-        redisClient.set("schools", JSON.stringify(schools));
+        await redisClient.set("schools", JSON.stringify(schools));
     }
     return schools;
 };
@@ -22,8 +22,7 @@ const getSchoolByUserId = async (userId) => {
 }
 
 const findSchool = async (schoolNumber, departmentId, cityName) => {
-    return await School.findOne({ schoolNumber, departmentId, cityName: cityName.trim().toUpperCase() })
-        .populate("staff.userId", "name email");
+    return await School.findOne({ schoolNumber, departmentId, cityName: cityName.trim().toUpperCase() });
 };
 
 const findSchoolById = async (schoolId) => {
@@ -49,7 +48,7 @@ const createSchool = async (schoolNumber, departmentId, cityName, address) => {
     await newSchool.save();
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
 
     return newSchool;
 };
@@ -61,7 +60,7 @@ const deleteSchool = async (id) => {
     const result = await School.deleteOne({ _id: id });
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
 
     return result;
 };
@@ -76,7 +75,7 @@ const updateSchool = async (school, payload) => {
     const result = await school.save({ validateModifiedOnly: true });
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
     return result;
 };
 
@@ -97,7 +96,7 @@ const addUserToSchool = async (userId, school, role) => {
     await school.save();
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
 
     return school;
 };
