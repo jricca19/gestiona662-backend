@@ -1,5 +1,6 @@
 const {
     getSchools,
+    getSchoolByUserId,
     createSchool,
     findSchool,
     findSchoolById,
@@ -9,7 +10,7 @@ const {
 } = require("../repositories/school.repository");
 const { deleteRatingsBySchoolId } = require("../repositories/rating.repository");
 const { deletePublicationsBySchoolId, getPublicationsBySchoolId } = require("../repositories/publication.repository");
-const { findUserById, addSchoolToUserProfile, removeSchoolFromUserProfiles } = require("../repositories/user.repository");
+const { addSchoolToUserProfile, removeSchoolFromUserProfiles } = require("../repositories/user.repository");
 const { findDepartmentById, findCityByName } = require("../repositories/department.repository");
 
 const getSchoolsController = async (req, res, next) => {
@@ -21,6 +22,20 @@ const getSchoolsController = async (req, res, next) => {
     }
 };
 
+const getSchoolsOfUserController = async (req, res, next) => {
+    try {
+        const { _id } = req.user;
+        const schools = await getSchoolByUserId(_id);
+        if (schools.length === 0) {
+            return res.status(404).json({ message: `No se han encontrado escuelas para el usuario con id: ${_id}` });
+        }
+        return res.status(200).json(schools);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const getSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
@@ -28,7 +43,7 @@ const getSchoolController = async (req, res, next) => {
         if (school) {
             return res.status(200).json(school);
         }
-        res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
+        return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
     } catch (error) {
         next(error);
     }
@@ -37,12 +52,7 @@ const getSchoolController = async (req, res, next) => {
 const postSchoolController = async (req, res, next) => {
     try {
         const { schoolNumber, departmentId, cityName, address } = req.body;
-        const { userId } = req.user;
-
-        const user = await findUserById(userId);
-        if (!user) {
-            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
-        }
+        const { _id } = req.user;
 
         const department = await findDepartmentById(departmentId);
         if (!department) {
@@ -55,20 +65,19 @@ const postSchoolController = async (req, res, next) => {
         }
 
         let school = await findSchool(schoolNumber, departmentId, cityName);
-
         if (school) {
-            const userInSchool = school.staff?.some(staff => staff.userId.toString() === userId);
+            const userInSchool = school.staff?.some(staff => staff.userId.toString() === _id.toString());
             if (userInSchool) {
                 return res.status(400).json({ message: `El usuario ya está registrado en la escuela ${schoolNumber} en ${cityName}` });
             }
-            await addUserToSchool(userId, school, "SECONDARY");
-            await addSchoolToUserProfile(user, school._id);
+            await addUserToSchool(_id, school, "SECONDARY");
+            await addSchoolToUserProfile(_id, school._id);
             return res.status(200).json({ message: `Usuario agregado correctamente a la escuela existente. Debe ser aprobado por el director.` });
         }
 
         school = await createSchool(schoolNumber, departmentId, cityName, address);
-        await addUserToSchool(userId, school, "PRIMARY");
-        await addSchoolToUserProfile(user, school._id);
+        await addUserToSchool(_id, school, "PRIMARY");
+        await addSchoolToUserProfile(_id, school._id);
         return res.status(201).json({ message: "Escuela creada correctamente y usuario agregado como principal." });
     } catch (error) {
         next(error);
@@ -78,7 +87,7 @@ const postSchoolController = async (req, res, next) => {
 const putSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
-        const { userId } = req.user;
+        const { _id } = req.user;
         const { schoolNumber, departmentId, cityName, address } = req.body;
 
         const payload = {};
@@ -89,11 +98,6 @@ const putSchoolController = async (req, res, next) => {
 
         if (!schoolId) {
             return res.status(400).json({ message: "El ID de la escuela es obligatorio." });
-        }
-
-        const user = await findUserById(userId);
-        if (!user) {
-            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
         }
 
         const school = await findSchoolById(schoolId);
@@ -119,9 +123,7 @@ const putSchoolController = async (req, res, next) => {
             }
         }
 
-        const isPrimary = school.staff?.some(staff =>
-            staff.userId.toString() === userId && staff.role === "PRIMARY"
-        );
+        const isPrimary = school.staff?.some(staff => staff.userId.toString() === _id.toString() && staff.role === "PRIMARY");
 
         if (!isPrimary) {
             return res.status(403).json({ message: "No tienes permiso para modificar esta escuela." });
@@ -149,21 +151,14 @@ const putSchoolController = async (req, res, next) => {
 const deleteSchoolController = async (req, res, next) => {
     try {
         const schoolId = req.params.id;
-        const { userId } = req.user;
-
-        const user = await findUserById(userId);
-        if (!user) {
-            return res.status(404).json({ message: `No se ha encontrado el usuario con id: ${userId}` });
-        }
+        const { _id } = req.user;
 
         const school = await findSchoolById(schoolId);
         if (!school) {
             return res.status(404).json({ message: `No se ha encontrado la escuela con id: ${schoolId}` });
         }
 
-        const isPrimary = school.staff?.some(staff =>
-            staff.userId.toString() === userId && staff.role === "PRIMARY"
-        );
+        const isPrimary = school.staff?.some(staff => staff.userId.toString() === _id.toString() && staff.role === "PRIMARY");
 
         if (!isPrimary) {
             return res.status(403).json({ message: "No tienes permiso para eliminar esta escuela." });
@@ -192,6 +187,7 @@ const deleteSchoolController = async (req, res, next) => {
 
 module.exports = {
     getSchoolsController,
+    getSchoolsOfUserController,
     getSchoolController,
     postSchoolController,
     putSchoolController,

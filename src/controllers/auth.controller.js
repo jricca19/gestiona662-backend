@@ -26,12 +26,7 @@ const postAuthLogin = async (req, res, next) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id, name: user.name, lastName: user.lastName, email: user.email, role: user.role },
-      AUTH_SECRET_KEY,
-      {
-        expiresIn: "24h",
-      }
-    );
+      { userId: user._id, }, AUTH_SECRET_KEY, { expiresIn: "24h", });
     res.status(200).json({ token: token });
   } catch (error) {
     next(error);
@@ -77,14 +72,8 @@ const postAuthSignUp = async (req, res, next) => {
       return;
     }
 
-    const token = jwt.sign(
-      { userId: newUser._id, name: newUser.name, lastName: newUser.lastName, email: newUser.email, role: newUser.role },
-      AUTH_SECRET_KEY,
-      {
-        expiresIn: "24h",
-      }
-    );
-    
+    const token = jwt.sign({ userId: newUser._id }, AUTH_SECRET_KEY, { expiresIn: "24h" });
+
     res.status(201).json({ message: "Usuario creado exitosamente", token: token });
 
   } catch (error) {
