@@ -5,9 +5,10 @@ const {
     getPublicationsController,
     getPublicationController,
     postPublicationController,
+    assignPostulationController,
     deletePublicationController,
     putPublicationController,
-    getSchoolPublicationsController,
+    getSchoolPublicationsController
 } = require("../controllers/publications.controller");
 
 const {
@@ -51,7 +52,7 @@ privateRouter.get("/publications/:id", getPublicationController);
 privateRouter.post("/publications", roleMiddleware("STAFF"), payloadMiddleWare(createPublicationSchema), postPublicationController);
 privateRouter.delete("/publications/:id", roleMiddleware("STAFF"), deletePublicationController);
 privateRouter.put("/publications/:id", roleMiddleware("STAFF"), payloadMiddleWare(updatePublicationSchema), putPublicationController);
-
+privateRouter.patch("/publications/assignPostulation/:id", roleMiddleware("STAFF"), assignPostulationController);
 privateRouter.get("/postulations", roleMiddleware("STAFF"), getPostulationsController);//TODO: crear endpoint para obtener postulaciones por id de publicación
 privateRouter.get("/postulations/user", roleMiddleware("TEACHER"), getUserPostulationsController);
 privateRouter.get("/postulations/:id", getPostulationController);
