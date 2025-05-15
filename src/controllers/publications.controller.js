@@ -9,6 +9,7 @@ const {
 } = require("../repositories/publication.repository");
 const { deletePostulationsByPublicationId } = require("../repositories/postulation.repository");
 const { findSchoolById } = require("../repositories/school.repository");
+const { findPostulation } = require("../repositories/postulation.repository");
 
 const getPublicationsController = async (req, res, next) => {
     try {
@@ -132,6 +133,44 @@ const deletePublicationController = async (req, res, next) => {
     }
 };
 
+const assignPostulationController = async (req, res, next) => {
+  try {
+    const postulationId = req.params.id;
+
+    const postulation = await findPostulation(postulationId);
+    const publication = await findPublication(postulation.publicationId);
+
+    if (!publication || !postulation) {
+      return res.status(404).json({ message: "Publicación o postulación no encontrada" });
+    }
+
+    const postulationDates = postulation.postulationDays.map(day =>
+      new Date(day.date).toISOString().split("T")[0]
+    );
+    const teacherId = postulation.teacherId;
+
+    // Clonar publicationDays y modificar solo los necesarios
+    const updatedDays = publication.publicationDays.map(day => {
+      const pubDayDate = new Date(day.date).toISOString().split("T")[0];
+      if (postulationDates.includes(pubDayDate)) {
+        return {
+          ...day,
+          assignedTeacherId: teacherId,
+          status: "ASSIGNED"
+        };
+      }
+      return day;
+    });
+
+    // Usar el método del repo para actualizar
+    await updatePublication(publication._id, { publicationDays: updatedDays });
+
+    return res.status(200).json({ message: "Postulación asignada correctamente." });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const putPublicationController = async (req, res, next) => {
     try {
         const { _id } = req.user;
@@ -183,6 +222,7 @@ module.exports = {
     getPublicationsController,
     getPublicationController,
     getSchoolPublicationsController,
+    assignPostulationController,
     postPublicationController,
     putPublicationController,
     deletePublicationController,
