@@ -84,21 +84,37 @@ const addUserToSchool = async (userId, school, role) => {
         throw new Error(`ID de usuario inválido: ${userId}`);
     }
 
+    const alreadyInStaff = school.staff.some(
+        staff => staff.userId.toString() === userId.toString()
+    );
+    if (alreadyInStaff) {
+        return school;
+    }
+
     const isApproved = role === "PRIMARY" ? true : false;
 
-    school.staff.push({
-        userId,
-        role,
-        isApproved: isApproved,
-        assignedAt: new Date()
-    });
+    // $addToSet to avoid duplicates
+    await School.updateOne(
+        { _id: school._id },
+        {
+            $addToSet: {
+                staff: {
+                    userId,
+                    role,
+                    isApproved: isApproved,
+                    assignedAt: new Date()
+                }
+            }
+        }
+    );
 
-    await school.save();
+    // refresh the school data
+    const updatedSchool = await School.findById(school._id);
 
     const redisClient = connectToRedis();
     await redisClient.del("schools");
 
-    return school;
+    return updatedSchool;
 };
 
 module.exports = {
