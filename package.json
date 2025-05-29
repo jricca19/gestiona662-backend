@@ -27,6 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "morgan": "^1.10.0",
+    "node-cron": "^4.0.7",
     "swagger-ui-express": "^4.6.3",
     "xss": "^1.0.15"
   },
