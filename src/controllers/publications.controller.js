@@ -20,6 +20,8 @@ const getPublicationsController = async (req, res, next) => {
 
         const publications = await getPublications();
 
+        //TODO: usar limit y skip a nivel de base de datos para mejorar el rendimiento
+
         // Calculate indexes
         const startIndex = (pageNumber - 1) * limitNumber;
         const endIndex = pageNumber * limitNumber;

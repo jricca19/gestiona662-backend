@@ -1,12 +1,18 @@
 const cron = require("node-cron");
 const Publication = require("../models/publication.model");
 
-// execute every day at midnight
-cron.schedule("0 0 * * *", async () => {
+// execute every day at midnight example every 5 minutes: */5 * * * *
+//             .---------------- minute (0 - 59)
+//             | .------------- hour (0 - 23)
+//             | | .---------- day of month (1 - 31)
+//             | | | .------- month (1 - 12)
+//             | | | | .---- day of week (0 - 6) (Sunday=0 or 7)
+//             | | | | |
+cron.schedule("5 0 * * *", async () => {
     try {
         const now = new Date();
 
-        // change status to EXPIRED publications that are OPEN and their publicationDays that are AVAILABLE
+        // 1. change AVAILABLE to EXPIRED and ASSIGNED to COMPLETED in publicationDays of OPEN publications
         await Publication.updateMany(
             {
                 endDate: { $lt: now },
@@ -14,18 +20,30 @@ cron.schedule("0 0 * * *", async () => {
             },
             {
                 $set: {
-                    status: "EXPIRED",
-                    "publicationDays.$[elem].status": "EXPIRED"
+                    "publicationDays.$[expired].status": "EXPIRED",
+                    "publicationDays.$[completed].status": "COMPLETED"
                 }
             },
             {
                 arrayFilters: [
-                    { "elem.date": { $lt: now }, "elem.status": "AVAILABLE" }
+                    { "expired.status": "AVAILABLE" },
+                    { "completed.status": "ASSIGNED" }
                 ]
             }
-        );S
+        );
 
-        // change status to COMPLETED publications that are FILLED and their publicationDays that are ASSIGNED
+        // 2. change status of OPEN publications to EXPIRED
+        await Publication.updateMany(
+            {
+                endDate: { $lt: now },
+                status: "OPEN"
+            },
+            {
+                $set: { status: "EXPIRED" }
+            }
+        );
+
+        // 3. change status of FILLED publications to COMPLETED
         await Publication.updateMany(
             {
                 endDate: { $lt: now },
@@ -39,7 +57,7 @@ cron.schedule("0 0 * * *", async () => {
             },
             {
                 arrayFilters: [
-                    { "elem.date": { $lt: now }, "elem.status": "ASSIGNED" }
+                    { "elem.status": "ASSIGNED" }
                 ]
             }
         );
