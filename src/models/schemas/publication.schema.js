@@ -4,7 +4,7 @@ const publicationDaySchema = new mongoose.Schema({
   date: { type: Date, required: true },
   assignedTeacherId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false, },
   status: { type: String, enum: ["AVAILABLE", "ASSIGNED", "CANCELLED", "EXPIRED", "COMPLETED"], required: true }
-});
+}, { _id: false });
 
 const publicationSchema = new mongoose.Schema({
   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: "School", required: true, },
