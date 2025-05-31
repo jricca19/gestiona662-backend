@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Postulation = require("../models/postulation.model");
 
 const getPostulations = async () => {
-    return await Postulation.find().select("_id teacherId publicationId status createdAt appliesToAllDays postulationDays");
+    return await Postulation.find().select();
 };
 
 const getPostulationsByUserId = async (userId) => {
@@ -10,6 +10,13 @@ const getPostulationsByUserId = async (userId) => {
         throw new Error(`ID de usuario inválido: ${userId}`);
     }
     return await Postulation.find({ teacherId: userId }).select();
+};
+
+const getPostulationsByPublicationId = async (publicationId) => {
+    if (!mongoose.Types.ObjectId.isValid(publicationId)) {
+        throw new Error(`ID de publicación inválido: ${publicationId}`);
+    }
+    return await Postulation.find({ publicationId }).select();
 };
 
 const createPostulation = async (teacherId, publicationId, createdAt, appliesToAllDays, postulationDays) => {
@@ -41,7 +48,7 @@ const findPostulation = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe postulación ID: ${id}`);
     }
-    return await Postulation.findById(id).populate("postulationDays").select("_id teacherId publicationId status createdAt appliesToAllDays postulationDays");
+    return await Postulation.findById(id).populate("postulationDays").select();
 };
 
 const deletePostulation = async (id) => {
@@ -68,11 +75,12 @@ const updatePostulation = async (id, payload) => {
 
 module.exports = {
     getPostulations,
+    getPostulationsByUserId,
+    getPostulationsByPublicationId,
     findPostulation,
     createPostulation,
     deletePostulation,
     deletePostulationsByPublicationId,
     updatePostulation,
     findDuplicatePostulation,
-    getPostulationsByUserId
 };

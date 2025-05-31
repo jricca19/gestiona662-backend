@@ -21,7 +21,6 @@ const findUserByIdWhithCache = async (userId) => {
 
   const redisClient = connectToRedis();
   let user = await redisClient.get(`user:${userId}`);
-  console.log(user);
   if (!user) {
     user = await User.findById(userId);
     if (!user) {
@@ -29,7 +28,6 @@ const findUserByIdWhithCache = async (userId) => {
     }
     // personal data expire in 24 hours
     await redisClient.set(`user:${userId}`, JSON.stringify(user), { ex: 86400 });
-    console.log("Usuario guardado en caché", userId);
   }
   return user;
 };

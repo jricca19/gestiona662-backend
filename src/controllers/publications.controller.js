@@ -12,6 +12,7 @@ const { findSchoolById } = require("../repositories/school.repository");
 const { findPostulation } = require("../repositories/postulation.repository");
 
 const getPublicationsController = async (req, res, next) => {
+    //TODO: agregar filtros por fecha, departamento y escuela
     try {
         const { page = 1, limit = 10 } = req.query;
 

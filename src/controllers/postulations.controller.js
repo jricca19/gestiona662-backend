@@ -5,7 +5,8 @@ const {
     deletePostulation,
     updatePostulation,
     findDuplicatePostulation,
-    getPostulationsByUserId
+    getPostulationsByUserId,
+    getPostulationsByPublicationId,
 } = require("../repositories/postulation.repository");
 const { findPublication } = require("../repositories/publication.repository");
 
@@ -31,7 +32,7 @@ const getPostulationController = async (req, res, next) => {
     }
 }
 
-const getUserPostulationsController = async (req, res, next) => {
+const getUserPostulationsOfUserController = async (req, res, next) => {
     try {
         const { _id } = req.user;
 
@@ -41,6 +42,21 @@ const getUserPostulationsController = async (req, res, next) => {
         next(error);
     }
 };
+
+const getPostulationsOfPublicationController = async (req, res, next) => {
+    try {
+        const publicationId = req.params.id;
+        console.log("publicationId", publicationId);
+        const postulations = await getPostulationsByPublicationId(publicationId);
+        if (postulations && postulations.length > 0) {
+            return res.status(200).json(postulations);
+        }
+        return res.status(404).json({ message: `No se han encontrado postulaciones para la publicación con id: ${publicationId}` });
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 const postPostulationController = async (req, res, next) => {
     try {
@@ -117,5 +133,6 @@ module.exports = {
     postPostulationController,
     putPostulationController,
     deletePostulationController,
-    getUserPostulationsController,
+    getUserPostulationsOfUserController,
+    getPostulationsOfPublicationController,
 }
