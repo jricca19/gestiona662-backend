@@ -32,6 +32,16 @@ const findUserByIdWhithCache = async (userId) => {
   return user;
 };
 
+
+const findUserByIdWithSchools = async (userId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
+  return await User.findById(userId)
+    .populate("staffProfile.schoolIds", "_id schoolNumber departmentId cityName")
+    .lean();
+};
+
 const findUserByEmail = async (email) => {
   return await User.findOne({ email: email.toLowerCase() });
 };
@@ -146,6 +156,7 @@ module.exports = {
   getUsers,
   findUserById,
   findUserByIdWhithCache,
+  findUserByIdWithSchools,
   findUserByEmail,
   findUserByCI,
   isValidPassword,

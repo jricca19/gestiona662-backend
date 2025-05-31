@@ -36,7 +36,7 @@ const {
     postRatingController,
 } = require("../controllers/ratings.controller");
 
-const { putTeacherProfile, putUserProfile } = require("../controllers/user.controller");
+const { putTeacherProfile, putUserProfile, getUserProfile } = require("../controllers/user.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const { createPublicationSchema, updatePublicationSchema, getUserPublicationsSchema } = require("./validations/publication.validation");
@@ -73,6 +73,7 @@ privateRouter.get("/ratings/:id", getRatingController);
 privateRouter.post("/ratings", payloadMiddleWare(ratingValidationSchema), postRatingController);
 privateRouter.delete("/ratings/:id", deleteRatingController);
 
+privateRouter.get("/users/profile", getUserProfile);
 privateRouter.put("/users/profileTeacher", roleMiddleware("TEACHER"), payloadMiddleWare(updateTeacherValidationSchema), putTeacherProfile);
 privateRouter.put("/users/profile", payloadMiddleWare(updateUserValidationSchema), putUserProfile);
 
