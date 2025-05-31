@@ -21,7 +21,6 @@ const findUserByIdWhithCache = async (userId) => {
 
   const redisClient = connectToRedis();
   let user = await redisClient.get(`user:${userId}`);
-  console.log(user);
   if (!user) {
     user = await User.findById(userId);
     if (!user) {
@@ -29,9 +28,18 @@ const findUserByIdWhithCache = async (userId) => {
     }
     // personal data expire in 24 hours
     await redisClient.set(`user:${userId}`, JSON.stringify(user), { ex: 86400 });
-    console.log("Usuario guardado en caché", userId);
   }
   return user;
+};
+
+
+const findUserByIdWithSchools = async (userId) => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error(`ID de usuario inválido: ${userId}`);
+  }
+  return await User.findById(userId)
+    .populate("staffProfile.schoolIds", "_id schoolNumber departmentId cityName")
+    .lean();
 };
 
 const findUserByEmail = async (email) => {
@@ -148,6 +156,7 @@ module.exports = {
   getUsers,
   findUserById,
   findUserByIdWhithCache,
+  findUserByIdWithSchools,
   findUserByEmail,
   findUserByCI,
   isValidPassword,

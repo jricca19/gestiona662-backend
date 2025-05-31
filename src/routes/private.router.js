@@ -21,12 +21,12 @@ const {
 } = require("../controllers/schools.controller");
 
 const {
-    getPostulationsController,
     getPostulationController,
     postPostulationController,
     deletePostulationController,
     putPostulationController,
-    getUserPostulationsController,
+    getUserPostulationsOfUserController,
+    getPostulationsOfPublicationController,
 } = require("../controllers/postulations.controller");
 
 const {
@@ -36,7 +36,7 @@ const {
     postRatingController,
 } = require("../controllers/ratings.controller");
 
-const { putTeacherProfile, putUserProfile } = require("../controllers/user.controller");
+const { putTeacherProfile, putUserProfile, getUserProfile } = require("../controllers/user.controller");
 
 const payloadMiddleWare = require("../middlewares/payload.middleware");
 const { createPublicationSchema, updatePublicationSchema, getUserPublicationsSchema } = require("./validations/publication.validation");
@@ -53,8 +53,9 @@ privateRouter.post("/publications", roleMiddleware("STAFF"), payloadMiddleWare(c
 privateRouter.delete("/publications/:id", roleMiddleware("STAFF"), deletePublicationController);
 privateRouter.put("/publications/:id", roleMiddleware("STAFF"), payloadMiddleWare(updatePublicationSchema), putPublicationController);
 privateRouter.patch("/publications/assignPostulation/:id", roleMiddleware("STAFF"), assignPostulationController);
-privateRouter.get("/postulations", roleMiddleware("STAFF"), getPostulationsController);//TODO: crear endpoint para obtener postulaciones por id de publicación
-privateRouter.get("/postulations/user", roleMiddleware("TEACHER"), getUserPostulationsController);
+
+privateRouter.get("/postulations/user", roleMiddleware("TEACHER"), getUserPostulationsOfUserController);
+privateRouter.get("/postulations/publication/:id", roleMiddleware("STAFF"), getPostulationsOfPublicationController);
 privateRouter.get("/postulations/:id", getPostulationController);
 privateRouter.post("/postulations", roleMiddleware("TEACHER"), payloadMiddleWare(createPostulationSchema), postPostulationController);
 privateRouter.delete("/postulations/:id", roleMiddleware("TEACHER"), deletePostulationController);
@@ -72,6 +73,7 @@ privateRouter.get("/ratings/:id", getRatingController);
 privateRouter.post("/ratings", payloadMiddleWare(ratingValidationSchema), postRatingController);
 privateRouter.delete("/ratings/:id", deleteRatingController);
 
+privateRouter.get("/users/profile", getUserProfile);
 privateRouter.put("/users/profileTeacher", roleMiddleware("TEACHER"), payloadMiddleWare(updateTeacherValidationSchema), putTeacherProfile);
 privateRouter.put("/users/profile", payloadMiddleWare(updateUserValidationSchema), putUserProfile);
 

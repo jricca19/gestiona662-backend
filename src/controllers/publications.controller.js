@@ -12,6 +12,7 @@ const { findSchoolById } = require("../repositories/school.repository");
 const { findPostulation } = require("../repositories/postulation.repository");
 
 const getPublicationsController = async (req, res, next) => {
+    //TODO: agregar filtros por fecha, departamento y escuela
     try {
         const { page = 1, limit = 10 } = req.query;
 
@@ -19,6 +20,8 @@ const getPublicationsController = async (req, res, next) => {
         const limitNumber = parseInt(limit);
 
         const publications = await getPublications();
+
+        //TODO: usar limit y skip a nivel de base de datos para mejorar el rendimiento
 
         // Calculate indexes
         const startIndex = (pageNumber - 1) * limitNumber;
