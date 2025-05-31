@@ -16,7 +16,12 @@ const getPostulationsByPublicationId = async (publicationId) => {
     if (!mongoose.Types.ObjectId.isValid(publicationId)) {
         throw new Error(`ID de publicación inválido: ${publicationId}`);
     }
-    return await Postulation.find({ publicationId }).select();
+    return await Postulation.find({ publicationId })
+        .populate({
+            path: "teacherId",
+            select: "teacherProfile.rating teacherProfile.haveRating teacherProfile.isEffectiveTeacher"
+        })
+        .select();
 };
 
 const createPostulation = async (teacherId, publicationId, createdAt, appliesToAllDays, postulationDays) => {
