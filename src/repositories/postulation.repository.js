@@ -9,7 +9,20 @@ const getPostulationsByUserId = async (userId) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw new Error(`ID de usuario inválido: ${userId}`);
     }
-    return await Postulation.find({ teacherId: userId }).select();
+    return await Postulation.find({ teacherId: userId })
+        .populate({
+            path: "publicationId",
+            select: "grade shift schoolId",
+            populate: {
+                path: "schoolId",
+                select: "schoolNumber address departmentId cityName",
+                populate: {
+                    path: "departmentId",
+                    select: "name"
+                }
+            }
+        })
+        .select();
 };
 
 const getPostulationsByPublicationId = async (publicationId) => {
