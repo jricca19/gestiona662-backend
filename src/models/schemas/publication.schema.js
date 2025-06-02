@@ -12,8 +12,9 @@ const publicationSchema = new mongoose.Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   shift: { type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"], required: true },
+  details: { type: String, required: false },
   status: { type: String, enum: ["OPEN", "FILLED", "CANCELLED", "EXPIRED", "COMPLETED"], default: "OPEN" },
   publicationDays: [publicationDaySchema]
-});
+}, { timestamps: true });
 
 module.exports = publicationSchema;
