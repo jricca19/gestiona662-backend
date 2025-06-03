@@ -24,7 +24,10 @@ const createPublicationSchema = Joi.object({
         "string.base": "El turno debe ser una cadena de texto.",
         "any.only": "El turno debe ser 'MORNING', 'AFTERNOON' o 'FULL_DAY'.",
         "any.required": "El turno es obligatorio."
-    })
+    }),
+    details: Joi.string().optional().messages({
+        "string.base": "Los detalles deben ser una cadena de texto."
+    }),
 });
 
 const updatePublicationSchema = Joi.object({
@@ -45,6 +48,9 @@ const updatePublicationSchema = Joi.object({
     shift: Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY").messages({
         "string.base": "El turno debe ser una cadena de texto.",
         "any.only": "El turno debe ser 'MORNING', 'AFTERNOON' o 'FULL_DAY'."
+    }),
+    details: Joi.string().optional().messages({
+        "string.base": "Los detalles deben ser una cadena de texto."
     }),
 }).min(1).messages({
     "object.min": "Debe proporcionar al menos un campo para actualizar."

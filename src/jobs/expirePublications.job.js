@@ -1,5 +1,6 @@
 const cron = require("node-cron");
 const Publication = require("../models/publication.model");
+const Postulation = require("../models/postulation.model");
 
 // execute every day at midnight example every 5 minutes: */5 * * * *
 //             .---------------- minute (0 - 59)
@@ -62,7 +63,19 @@ cron.schedule("5 0 * * *", async () => {
             }
         );
 
-        console.log("Publicaciones expiradas y completadas correctamente.");
+        // 4. change status of PENDING postulations to CANCELED
+        await Postulation.updateMany(
+            {
+                status: "PENDING",
+                postulationDays: { $elemMatch: { date: { $lt: now } } }
+            },
+            {
+                $set: { status: "CANCELED" }
+            }
+        );
+        
+
+        console.log("Publicaciones y postulaciones actualizadas correctamente");
     } catch (error) {
         console.error("Error al expirar/completar publicaciones:", error);
     }
