@@ -7,15 +7,22 @@ const getSchools = async () => {
     let schools = await redisClient.get("schools");
 
     if (!schools) {
-        schools = await School.find();
-        redisClient.set("schools", JSON.stringify(schools));
+        schools = await School.find().select("-staff");
+        await redisClient.set("schools", JSON.stringify(schools));
     }
     return schools;
 };
 
+const getSchoolByUserId = async (userId) => {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new Error(`ID de usuario inválido: ${userId}`);
+    }
+    const schools = await School.find({ "staff.userId": userId })
+    return schools;
+}
+
 const findSchool = async (schoolNumber, departmentId, cityName) => {
-    return await School.findOne({ schoolNumber, departmentId, cityName: cityName.trim().toUpperCase() })
-        .populate("staff.userId", "name email");
+    return await School.findOne({ schoolNumber, departmentId, cityName: cityName.trim().toUpperCase() });
 };
 
 const findSchoolById = async (schoolId) => {
@@ -41,7 +48,7 @@ const createSchool = async (schoolNumber, departmentId, cityName, address) => {
     await newSchool.save();
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
 
     return newSchool;
 };
@@ -53,7 +60,7 @@ const deleteSchool = async (id) => {
     const result = await School.deleteOne({ _id: id });
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
 
     return result;
 };
@@ -65,11 +72,11 @@ const updateSchool = async (school, payload) => {
         }
     });
     
-    await school.save({ validateModifiedOnly: true });
+    const result = await school.save({ validateModifiedOnly: true });
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
-    return school;
+    await redisClient.del("schools");
+    return result;
 };
 
 const addUserToSchool = async (userId, school, role) => {
@@ -77,25 +84,42 @@ const addUserToSchool = async (userId, school, role) => {
         throw new Error(`ID de usuario inválido: ${userId}`);
     }
 
+    const alreadyInStaff = school.staff.some(
+        staff => staff.userId.toString() === userId.toString()
+    );
+    if (alreadyInStaff) {
+        return school;
+    }
+
     const isApproved = role === "PRIMARY" ? true : false;
 
-    school.staff.push({
-        userId,
-        role,
-        isApproved: isApproved,
-        assignedAt: new Date()
-    });
+    // $addToSet to avoid duplicates
+    await School.updateOne(
+        { _id: school._id },
+        {
+            $addToSet: {
+                staff: {
+                    userId,
+                    role,
+                    isApproved: isApproved,
+                    assignedAt: new Date()
+                }
+            }
+        }
+    );
 
-    await school.save();
+    // refresh the school data
+    const updatedSchool = await School.findById(school._id);
 
     const redisClient = connectToRedis();
-    redisClient.del("schools");
+    await redisClient.del("schools");
 
-    return school;
+    return updatedSchool;
 };
 
 module.exports = {
     getSchools,
+    getSchoolByUserId,
     findSchool,
     findSchoolById,
     createSchool,

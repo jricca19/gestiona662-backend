@@ -1,18 +1,31 @@
-const { findUserById, updateUser, updateTeacher } = require("../repositories/user.repository");
+const { updateUser, updateTeacher, findUserByIdWithSchools } = require("../repositories/user.repository");
+
+const getUserProfile = async (req, res, next) => {
+  const { _id } = req.user;
+  try {
+    if (!_id) {
+      return res.status(400).json({ message: "No existen datos del usuario" });
+    }
+
+    if (req.user.staffProfile?.schoolIds?.length > 0) {
+      const populatedUser = await findUserByIdWithSchools(_id);
+      return res.status(200).json(populatedUser);
+    }
+
+    return res.status(200).json(req.user);
+  } catch (error) {
+    next(error);
+  }
+};
 
 const putTeacherProfile = async (req, res, next) => {
   const { body } = req;
-  const { userId } = req.user;
-
+  const { _id } = req.user;
   try {
-    const user = await findUserById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    }
 
-    const updatedUser = await updateTeacher(user, body);
+    const updatedUser = await updateTeacher(_id, body);
 
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
@@ -20,24 +33,19 @@ const putTeacherProfile = async (req, res, next) => {
 
 const putUserProfile = async (req, res, next) => {
   const { body } = req;
-  const { userId } = req.user;
+  const { _id } = req.user;
 
   try {
-    const user = await findUserById(userId);
+    const updatedUser = await updateUser(_id, body);
 
-    if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
-    }
-
-    const updatedUser = await updateUser(user, body);
-
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }
 };
 
 module.exports = {
+  getUserProfile,
   putTeacherProfile,
   putUserProfile,
 };

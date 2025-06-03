@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const createPublicationSchema = Joi.object({
     schoolId: Joi.string().required().messages({
-        "string.base": "El ID de la escuela debe ser una cadena.",
+        "string.base": "El ID de la escuela debe ser una cadena de texto.",
         "any.required": "El ID de la escuela es obligatorio."
     }),
     grade: Joi.number().min(0).max(6).required().messages({
@@ -21,15 +21,18 @@ const createPublicationSchema = Joi.object({
         "any.required": "La fecha de fin es obligatoria."
     }),
     shift: Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY").required().messages({
-        "string.base": "El turno debe ser una cadena.",
+        "string.base": "El turno debe ser una cadena de texto.",
         "any.only": "El turno debe ser 'MORNING', 'AFTERNOON' o 'FULL_DAY'.",
         "any.required": "El turno es obligatorio."
-    })
+    }),
+    details: Joi.string().optional().messages({
+        "string.base": "Los detalles deben ser una cadena de texto."
+    }),
 });
 
 const updatePublicationSchema = Joi.object({
     schoolId: Joi.string().messages({
-        "string.base": "El ID de la escuela debe ser una cadena."
+        "string.base": "El ID de la escuela debe ser una cadena de texto."
     }),
     grade: Joi.number().min(0).max(6).messages({
         "number.base": "El grado debe ser un número.",
@@ -43,20 +46,19 @@ const updatePublicationSchema = Joi.object({
         "date.base": "La fecha de fin debe ser una fecha válida.",
     }),
     shift: Joi.string().valid("MORNING", "AFTERNOON", "FULL_DAY").messages({
-        "string.base": "El turno debe ser una cadena.",
+        "string.base": "El turno debe ser una cadena de texto.",
         "any.only": "El turno debe ser 'MORNING', 'AFTERNOON' o 'FULL_DAY'."
     }),
-    status: Joi.string().valid("OPEN", "FILLED", "CANCELLED", "EXPIRED").messages({
-        "string.base": "El estado debe ser una cadena.",
-        "any.only": "El estado debe ser 'OPEN', 'FILLED', 'CANCELLED' o 'EXPIRED'."
-    })
+    details: Joi.string().optional().messages({
+        "string.base": "Los detalles deben ser una cadena de texto."
+    }),
 }).min(1).messages({
     "object.min": "Debe proporcionar al menos un campo para actualizar."
 });
 
 const getUserPublicationsSchema = Joi.object({
     schoolId: Joi.string().required().messages({
-        "string.base": "El ID de la escuela debe ser una cadena.",
+        "string.base": "El ID de la escuela debe ser una cadena de texto.",
         "any.required": "El ID de la escuela es obligatorio."
     })
 });

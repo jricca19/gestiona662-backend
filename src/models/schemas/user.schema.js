@@ -18,6 +18,8 @@ const userSchema = new mongoose.Schema({
     law19889CertificateDate: { type: Date },
     gradeExperience: [{ type: String }],
     preferredShifts: [{ type: String, enum: ["MORNING", "AFTERNOON", "FULL_DAY"] }],
+    haveRating: { type: Boolean, default: false },
+    rating: { type: Number, default: 0, min: 0, max: 5 },
   },
   staffProfile: {
     schoolIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "School" }],

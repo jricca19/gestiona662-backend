@@ -12,6 +12,8 @@ const schoolSchema = new mongoose.Schema({
     departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true },
     cityName: { type: String, required: true },
     address: { type: String, required: true },
+    haveRating: { type: Boolean, default: false },
+    rating: { type: Number, default: 0, min: 0, max: 5 },
     staff: [staffSchema]
 }, { timestamps: true });
 

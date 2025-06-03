@@ -7,7 +7,7 @@ const getPublications = async () => {
     let publications = await redisClient.get("publications");
     if (!publications) {
         publications = await Publication.find({ status: "OPEN" }).select();
-        redisClient.set("publications", JSON.stringify(publications));
+        await redisClient.set("publications", JSON.stringify(publications));
     }
     return publications;
 };
@@ -32,7 +32,7 @@ const createPublication = async (schoolId, grade, startDate, endDate, shift) => 
         publicationDays
     });
     const redisClient = connectToRedis();
-    redisClient.del("publications");
+    await redisClient.del("publications");
     await newPublication.save();
     return newPublication;
 };
@@ -79,7 +79,7 @@ const deletePublication = async (id) => {
         throw new Error(`No existe ID: ${id}`);
     }
     const redisClient = connectToRedis();
-    redisClient.del("publications");
+    await redisClient.del("publications");
     return await Publication.deleteOne({ _id: id });
 };
 
@@ -88,7 +88,7 @@ const deletePublicationsBySchoolId = async (schoolId) => {
         throw new Error(`Escuela con ID ${schoolId} inválido`);
     }
     const redisClient = connectToRedis();
-    redisClient.del("publications");
+    await redisClient.del("publications");
     await Publication.deleteMany({ schoolId });
 };
 
@@ -108,7 +108,7 @@ const updatePublication = async (id, payload) => {
         await publication.save();
     }
     const redisClient = connectToRedis();
-    redisClient.del("publications");
+    await redisClient.del("publications");
     return publication;
 };
 
@@ -117,7 +117,7 @@ const isTeacherInPublicationDays = (publication, teacherId) => {
         throw new Error(`ID de maestro inválido: ${teacherId}`);
     }
 
-    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId);
+    return publication.publicationDays.some(day => day.assignedTeacherId?.toString() === teacherId.toString());
 };
 
 module.exports = {
