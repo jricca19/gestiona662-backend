@@ -2,14 +2,39 @@ const mongoose = require("mongoose");
 const Postulation = require("../models/postulation.model");
 
 const getPostulations = async () => {
-    return await Postulation.find().select("_id teacherId publicationId status createdAt appliesToAllDays postulationDays");
+    return await Postulation.find().select();
 };
 
 const getPostulationsByUserId = async (userId) => {
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw new Error(`ID de usuario inválido: ${userId}`);
     }
-    return await Postulation.find({ teacherId: userId }).select();
+    return await Postulation.find({ teacherId: userId })
+        .populate({
+            path: "publicationId",
+            select: "grade shift schoolId",
+            populate: {
+                path: "schoolId",
+                select: "schoolNumber address departmentId cityName",
+                populate: {
+                    path: "departmentId",
+                    select: "name"
+                }
+            }
+        })
+        .select();
+};
+
+const getPostulationsByPublicationId = async (publicationId) => {
+    if (!mongoose.Types.ObjectId.isValid(publicationId)) {
+        throw new Error(`ID de publicación inválido: ${publicationId}`);
+    }
+    return await Postulation.find({ publicationId })
+        .populate({
+            path: "teacherId",
+            select: "teacherProfile.rating teacherProfile.haveRating teacherProfile.isEffectiveTeacher"
+        })
+        .select();
 };
 
 const createPostulation = async (teacherId, publicationId, createdAt, appliesToAllDays, postulationDays) => {
@@ -41,7 +66,7 @@ const findPostulation = async (id) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error(`No existe postulación ID: ${id}`);
     }
-    return await Postulation.findById(id).populate("postulationDays").select("_id teacherId publicationId status createdAt appliesToAllDays postulationDays");
+    return await Postulation.findById(id).populate("postulationDays").select();
 };
 
 const deletePostulation = async (id) => {
@@ -68,11 +93,12 @@ const updatePostulation = async (id, payload) => {
 
 module.exports = {
     getPostulations,
+    getPostulationsByUserId,
+    getPostulationsByPublicationId,
     findPostulation,
     createPostulation,
     deletePostulation,
     deletePostulationsByPublicationId,
     updatePostulation,
     findDuplicatePostulation,
-    getPostulationsByUserId
 };

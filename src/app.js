@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./jobs/expirePublications.job");
 const Sentry = require("./utils/instrument");
 const express = require("express");
 const cors = require("cors");

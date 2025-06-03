@@ -1,5 +1,5 @@
 const Department = require("../models/department.model");
-const {findDepartments, findDepartmentById} = require("../repositories/department.repository");
+const {getDepartments, findDepartmentById} = require("../repositories/department.repository");
 
 const healthController = (req, res) => {
   res.status(200).send({
@@ -9,7 +9,7 @@ const healthController = (req, res) => {
 
 const getDepartmentsController = async (req, res) => {
   try {
-    const departments = await findDepartments();
+    const departments = await getDepartments();
     res.status(200).send(departments);
   } catch (error) {
     res.status(500).json({ error: error.message });
