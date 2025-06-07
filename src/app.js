@@ -43,16 +43,13 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(xssMiddleware);
 
-// const PROD_ORIGIN = process.env.PROD_ORIGIN;
-// const DEV_ORIGIN = process.env.DEV_ORIGIN;
-// const corsOptions = {
-//   origin: [PROD_ORIGIN, DEV_ORIGIN],
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-// };
-// app.use(cors(corsOptions));
-//TODO: Update CORS options to allow all origins for development purposes
-app.use(cors())
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim()).filter(Boolean);
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
 
 // Public
 app.use("/", publicRouter);
