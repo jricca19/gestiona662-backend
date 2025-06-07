@@ -43,10 +43,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(xssMiddleware);
 
-const PRODUCTION_DOMAIN = process.env.PRODUCTION_DOMAIN;
-const DEV_DOMAIN = process.env.DEV_DOMAIN;
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim()).filter(Boolean);
 const corsOptions = {
-  origin: [PRODUCTION_DOMAIN, DEV_DOMAIN],
+  origin: allowedOrigins,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
