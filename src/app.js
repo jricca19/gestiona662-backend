@@ -46,7 +46,7 @@ app.use(xssMiddleware);
 const PRODUCTION_DOMAIN = process.env.PRODUCTION_DOMAIN;
 const DEV_DOMAIN = process.env.DEV_DOMAIN;
 const corsOptions = {
-  origin: [PRODUCTION_DOMAIN, DEV_DOMAIN],
+  origin: true, //[PRODUCTION_DOMAIN, DEV_DOMAIN],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
