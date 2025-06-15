@@ -9,6 +9,7 @@ const {
   healthController,
   getDepartmentsController,
   getDepartmentController,
+  getSchoolsController
 } = require("../controllers/public.controller");
 
 // Ruta para servir swagger.json como archivo estático
@@ -35,5 +36,6 @@ publicRouter.use(
 publicRouter.get("/health", healthController);
 publicRouter.get("/departments", getDepartmentsController);
 publicRouter.get("/departments/:id", getDepartmentController);
+publicRouter.get('/schools', getSchoolsController);
 
 module.exports = publicRouter;

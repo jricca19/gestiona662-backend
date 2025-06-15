@@ -1,10 +1,20 @@
 const Department = require("../models/department.model");
+const School = require("../models/school.model");
 const {getDepartments, findDepartmentById} = require("../repositories/department.repository");
 
 const healthController = (req, res) => {
   res.status(200).send({
     message: "Service is running",
   });
+};
+
+const getSchoolsController = async (req, res) => {
+  try {
+    const escuelas = await School.find({}, '_id schoolNumber cityName'); // solo lo necesario
+    res.json(escuelas);
+  } catch (err) {
+    res.status(500).json({ message: 'Error al obtener escuelas' });
+  }
 };
 
 const getDepartmentsController = async (req, res) => {
@@ -33,4 +43,5 @@ module.exports = {
   healthController,
   getDepartmentsController,
   getDepartmentController,
+  getSchoolsController
 };
