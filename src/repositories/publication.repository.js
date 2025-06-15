@@ -6,7 +6,16 @@ const getPublications = async () => {
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");
     if (!publications) {
-        publications = await Publication.find({ status: "OPEN" }).select();
+        publications = await Publication.find({ status: "OPEN" })
+            .populate({
+                path: "schoolId",
+                select: "schoolId departmentId cityName address",
+                populate: {
+                    path: "departmentId",
+                    select: "name",
+                }
+            })
+            .select();
         await redisClient.set("publications", JSON.stringify(publications));
     }
     return publications;
