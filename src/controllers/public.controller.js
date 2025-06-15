@@ -8,10 +8,10 @@ const healthController = (req, res) => {
   });
 };
 
-const getSchoolsController = async (req, res) => {
+const getSchoolsSelectController = async (req, res) => {
   try {
-    const escuelas = await School.find({}, '_id schoolNumber cityName'); // solo lo necesario
-    res.json(escuelas);
+    const schools = await School.find({}, '_id schoolNumber cityName');
+    res.status(200).send(schools);
   } catch (err) {
     res.status(500).json({ message: 'Error al obtener escuelas' });
   }
@@ -43,5 +43,5 @@ module.exports = {
   healthController,
   getDepartmentsController,
   getDepartmentController,
-  getSchoolsController
+  getSchoolsSelectController
 };
