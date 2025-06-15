@@ -9,7 +9,7 @@ const getPublications = async () => {
         publications = await Publication.find({ status: "OPEN" })
             .populate({
                 path: "schoolId",
-                select: "schoolId departmentId cityName address",
+                select: "schoolId schoolNumber departmentId cityName address",
                 populate: {
                     path: "departmentId",
                     select: "name",
