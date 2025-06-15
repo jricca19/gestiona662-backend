@@ -36,6 +36,6 @@ publicRouter.use(
 publicRouter.get("/health", healthController);
 publicRouter.get("/departments", getDepartmentsController);
 publicRouter.get("/departments/:id", getDepartmentController);
-publicRouter.get('/schools', getSchoolsController);
+publicRouter.get('/schoolsSelect', getSchoolsController);
 
 module.exports = publicRouter;
