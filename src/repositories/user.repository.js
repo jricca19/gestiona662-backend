@@ -58,7 +58,6 @@ const isValidPassword = async (password, userPassword) => {
 
 const createUser = async (name, lastName, ci, email, password, phoneNumber, role, schoolId) => {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const roleUpper = role.toUpperCase();
 
   const newUser = new User({
     name,
@@ -67,11 +66,11 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
     email: email.toLowerCase(),
     password: hashedPassword,
     phoneNumber,
-    role: roleUpper,
+    role
   });
 
   // Si es STAFF, asociar con escuela
-  if (roleUpper === 'STAFF') {
+  if (role === 'STAFF') {
     if (!mongoose.Types.ObjectId.isValid(schoolId)) {
       throw new Error(`ID de escuela inválido: ${schoolId}`);
     }
