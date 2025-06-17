@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
+const School = require("../models/school.model");
 const connectToRedis = require("../services/redis.service");
 
 const getUsers = async () => {
@@ -55,8 +56,10 @@ const isValidPassword = async (password, userPassword) => {
   return result;
 };
 
-const createUser = async (name, lastName, ci, email, password, phoneNumber, role) => {
+const createUser = async (name, lastName, ci, email, password, phoneNumber, role, schoolId) => {
   const hashedPassword = await bcrypt.hash(password, 10);
+  const roleUpper = role.toUpperCase();
+
   const newUser = new User({
     name,
     lastName,
@@ -64,10 +67,31 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
     email: email.toLowerCase(),
     password: hashedPassword,
     phoneNumber,
-    role: role.toUpperCase(),
+    role: roleUpper,
   });
 
+  // Si es STAFF, asociar con escuela
+  if (roleUpper === 'STAFF') {
+    if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+      throw new Error(`ID de escuela inválido: ${schoolId}`);
+    }
+
+    newUser.staffProfile = { schoolIds: [schoolId] };
+  }
+
   await newUser.save();
+
+  // Si es STAFF, agregar al array staff de la escuela
+  if (roleUpper === 'STAFF') {
+    const school = await School.findById(schoolId);
+    if (!school) {
+      throw new Error(`Escuela ID ${schoolId} no encontrada`);
+    }
+
+    school.staff.push({ userId: newUser._id, type: 'SECONDARY' });
+    await school.save();
+  }
+
   return newUser;
 };
 
