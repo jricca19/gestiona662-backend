@@ -46,36 +46,37 @@ const validDocument = (ci) => {
 
 const postAuthSignUp = async (req, res, next) => {
   try {
-    const { name, lastName, ci, email, password, phoneNumber, role } = req.body;
+    const { name, lastName, ci, email, password, phoneNumber, role, schoolId } = req.body;
 
     const user = await findUserByEmail(email);
     if (user) {
-      res.status(400).json({ message: "Correo electrónico ya registrado" });
-      return;
+      return res.status(400).json({ message: "Correo electrónico ya registrado" });
     }
 
     const existingCI = await findUserByCI(ci);
     if (existingCI) {
-      res.status(400).json({ message: "Cédula de identidad ya registrada" });
-      return;
+      return res.status(400).json({ message: "Cédula de identidad ya registrada" });
     }
 
     if (!validDocument(ci)) {
-      res.status(400).json({ message: "Cédula de identidad inválida" });
-      return;
+      return res.status(400).json({ message: "Cédula de identidad inválida" });
     }
 
-    const newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role);
+    let newUser;
+
+    if (role === "STAFF") {
+      newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role, schoolId);
+    } else {
+      newUser = await createUser(name, lastName, ci, email, password, phoneNumber, role);
+    }
 
     if (!newUser) {
-      res.status(500).json({ message: "Error al crear el usuario" });
-      return;
+      return res.status(500).json({ message: "Error al crear el usuario" });
     }
 
     const token = jwt.sign({ userId: newUser._id }, AUTH_SECRET_KEY, { expiresIn: "24h" });
 
     res.status(201).json({ message: "Usuario creado exitosamente", token: token });
-
   } catch (error) {
     next(error);
   }
