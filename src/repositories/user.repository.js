@@ -85,9 +85,9 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
 
   school.staff.push({
     userId: newUser._id,
-    type: 'SECONDARY',       // ajustá si tenés otros tipos
-    assignedAt: new Date(),
-    role: 'STAFF',           // o el nombre que uses en el schema
+    role: 'SECONDARY',
+    isApproved: false,
+    assignedAt:new Date()
   });
 
   await school.save();
