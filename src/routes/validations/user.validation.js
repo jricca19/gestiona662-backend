@@ -37,6 +37,15 @@ const signupValidationSchema = Joi.object({
     'string.empty': 'El rol es obligatorio',
     'any.required': 'El rol es obligatorio'
   }),
+  schoolId: Joi.string()
+  .when('role', {
+    is: 'STAFF',
+    then: Joi.string().required().messages({
+      'string.empty': 'El ID de la escuela es obligatorio para usuarios STAFF',
+      'any.required': 'El ID de la escuela es obligatorio para usuarios STAFF'
+    }),
+    otherwise: Joi.forbidden() // evita que TEACHER mande schoolId
+  })
 });
 
 const updateUserValidationSchema = Joi.object({
@@ -70,7 +79,7 @@ const loginValidationSchema = Joi.object({
     'string.max': 'La contraseña no puede tener más de 20 caracteres',
     'string.empty': 'La contraseña es obligatoria',
     'any.required': 'La contraseña es obligatoria'
-  })
+  }),
 });
 
 const updateTeacherValidationSchema = Joi.object({
