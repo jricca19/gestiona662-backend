@@ -86,12 +86,13 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
   school.staff.push({
     userId: newUser._id,
     role: 'SECONDARY',
-    isApproved: false,
     assignedAt:new Date()
   });
 
   await school.save();
-}
+} else {
+    await newUser.save();
+  }
 };
 
 const deleteUser = async (userId) => {
