@@ -58,6 +58,7 @@ const isValidPassword = async (password, userPassword) => {
 
 const createUser = async (name, lastName, ci, email, password, phoneNumber, role, schoolId) => {
   const hashedPassword = await bcrypt.hash(password, 10);
+  const roleUpper = role.toUpperCase();
 
   const newUser = new User({
     name,
@@ -66,22 +67,16 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
     email: email.toLowerCase(),
     password: hashedPassword,
     phoneNumber,
-    role
+    role: roleUpper,
   });
 
-  // Si es STAFF, asociar con escuela
-  if (role === 'STAFF') {
-    if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+  if (roleUpper === 'STAFF') {
+    if (!schoolId || !mongoose.Types.ObjectId.isValid(schoolId)) {
       throw new Error(`ID de escuela inválido: ${schoolId}`);
     }
 
     newUser.staffProfile = { schoolIds: [schoolId] };
-  }
 
-  await newUser.save();
-
-  // Si es STAFF, agregar al array staff de la escuela
-  if (roleUpper === 'STAFF') {
     const school = await School.findById(schoolId);
     if (!school) {
       throw new Error(`Escuela ID ${schoolId} no encontrada`);
@@ -91,6 +86,7 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
     await school.save();
   }
 
+  await newUser.save();
   return newUser;
 };
 
