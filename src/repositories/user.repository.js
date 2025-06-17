@@ -71,23 +71,27 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
   });
 
   if (roleUpper === 'STAFF') {
-    if (!schoolId || !mongoose.Types.ObjectId.isValid(schoolId)) {
-      throw new Error(`ID de escuela inválido: ${schoolId}`);
-    }
-
-    newUser.staffProfile = { schoolIds: [schoolId] };
-
-    const school = await School.findById(schoolId);
-    if (!school) {
-      throw new Error(`Escuela ID ${schoolId} no encontrada`);
-    }
-
-    school.staff.push({ userId: newUser._id, type: 'SECONDARY' });
-    await school.save();
+  if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+    throw new Error(`ID de escuela inválido: ${schoolId}`);
   }
 
+  newUser.staffProfile = { schoolIds: [schoolId] };
   await newUser.save();
-  return newUser;
+
+  const school = await School.findById(schoolId);
+  if (!school) {
+    throw new Error(`Escuela ID ${schoolId} no encontrada`);
+  }
+
+  school.staff.push({
+    userId: newUser._id,
+    type: 'SECONDARY',       // ajustá si tenés otros tipos
+    assignedAt: new Date(),
+    role: 'STAFF',           // o el nombre que uses en el schema
+  });
+
+  await school.save();
+}
 };
 
 const deleteUser = async (userId) => {
