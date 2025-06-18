@@ -71,28 +71,29 @@ const createUser = async (name, lastName, ci, email, password, phoneNumber, role
   });
 
   if (roleUpper === 'STAFF') {
-  if (!mongoose.Types.ObjectId.isValid(schoolId)) {
-    throw new Error(`ID de escuela inválido: ${schoolId}`);
-  }
+    if (!mongoose.Types.ObjectId.isValid(schoolId)) {
+      throw new Error(`ID de escuela inválido: ${schoolId}`);
+    }
 
-  newUser.staffProfile = { schoolIds: [schoolId] };
-  await newUser.save();
+    newUser.staffProfile = { schoolIds: [schoolId] };
+    await newUser.save();
 
-  const school = await School.findById(schoolId);
-  if (!school) {
-    throw new Error(`Escuela ID ${schoolId} no encontrada`);
-  }
+    const school = await School.findById(schoolId);
+    if (!school) {
+      throw new Error(`Escuela ID ${schoolId} no encontrada`);
+    }
 
-  school.staff.push({
-    userId: newUser._id,
-    role: 'SECONDARY',
-    assignedAt:new Date()
-  });
+    school.staff.push({
+      userId: newUser._id,
+      role: 'SECONDARY',
+      assignedAt: new Date(),
+    });
 
-  await school.save();
-} else {
+    await school.save();
+  } else {
     await newUser.save();
   }
+  return newUser;
 };
 
 const deleteUser = async (userId) => {
