@@ -1,6 +1,6 @@
 const Department = require("../models/department.model");
 const School = require("../models/school.model");
-const {getDepartments, findDepartmentById} = require("../repositories/department.repository");
+const { getDepartments, findDepartmentById } = require("../repositories/department.repository");
 
 const healthController = (req, res) => {
   res.status(200).send({
@@ -14,6 +14,27 @@ const getSchoolsSelectController = async (req, res) => {
     res.status(200).send(schools);
   } catch (err) {
     res.status(500).json({ message: 'Error al obtener escuelas' });
+  }
+};
+
+const postSchoolController = async (req, res, next) => {
+  try {
+    const { schoolNumber, departmentId, cityName, address } = req.body;
+
+    const department = await findDepartmentById(departmentId);
+    if (!department) {
+      return res.status(404).json({ message: `No se ha encontrado el departamento con id: ${departmentId}` });
+    }
+
+    const city = await findCityByName(departmentId, cityName);
+    if (!city) {
+      return res.status(404).json({ message: `No se ha encontrado la ciudad ${cityName} en el departamento ${department.name}` });
+    }
+
+    school = await createSchool(schoolNumber, departmentId, cityName, address);
+    return res.status(201).json({ message: "Escuela creada correctamente" });
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -43,5 +64,6 @@ module.exports = {
   healthController,
   getDepartmentsController,
   getDepartmentController,
-  getSchoolsSelectController
+  getSchoolsSelectController,
+  postSchoolController
 };
