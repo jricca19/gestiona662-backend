@@ -1,6 +1,6 @@
 const Department = require("../models/department.model");
 const School = require("../models/school.model");
-const { getDepartments, findDepartmentById,findCityByName } = require("../repositories/department.repository");
+const { getDepartments, findDepartmentById, findCityByName } = require("../repositories/department.repository");
 const { createSchool } = require("../repositories/school.repository");
 
 const healthController = (req, res) => {
@@ -33,7 +33,10 @@ const postSchoolController = async (req, res, next) => {
     }
 
     school = await createSchool(schoolNumber, departmentId, cityName, address);
-    return res.status(201).json({ message: "Escuela creada correctamente" });
+    return res.status(201).json({
+      message: "Escuela creada correctamente",
+      school
+    });
   } catch (error) {
     next(error);
   }
