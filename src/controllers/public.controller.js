@@ -1,6 +1,7 @@
 const Department = require("../models/department.model");
 const School = require("../models/school.model");
 const { getDepartments, findDepartmentById,findCityByName } = require("../repositories/department.repository");
+const { createSchool } = require("../repositories/school.repository");
 
 const healthController = (req, res) => {
   res.status(200).send({
