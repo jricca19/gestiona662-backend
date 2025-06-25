@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   role: { type: String, enum: ["TEACHER", "STAFF"], required: true },
+  profilePhoto: { type: String },
   teacherProfile: {
     isEffectiveTeacher: { type: Boolean, default: false },
     address: { type: String },

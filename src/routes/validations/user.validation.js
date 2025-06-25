@@ -66,6 +66,9 @@ const updateUserValidationSchema = Joi.object({
   phoneNumber: Joi.string().optional().messages({
     'string.empty': 'El número de teléfono no puede estar vacío',
   }),
+  profilePhoto: Joi.string().optional().messages({
+    'string.empty': 'La url de la foto de perfil no puede estar vacía',
+  }),
 });
 
 const loginValidationSchema = Joi.object({
