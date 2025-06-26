@@ -47,7 +47,7 @@ const roleMiddleware = require("../middlewares/role.middleware");
 const { schoolValidationSchema, updateSchoolValidationSchema } = require("./validations/school.validation");
 
 privateRouter.get("/publications", roleMiddleware("TEACHER"), getPublicationsController);
-privateRouter.get("/publications/school", roleMiddleware("STAFF"), payloadMiddleWare(getUserPublicationsSchema), getSchoolPublicationsController);
+privateRouter.post("/publications/school", roleMiddleware("STAFF"), payloadMiddleWare(getUserPublicationsSchema), getSchoolPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
 privateRouter.post("/publications", roleMiddleware("STAFF"), payloadMiddleWare(createPublicationSchema), postPublicationController);
 privateRouter.delete("/publications/:id", roleMiddleware("STAFF"), deletePublicationController);
