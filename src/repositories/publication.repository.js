@@ -2,7 +2,44 @@ const mongoose = require("mongoose");
 const Publication = require("../models/publication.model");
 const connectToRedis = require("../services/redis.service");
 
-const getPublications = async () => {
+const getPublications = async (filters = {}) => {
+    const hasFilters = filters && Object.keys(filters).length > 0;
+
+    // if has filters, search directly in the database without cache
+    if (hasFilters) {
+        let query = { status: "OPEN" };
+
+        if (filters.schoolId) {
+            if (!mongoose.Types.ObjectId.isValid(filters.schoolId)) {
+                throw new Error(`Escuela con ID ${filters.schoolId} inválido`);
+            }
+            query.schoolId = filters.schoolId;
+        }
+
+        if (filters.startDate) {
+            query.startDate = { $gte: new Date(filters.startDate) };
+        }
+
+        let publications = await Publication.find(query)
+            .populate({
+                path: "schoolId",
+                select: "schoolId schoolNumber departmentId cityName address",
+                populate: {
+                    path: "departmentId",
+                    select: "name",
+                }
+            })
+            .select();
+
+        if (filters.departmentName) {
+            publications = publications.filter(pub =>
+                pub.schoolId?.departmentId?.name?.toLowerCase().includes(filters.departmentName.toLowerCase())
+            );
+        }
+        return publications;
+    }
+
+    // if not has filters, search in cache
     const redisClient = connectToRedis();
     let publications = await redisClient.get("publications");
     if (!publications) {
@@ -23,13 +60,13 @@ const getPublications = async () => {
 
 const getPublicationsBySchoolId = async (schoolId) => {
     return await Publication.find({ schoolId }).populate({
-                path: "schoolId",
-                select: "schoolId schoolNumber departmentId cityName address",
-                populate: {
-                    path: "departmentId",
-                    select: "name",
-                }
-            }).select();
+        path: "schoolId",
+        select: "schoolId schoolNumber departmentId cityName address",
+        populate: {
+            path: "departmentId",
+            select: "name",
+        }
+    }).select();
 };
 
 const createPublication = async (schoolId, grade, startDate, endDate, shift) => {
