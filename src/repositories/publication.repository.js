@@ -22,7 +22,14 @@ const getPublications = async () => {
 };
 
 const getPublicationsBySchoolId = async (schoolId) => {
-    return await Publication.find({ schoolId }).select();
+    return await Publication.find({ schoolId }).populate({
+                path: "schoolId",
+                select: "schoolId schoolNumber departmentId cityName address",
+                populate: {
+                    path: "departmentId",
+                    select: "name",
+                }
+            }).select();
 };
 
 const createPublication = async (schoolId, grade, startDate, endDate, shift) => {
