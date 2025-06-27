@@ -13,14 +13,16 @@ cron.schedule("5 0 * * *", async () => {
     try {
         const now = new Date();
 
-        // 1. change AVAILABLE to EXPIRED and ASSIGNED to COMPLETED in publicationDays of OPEN publications
-        await Publication.updateMany(
+        // 1. change AVAILABLE to EXPIRED and ASSIGNED to COMPLETED in publicationDays of OPEN publications 
+        // and change status of publication to EXPIRED
+        const result1 = await Publication.updateMany(
             {
                 endDate: { $lt: now },
                 status: "OPEN"
             },
             {
                 $set: {
+                    status: "EXPIRED",
                     "publicationDays.$[expired].status": "EXPIRED",
                     "publicationDays.$[completed].status": "COMPLETED"
                 }
@@ -32,20 +34,10 @@ cron.schedule("5 0 * * *", async () => {
                 ]
             }
         );
+        console.log(`Publicaciones OPEN expiradas: ${result1.modifiedCount}`);
 
-        // 2. change status of OPEN publications to EXPIRED
-        await Publication.updateMany(
-            {
-                endDate: { $lt: now },
-                status: "OPEN"
-            },
-            {
-                $set: { status: "EXPIRED" }
-            }
-        );
-
-        // 3. change status of FILLED publications to COMPLETED
-        await Publication.updateMany(
+        // 2. change status of FILLED publications to COMPLETED
+        const result2 = await Publication.updateMany(
             {
                 endDate: { $lt: now },
                 status: "FILLED"
@@ -62,9 +54,10 @@ cron.schedule("5 0 * * *", async () => {
                 ]
             }
         );
+        console.log(`Publicaciones FILLED completadas: ${result2.modifiedCount}`);
 
-        // 4. change status of PENDING postulations to CANCELED
-        await Postulation.updateMany(
+        // 3. change status of PENDING postulations to CANCELED
+        const result3 = await Postulation.updateMany(
             {
                 status: "PENDING",
                 postulationDays: { $elemMatch: { date: { $lt: now } } }
@@ -73,9 +66,9 @@ cron.schedule("5 0 * * *", async () => {
                 $set: { status: "CANCELED" }
             }
         );
-        
-
+        console.log(`Postulaciones PENDING canceladas: ${result3.modifiedCount}`);
         console.log("Publicaciones y postulaciones actualizadas correctamente");
+
     } catch (error) {
         console.error("Error al expirar/completar publicaciones:", error);
     }
