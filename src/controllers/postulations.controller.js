@@ -5,13 +5,14 @@ const {
     deletePostulation,
     updatePostulation,
     findDuplicatePostulation,
-    getPostulationsByUserId
+    getPostulationsByUserId,
+    getPostulationsByPublicationId,
 } = require("../repositories/postulation.repository");
 const { findPublication } = require("../repositories/publication.repository");
 
 const getPostulationsController = async (req, res, next) => {
     try {
-        const postulations = await getPostulations().populate('teacherId', 'name lastName teacherProfile');
+        const postulations = await getPostulations();
         return res.status(200).json(postulations);
     } catch (error) {
         next(error);
@@ -31,21 +32,36 @@ const getPostulationController = async (req, res, next) => {
     }
 }
 
-const getUserPostulationsController = async (req, res, next) => {
+const getUserPostulationsOfUserController = async (req, res, next) => {
     try {
-        const { userId } = req.user;
+        const { _id } = req.user;
 
-        const postulations = await getPostulationsByUserId(userId);
+        const postulations = await getPostulationsByUserId(_id);
         return res.status(200).json(postulations);
     } catch (error) {
         next(error);
     }
 };
 
+const getPostulationsOfPublicationController = async (req, res, next) => {
+    try {
+        const publicationId = req.params.id;
+        console.log("publicationId", publicationId);
+        const postulations = await getPostulationsByPublicationId(publicationId);
+        if (postulations && postulations.length > 0) {
+            return res.status(200).json(postulations);
+        }
+        return res.status(404).json({ message: `No se han encontrado postulaciones para la publicación con id: ${publicationId}` });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 const postPostulationController = async (req, res, next) => {
     try {
         const { publicationId, createdAt, appliesToAllDays, postulationDays } = req.body;
-        const { userId } = req.user;
+        const { _id } = req.user;
 
         if (!publicationId) {
             return res.status(400).json({ error: "No ha ingresado todos los datos requeridos." });
@@ -54,7 +70,7 @@ const postPostulationController = async (req, res, next) => {
         if (!publication) {
             return res.status(404).json({ error: "La publicación no existe." });
         }
-        const duplicated = await findDuplicatePostulation(userId, publicationId);
+        const duplicated = await findDuplicatePostulation(_id, publicationId);
 
         if (duplicated) {
             return res.status(409).json({ error: "Ya existe una postulación registrada de ese maestro para esa publicación." });
@@ -78,7 +94,7 @@ const postPostulationController = async (req, res, next) => {
             finalPostulationDays = postulationDays;
         }
 
-        await createPostulation(userId, publicationId, createdAt, appliesToAllDays, finalPostulationDays);
+        await createPostulation(_id, publicationId, createdAt, appliesToAllDays, finalPostulationDays);
         return res.status(201).json({ message: "Postulación creada correctamente" });
 
     } catch (error) {
@@ -117,5 +133,6 @@ module.exports = {
     postPostulationController,
     putPostulationController,
     deletePostulationController,
-    getUserPostulationsController,
+    getUserPostulationsOfUserController,
+    getPostulationsOfPublicationController,
 }
