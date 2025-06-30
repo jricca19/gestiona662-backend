@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Postulation = require("../models/postulation.model");
 
 const getPostulations = async () => {
-    return await Postulation.find().select();
+    return await Postulation.find().populate("teacherId").select();
 };
 
 const getPostulationsByUserId = async (userId) => {
