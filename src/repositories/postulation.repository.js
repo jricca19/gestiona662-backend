@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Postulation = require("../models/postulation.model");
 
 const getPostulations = async () => {
-    return await Postulation.find().populate("teacherId").select();
+  return await Postulation.find().populate({
+    path: 'teacherId',
+    select: 'name lastName ci email phoneNumber role profilePhoto teacherProfile',
+  });
 };
 
 const getPostulationsByUserId = async (userId) => {
