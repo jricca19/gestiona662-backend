@@ -11,7 +11,7 @@ const { findPublication } = require("../repositories/publication.repository");
 
 const getPostulationsController = async (req, res, next) => {
     try {
-        const postulations = await getPostulations().populate('teacherId', 'name lastName teacherProfile');
+        const postulations = await getPostulations();
         return res.status(200).json(postulations);
     } catch (error) {
         next(error);
