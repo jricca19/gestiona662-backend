@@ -140,7 +140,7 @@ const deletePublicationController = async (req, res, next) => {
     }
 };
 
-const assignPostulationsController = async (req, res, next) => {
+const assignPostulationController = async (req, res, next) => {
   try {
     const asignaciones = req.body.asignaciones;
 
