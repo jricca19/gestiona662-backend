@@ -142,6 +142,7 @@ const deletePublicationController = async (req, res, next) => {
 
 const assignPostulationController = async (req, res, next) => {
   try {
+    console.log("📩 Body recibido:", JSON.stringify(req.body, null, 2));
     const asignaciones = req.body.asignaciones;
 
     if (!Array.isArray(asignaciones) || asignaciones.length === 0) {
