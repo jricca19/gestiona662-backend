@@ -71,7 +71,7 @@ const findPostulation = async (id) => {
         throw new Error(`No existe postulación ID: ${id}`);
     }
 
-    return await Postulation.findById(idString).populate("postulationDays").select();
+    return await Postulation.findById(id).populate("postulationDays").select();
 };
 
 const deletePostulation = async (id) => {
