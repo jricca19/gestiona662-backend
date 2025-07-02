@@ -25,8 +25,7 @@ const {
     postPostulationController,
     deletePostulationController,
     putPostulationController,
-    getUserPostulationsOfUserController,
-    getPostulationsOfPublicationController,
+    getUserPostulationsController
 } = require("../controllers/postulations.controller");
 
 const {
@@ -54,8 +53,8 @@ privateRouter.delete("/publications/:id", roleMiddleware("STAFF"), deletePublica
 privateRouter.put("/publications/:id", roleMiddleware("STAFF"), payloadMiddleWare(updatePublicationSchema), putPublicationController);
 privateRouter.patch("/publications/assignPostulation/:id", roleMiddleware("STAFF"), assignPostulationController);
 
-privateRouter.get("/postulations/user", roleMiddleware("TEACHER"), getUserPostulationsOfUserController);
-privateRouter.get("/postulations/publication/:id", roleMiddleware("STAFF"), getPostulationsOfPublicationController);
+privateRouter.get("/postulations/user", roleMiddleware("TEACHER"), getUserPostulationsController);
+//privateRouter.get("/postulations/publication/:id", roleMiddleware("STAFF"), getPostulationsOfPublicationController);
 privateRouter.get("/postulations/:id", getPostulationController);
 privateRouter.post("/postulations", roleMiddleware("TEACHER"), payloadMiddleWare(createPostulationSchema), postPostulationController);
 privateRouter.delete("/postulations/:id", roleMiddleware("TEACHER"), deletePostulationController);
