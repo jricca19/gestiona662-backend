@@ -45,7 +45,7 @@ const { updateUserValidationSchema, updateTeacherValidationSchema } = require(".
 const { ratingValidationSchema, ratingsValidationSchema } = require("./validations/rating.validation");
 const roleMiddleware = require("../middlewares/role.middleware");
 const { schoolValidationSchema, updateSchoolValidationSchema } = require("./validations/school.validation");
-
+//
 privateRouter.get("/publications", roleMiddleware("TEACHER"), getPublicationsController);
 privateRouter.post("/publications/school", roleMiddleware("STAFF"), payloadMiddleWare(getUserPublicationsSchema), getSchoolPublicationsController);
 privateRouter.get("/publications/:id", getPublicationController);
