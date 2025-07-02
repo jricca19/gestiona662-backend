@@ -142,38 +142,61 @@ const deletePublicationController = async (req, res, next) => {
 
 const assignPostulationController = async (req, res, next) => {
   try {
-    const postulationId = req.params.id;
+    const asignaciones = req.body.asignaciones;
 
-    const postulation = await findPostulation(postulationId);
-    const publication = await findPublication(postulation.publicationId);
-
-    if (!publication || !postulation) {
-      return res.status(404).json({ message: "Publicación o postulación no encontrada" });
+    if (!Array.isArray(asignaciones) || asignaciones.length === 0) {
+      return res.status(400).json({ message: "No se proporcionaron asignaciones válidas." });
     }
 
-    const postulationDates = postulation.postulationDays.map(day =>
-      new Date(day.date).toISOString().split("T")[0]
-    );
-    const teacherId = postulation.teacherId;
+    const publicacionesMap = new Map(); // para no buscar la misma publicación varias veces
 
-    // Clonar publicationDays y modificar solo los necesarios
-    const updatedDays = publication.publicationDays.map(day => {
-      const pubDayDate = new Date(day.date).toISOString().split("T")[0];
-      if (postulationDates.includes(pubDayDate)) {
-        return {
-          ...day,
-          assignedTeacherId: teacherId,
-          status: "ASSIGNED"
-        };
+    for (const asignacion of asignaciones) {
+      const { postulationId, selectedDays } = asignacion;
+
+      const postulation = await findPostulation(postulationId);
+      if (!postulation) {
+        continue; // ignorar postulaciones inválidas
       }
-      return day;
-    });
 
-    // Usar el método del repo para actualizar
-    await updatePublication(publication._id, { publicationDays: updatedDays });
+      let publication = publicacionesMap.get(postulation.publicationId);
+      if (!publication) {
+        publication = await findPublication(postulation.publicationId);
+        if (!publication) continue;
+        publicacionesMap.set(postulation.publicationId, publication);
+      }
 
-    return res.status(200).json({ message: "Postulación asignada correctamente." });
+      const teacherId = postulation.teacherId;
+
+      // Convertir a fechas en formato YYYY-MM-DD
+      const selectedDayStrings = selectedDays.map(d => new Date(d).toISOString().split("T")[0]);
+
+      // Actualizar días de la publicación
+      const updatedDays = publication.publicationDays.map(day => {
+        const pubDayStr = new Date(day.date).toISOString().split("T")[0];
+        if (selectedDayStrings.includes(pubDayStr)) {
+          return {
+            ...day,
+            assignedTeacherId: teacherId,
+            status: "ASSIGNED",
+          };
+        }
+        return day;
+      });
+
+      // Guardar la publicación actualizada
+      await updatePublication(publication._id, { publicationDays: updatedDays });
+      
+      // Actualizar también en memoria por si hay más asignaciones a la misma publicación
+      publicacionesMap.set(publication._id.toString(), {
+        ...publication,
+        publicationDays: updatedDays,
+      });
+    }
+
+    return res.status(200).json({ message: "Postulaciones asignadas correctamente." });
+
   } catch (error) {
+    console.error("Error en asignación múltiple:", error);
     next(error);
   }
 };
