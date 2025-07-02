@@ -66,10 +66,13 @@ const deletePostulationsByPublicationId = async (publicationId) => {
 }
 
 const findPostulation = async (id) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new Error(`No existe postulación ID: ${id}`);
+    const idString = typeof id === "string" ? id : id?.toString();
+
+    if (!mongoose.Types.ObjectId.isValid(idString)) {
+        throw new Error(`No existe postulación ID: ${idString}`);
     }
-    return await Postulation.findById(id).populate("postulationDays").select();
+
+    return await Postulation.findById(idString).populate("postulationDays").select();
 };
 
 const deletePostulation = async (id) => {
