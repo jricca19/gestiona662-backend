@@ -30,10 +30,7 @@ const getPostulationsByPublicationId = async (publicationId) => {
         throw new Error(`ID de publicación inválido: ${publicationId}`);
     }
     return await Postulation.find({ publicationId })
-        .populate({
-            path: "teacherId",
-            select: "teacherProfile.rating teacherProfile.haveRating teacherProfile.isEffectiveTeacher"
-        })
+        .populate("teacherId")
         .select();
 };
 
